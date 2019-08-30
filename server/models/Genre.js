@@ -6,7 +6,7 @@ const GenreSchema = new Schema({
     type: String,
     required: true
   },
-  books: {
+  book: {
     type: Schema.Types.ObjectId,
     ref: "books"
   }
