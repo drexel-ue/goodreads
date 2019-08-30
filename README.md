@@ -1,4 +1,4 @@
-# GOODREADS
+# BADREADS
 
 ## Background and Overview
 
@@ -97,10 +97,10 @@ Yet to be filled out.
   - Day 4:
   - Day 5:
 
-##### Backup Project Ideas
+### Backup Project Ideas
 
-##### - Brainscape
+- Brainscape
 
-##### - Eventbrite
+- Eventbrite
 
-##### - Instructables
+- Instructables

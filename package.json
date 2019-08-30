@@ -4,7 +4,10 @@
   "description": "Badreads is a clone of [Goodreads](https://goodreads.com) world’s largest site for readers and book recommendations. Our mission is to help people find and share books they love. Badreads launched in AppAcademy Online Cohort 04/22.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client-install": "npm install --prefix client",
+    "client": "npm start --prefix client",
+    "server": "nodemon index.js",
+    "start": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
