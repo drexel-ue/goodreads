@@ -19,7 +19,19 @@ const UserSchema = new Schema({
     required: true,
     min: 8,
     max: 32
-  }
+  },
+  questions: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "questions"
+    }
+  ],
+  reviews: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "reviews"
+    }
+  ]
 });
 
 module.exports = mongoose.model("users", UserSchema);
