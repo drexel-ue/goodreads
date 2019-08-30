@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 const graphql = require("graphql");
-const { GraphQLList, GraphQLObjectType, GraphQLString, GraphQLID, GraphQLBoolean } = graphql;
+const { GraphQLList, GraphQLObjectType, GraphQLString, GraphQLID } = graphql;
 const Series = mongoose.model("series")
 
 const SeriesType = new GraphQLObjectType({
     name: "SeriesType",
-    // remember we wrap the fields in a thunk to avoid circular dependency issues
     fields: () => ({
         _id: { type: GraphQLID },
         title: { type: GraphQLString },

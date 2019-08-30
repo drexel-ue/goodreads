@@ -2,7 +2,7 @@ const graphqldate = require("graphql-iso-date")
 const { GraphQLDate } = graphqldate
 const mongoose = require("mongoose");
 const graphql = require("graphql");
-const { GraphQLList, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLID, GraphQLBoolean } = graphql;
+const { GraphQLList, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLID } = graphql;
 const RatingType = require("./rating_type")
 const PublisherType = require("./publisher_type")
 const SeriesType = require("./series_type")
@@ -10,7 +10,6 @@ const Book = mongoose.model("books")
 
 const BookType = new GraphQLObjectType({
     name: "BookType",
-    // remember we wrap the fields in a thunk to avoid circular dependency issues
     fields: () => ({
         _id: { type: GraphQLID },
         title: { type: GraphQLString },

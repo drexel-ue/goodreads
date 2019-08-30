@@ -1,13 +1,12 @@
 const mongoose = require("mongoose");
 const graphql = require("graphql");
-const { GraphQLList, GraphQLObjectType, GraphQLString, GraphQLID, GraphQLBoolean } = graphql;
+const { GraphQLList, GraphQLObjectType, GraphQLString, GraphQLID } = graphql;
 const UserType = require("./user_type")
 const BookType = require("./book_type")
 const Answer = mongoose.model("answers")
 
 const AnswerType = new GraphQLObjectType({
     name: "AnswerType",
-    // remember we wrap the fields in a thunk to avoid circular dependency issues
     fields: () => ({
         _id: {type: GraphQLID},
         answer: {type: GraphQLString},
