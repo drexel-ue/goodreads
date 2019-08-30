@@ -11,4 +11,5 @@ require("./Rating");
 require("./Review");
 require("./Series");
 require("./Setting");
+require("./Shelf");
 require("./User");
