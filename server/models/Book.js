@@ -6,12 +6,12 @@ const BookSchema = new Schema({
     type: String,
     required: true
   },
-  authors: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "authors"
-    }
-  ],
+  //   authors: [
+  //     {
+  //       type: Schema.Types.ObjectId,
+  //       ref: "authors"
+  //     }
+  //   ],
   rating: {
     type: Number
   },
