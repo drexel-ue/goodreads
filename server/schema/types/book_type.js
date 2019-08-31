@@ -16,7 +16,11 @@ const BookType = new GraphQLObjectType({
         authors: {
             type: new GraphQLList(require("./author_type")),
             resolve(parentValue) {
-                return Book.findById(parentValue.id).populate("authors")
+                return Book.findById(parentValue.id)
+                    .populate("authors")
+                    .then(book => {
+                        return book.authors
+                    })
             }
         },
         rating: { type: RatingType },
@@ -28,13 +32,21 @@ const BookType = new GraphQLObjectType({
         genres: {
             type: new GraphQLList(require("./genre_type")),
             resolve(parentValue) {
-                return Book.findById(parentValue.id).populate("genres")
+                return Book.findById(parentValue.id)
+                .populate("genres")
+                .then(book => {
+                    return book.genres
+                })
             }
         },
         ratings: {
             type: new GraphQLList(require("./rating_type")),
             resolve(parentValue) {
-                return Book.findById(parentValue.id).populate("ratings")
+                return Book.findById(parentValue.id)
+                .populate("ratings")
+                .then(book => {
+                    return book.ratings
+                })
             }
         },
         reviews: {

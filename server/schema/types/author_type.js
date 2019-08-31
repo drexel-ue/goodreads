@@ -29,14 +29,14 @@ const AuthorType = new GraphQLObjectType({
             resolve(parentValue) {
                 return Author.findById(parentValue.id).populate("users")
             }
-        },
-        videos: {
-            type: new GraphQLList(require("./video_type")),
-            resolve(parentValue) {
-                return Author.findById(parentValue.id).populate("videos")
-            }
         }
+        // videos: {
+        //     type: new GraphQLList(require("./video_type")),
+        //     resolve(parentValue) {
+        //         return Author.findById(parentValue.id).populate("videos")
+        //     }
+        // }
     })
 })
 
-module.export = AuthorType
+module.exports = AuthorType

@@ -10,7 +10,7 @@ const RatingType = new GraphQLObjectType({
         _id: { type: GraphQLID },
         stars: { type: GraphQLInt },
         user: { type: UserType },
-        book: { type: BookType }
+        book: { type: require("./book_type") }
     })
 })
 

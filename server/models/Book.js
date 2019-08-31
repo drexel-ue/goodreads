@@ -13,7 +13,8 @@ const BookSchema = new Schema({
     }
   ],
   rating: {
-    type: Number
+    type: Schema.Types.ObjectId,
+    ref: "ratings"
   },
   coverPhoto: {
     type: String,
