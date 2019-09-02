@@ -9,6 +9,10 @@ const LikeSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  book: {
+    type: Schema.Types.ObjectId,
+    ref: "books"
   }
 });
 
