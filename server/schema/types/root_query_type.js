@@ -26,9 +26,8 @@ const RootQueryType = new GraphQLObjectType({
       type: new GraphQLList(UserType),
       args: { queryString: { type: GraphQLString } },
       async resolve(_, { queryString }) {
-        const regexp = new RegExp(queryString, "i");
-
         if (queryString) {
+          const regexp = new RegExp(queryString, "i");
           return await User.find({
             $or: [{ name: regexp }, { email: regexp }]
           });

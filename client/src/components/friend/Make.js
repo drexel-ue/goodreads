@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Queries from "../../graphql/queries";
 import { Query } from "react-apollo";
 import "./Make.scss";
+import FriendTile from "./FriendTile";
 
 const { QUERY_USERS } = Queries;
 
@@ -47,7 +48,9 @@ export default class Make extends Component {
                 return (
                   <div>
                     {users.map(user => (
-                      <div key={user._id}>{user.name}</div>
+                      <div key={user._id}>
+                        <FriendTile user={user} />
+                      </div>
                     ))}
                   </div>
                 );

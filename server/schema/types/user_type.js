@@ -20,14 +20,23 @@ const UserType = new GraphQLObjectType({
     loggedIn: { type: GraphQLBoolean },
     questions: {
       type: new GraphQLList(require("./question_type")),
-      resolve(parentValue) {
-        return User.findById(parentValue.id).populate("questions");
+      async resolve(parentValue) {
+        const user = await User.findById(parentValue.id).populate("questions");
+        return user.questions;
       }
     },
     reviews: {
       type: new GraphQLList(require("./review_type")),
-      resolve(parentValue) {
-        return User.findById(parentValue.id).populate("reviews");
+      async resolve(parentValue) {
+        const user = await User.findById(parentValue.id).populate("reviews");
+        return user.reviews;
+      }
+    },
+    shelves: {
+      type: new GraphQLList(require("./shelf_type")),
+      async resolve(parentValue) {
+        const user = await User.findById(parentValue.id).populate("shelves");
+        return user.shelves;
       }
     }
   })
