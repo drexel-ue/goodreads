@@ -1,1 +1,15 @@
+require("./Answer");
+require("./Author");
+require("./Book");
+require("./Character");
+require("./Comment");
+require("./Genre");
+require("./Like");
+require("./Publisher");
+require("./Question");
+require("./Rating");
+require("./Review");
+require("./Series");
+require("./Setting");
+require("./Shelf");
 require("./User");

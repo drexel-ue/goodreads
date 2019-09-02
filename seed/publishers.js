@@ -1,0 +1,22 @@
+module.exports = [
+  "Penguin Random House",
+  "HarperCollins",
+  "Simon & Schuster",
+  "Hachette Book Group",
+  "Macmillan",
+  "Scholastic",
+  "Disney Publishing Worldwide",
+  "Houghton Mifflin Harcourt",
+  "Workman",
+  "Sterling",
+  "John Wiley and Sons",
+  "Abrams",
+  "Dover",
+  "Candlewick",
+  "W.W. Norton",
+  "Kensington",
+  "Chronicle",
+  "Sourcebooks",
+  "B&H Publishing",
+  "Tyndale House"
+];

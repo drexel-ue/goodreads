@@ -1,5 +1,4 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
 import AuthRoute from "./session/AuthRoute";
 import Nav from "./nav/Nav";
 import AuthHome from './home/AuthHome';
@@ -14,10 +13,17 @@ import Discussion from './discussions/Discussion';
 import Quotes from './quotes/Quote';
 import People from './people/People';
 import Inbox from './message/Inbox';
-import Friend from './friends/Friend';
 import EditGenres from './genres/EditGenres';
 import FriendRecommendations from './recommendations/FriendRecommendations';
 import { Link } from 'react-router-dom';
+import {
+  // Route,
+  Switch
+} from "react-router-dom";
+import AuthRoute from "./AuthRoute";
+import Login from "./session/Login";
+import Register from "./session/Register";
+import Friends from "./friend/Friends";
 
 const App = () => {
   return (
@@ -27,12 +33,19 @@ const App = () => {
       </header>
       <Switch>
         <AuthRoute
-          exact
+          exact={true}
+          path="/login"
+          component={Login}
+          routeType="auth"
+        />
+        <AuthRoute
+          exact={true}
           path="/register"
           component={AuthHome}
           routeType="auth"
         />
         <AuthRoute
+
           exact
           path="/"
           component={ProtectedHome}
@@ -114,6 +127,9 @@ const App = () => {
           exact
           path="/friend_recommendations"
           component={FriendRecommendations}
+          exact={false}
+          path="/friend"
+          component={Friends}
           routeType="protected"
         />
       </Switch>
