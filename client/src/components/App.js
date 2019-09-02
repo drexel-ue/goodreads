@@ -20,7 +20,7 @@ import {
 } from "react-router-dom";
 import AuthRoute from "./session/AuthRoute";
 import Login from "./session/Login";
-import Friends from "./friends/Friends";
+import Friends from "./friend/Friends";
 
 const App = () => {
   return (
