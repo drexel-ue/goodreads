@@ -40,7 +40,6 @@ export default class Make extends Component {
               query={QUERY_USERS}
               variables={{ queryString: this.state.queryString }}
             >
-              nslknslksnkls
               {({ loading, error, data }) => {
                 if (loading) return <p>Loading...</p>;
                 if (error) return <p>Error</p>;

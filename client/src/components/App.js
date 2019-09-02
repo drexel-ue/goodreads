@@ -103,7 +103,7 @@ const App = () => {
           routeType="protected"
         />
         <AuthRoute
-          exact
+          exact={false}
           path="/friend"
           component={Friends}
           routeType="protected"
