@@ -185,7 +185,27 @@ const mutation = new GraphQLObjectType({
       }
     },
 
+    createGenre: {
+      type: GenreType,
+      args: { name: { type: new GraphQLNonNull(GraphQLString) } },
+      resolve(parentValue, { name }) {
+        return new Genre({ name }).save()
+      }
+    },
+
+    deleteGenre: {
+      type: GenreType,
+      args: { _id: { type: GraphQLID } },
+      resolve(parentValue, { _id }) {
+        return Genre.deleteOne({ _id })
+      }
+    },
+
+    //like crud here
+
     
+    
+
   }
 });
 
