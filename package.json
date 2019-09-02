@@ -26,7 +26,6 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-graphql": "^0.9.0",
-    "faker": "^4.1.0",
     "graphql": "^14.5.3",
     "graphql-iso-date": "^3.6.1",
     "jsonwebtoken": "^8.5.1",
@@ -35,6 +34,7 @@
     "validator": "^11.1.0"
   },
   "devDependencies": {
+    "faker": "^4.1.0",
     "nodemon": "^1.19.1"
   }
 }
