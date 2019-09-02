@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import AuthRoute from "./AuthRoute";
 import Login from "./session/Login";
 import Register from "./session/Register";
+import Friends from "./friend/friends";
 import Nav from "./Nav";
 
 const App = () => {
@@ -17,6 +18,12 @@ const App = () => {
           path="/register"
           component={Register}
           routeType="auth"
+        />
+        <AuthRoute
+          exact
+          path="/friend"
+          component={Friends}
+          routeType="protected"
         />
       </Switch>
     </div>
