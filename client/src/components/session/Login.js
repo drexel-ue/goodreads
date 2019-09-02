@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import Mutations from "../../graphql/mutations";
+import { Redirect } from 'react-router-dom';
 
 export default class Login extends Component {
   constructor(props) {
@@ -20,7 +21,9 @@ export default class Login extends Component {
     console.log(data);
     // here we can write directly to our cache with our returned mutation data
     client.writeData({
-      data: { isLoggedIn: data.login.loggedIn }
+      data: { 
+        isLoggedIn: data.login.loggedIn 
+      }
     });
   }
 
@@ -31,13 +34,14 @@ export default class Login extends Component {
         onCompleted={data => {
           const { token } = data.login;
           localStorage.setItem("auth-token", token);
-          this.props.history.push("/");
+          return <Redirect to='/' />
         }}
         update={(client, data) => this.updateCache(client, data)}
       >
         {loginUser => (
-          <div>
+          <div className='login'>
             <form
+              className='login-form' 
               onSubmit={e => {
                 e.preventDefault();
                 loginUser({
@@ -49,17 +53,19 @@ export default class Login extends Component {
               }}
             >
               <input
+                className='login-email'
                 value={this.state.email}
                 onChange={this.update("email")}
-                placeholder="Email"
+                placeholder="Email address"
               />
               <input
+                className='login-password'
                 value={this.state.password}
                 onChange={this.update("password")}
                 type="password"
                 placeholder="Password"
               />
-              <button type="submit">Log In</button>
+              <button type="submit">Sign In</button>
             </form>
           </div>
         )}

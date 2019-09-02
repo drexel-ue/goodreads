@@ -37,7 +37,8 @@ export default class Register extends Component {
         update={(client, data) => this.updateCache(client, data)}
       >
         {registerUser => (
-          <div>
+          <div className='register-form'>
+            <p>New here? Create a free account!</p>
             <form
               onSubmit={e => {
                 e.preventDefault();
@@ -58,7 +59,7 @@ export default class Register extends Component {
               <input
                 value={this.state.email}
                 onChange={this.update("email")}
-                placeholder="Email"
+                placeholder="Email address"
               />
               <input
                 value={this.state.password}
@@ -66,7 +67,7 @@ export default class Register extends Component {
                 type="password"
                 placeholder="Password"
               />
-              <button type="submit">Register</button>
+              <button type="submit">Sign up</button>
             </form>
           </div>
         )}
