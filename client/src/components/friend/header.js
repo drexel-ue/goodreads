@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import "./header.scss";
+import "./Header.scss";
 
 export default withRouter(
   class Header extends Component {
@@ -10,9 +10,7 @@ export default withRouter(
           ? { borderBottom: "2px solid black" }
           : {};
 
-      const navTo = path => {
-        return () => this.props.history.push(path);
-      };
+      const navTo = path => () => this.props.history.push(path);
 
       return (
         <div className="friends_header">

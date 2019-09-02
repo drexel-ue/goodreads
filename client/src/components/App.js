@@ -6,7 +6,7 @@ import {
 import AuthRoute from "./AuthRoute";
 import Login from "./session/Login";
 import Register from "./session/Register";
-import Friends from "./friend/friends";
+import Friends from "./friend/Friends";
 import Nav from "./Nav";
 
 const App = () => {
