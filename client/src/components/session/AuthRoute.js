@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { Query } from "react-apollo";
-import Queries from "../graphql/queries";
+import Queries from "../../graphql/queries";
 const { IS_LOGGED_IN } = Queries;
 
 const AuthRoute = ({
@@ -31,7 +31,7 @@ const AuthRoute = ({
               data.isLoggedIn ? (
                 <Component {...props} />
               ) : (
-                <Redirect to="/login" />
+                <Redirect to="/register" />
               )
             }
           />
