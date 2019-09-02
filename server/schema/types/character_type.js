@@ -7,7 +7,8 @@ const CharacterType = new GraphQLObjectType({
     name: "CharacterType",
     fields: () => ({
         _id: { type: GraphQLID },
-        name: { type, GraphQLString },
+        name: { type: GraphQLString },
+        description: { type: GraphQLString },
         books: {
             type: new GraphQLList(require("./book_type")),
             resolve(parentValue) {
