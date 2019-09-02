@@ -31,6 +31,18 @@ const UserSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "reviews"
     }
+  ],
+  followedAuthors: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "authors"
+    }
+  ],
+  shelves: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "shelves"
+    }
   ]
 });
 
