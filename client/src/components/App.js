@@ -15,15 +15,20 @@ const App = () => {
       <h1>Badreads</h1>
       <Nav />
       <Switch>
-        <AuthRoute exact path="/login" component={Login} routeType="auth" />
         <AuthRoute
-          exact
+          exact={true}
+          path="/login"
+          component={Login}
+          routeType="auth"
+        />
+        <AuthRoute
+          exact={true}
           path="/register"
           component={Register}
           routeType="auth"
         />
         <AuthRoute
-          exact
+          exact={false}
           path="/friend"
           component={Friends}
           routeType="protected"
