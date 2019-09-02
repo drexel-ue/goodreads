@@ -201,11 +201,188 @@ const mutation = new GraphQLObjectType({
       }
     },
 
-    //like crud here
+    createLike: {
+      type: LikeType,
+      args: {
+        user: { type: GraphQLID },
+        book: { type: GraphQLID },
+        comment: { type: GraphQLID },
+        question: { type: GraphQLID },
+        answer: { type: GraphQLID },
+      },
+      resolve(parentValue, { user, book, comment, question, answer }) {
+        if (book) {
+          return new Like({ user, book }).save()
+        }
+        if (comment) {
+          return new Like({ user, comment }).save()
+        }
+        if (question) {
+          return new Like({ user, question }).save()
+        }
+        if (answer) {
+          return new Like({ user, answer }).save()
+        }
+      }
+    },
 
-    
-    
+    deleteBook: {
+      type: BookType,
+      args: { _id: { type: GraphQLID } },
+      resolve(parentValue, { _id }) {
+        return Book.deleteOne({ _id })
+      }
+    },
 
+    createPublisher: {
+      type: PublisherType,
+      args: { name: { type: new GraphQLNonNull(GraphQLString) } },
+      resolve(parentValue, { name }) {
+        return new Publisher({ name }).save()
+      }
+    },
+
+    deletePublisher: {
+      type: PublisherType,
+      args: { _id: { type: GraphQLID } },
+      resolve(parentValue, { _id }) {
+        return Publisher.deleteOne({ _id })
+      }
+    },
+
+    createQuestion: {
+      type: QuestionType,
+      args: {
+        question: { type: new GraphQLNonNull(GraphQLString) },
+        book: { type: GraphQLID },
+        user: { type: GraphQLID },
+        date: { type: GraphQLDateTime }
+      },
+      resolve(parentValue, { question, book, user, date }) {
+        return new Question({ question, book, user, date }).save()
+      }
+    },
+
+    deleteQuestion: {
+      type: QuestionType,
+      args: { _id: { type: GraphQLID } },
+      resolve(parentValue, { _id }) {
+        return Question.deleteOne({ _id })
+      }
+    },
+
+    createRating: {
+      type: RatingType,
+      args: {
+        stars: { type: new GraphQLNonNull(GraphQLInt) },
+        user: { type: GraphQLID },
+        book: { type: GraphQLID }
+      },
+      resolve(parentValue, { stars, user, book }) {
+        return new Rating({ stars, user, book }).save()
+      }
+    },
+
+    deleteRating: {
+      type: RatingType,
+      args: { _id: { type: GraphQLID } },
+      resolve(parentValue, { _id }) {
+        return Rating.deleteOne({ _id })
+      }
+    },
+
+    createReview: {
+      type: ReviewType,
+      args: {
+        user: { type: GraphQLID },
+        book: { type: GraphQLID },
+        content: { type: new GraphQLNonNull(GraphQLString) },
+        hidden: { type: new GraphQLNonNull(GraphQLBoolean) },
+        dateStarted: { type: new GraphQLNonNull(GraphQLDateTime) },
+        dateFinished: { type: new GraphQLNonNull(GraphQLDateTime) },
+        recommendTo: { type: new GraphQLNonNull(GraphQLString) },
+        recommendBy: { type: GraphQLID },
+        privateNotes: { type: new GraphQLNonNull(GraphQLString) },
+        owned: { type: new GraphQLNonNull(GraphQLBoolean) },
+        postToBlog: { type: new GraphQLNonNull(GraphQLBoolean) },
+        addToFeed: { type: new GraphQLNonNull(GraphQLBoolean) },
+        date: { type: new GraphQLNonNull(GraphQLDateTime) }
+      },
+      resolve(parentValue, {
+        user, book, content, hidden, dateStarted,
+        dateFinished, recommendTo, recommendBy, privateNotes, owned,
+        postToBlog, addToFeed, date
+      }) {
+        return new Review({
+          user, book, content, hidden, dateStarted,
+          dateFinished, recommendTo, recommendBy, privateNotes, owned,
+          postToBlog, addToFeed, date
+        }).save()
+      }
+    },
+
+    deleteReview: {
+      type: ReviewType,
+      args: { _id: { type: GraphQLID } },
+      resolve(parentValue, { _id }) {
+        return Review.deleteOne({ _id })
+      }
+    },
+
+    createSeries: {
+      type: SeriesType,
+      args: {
+        title: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve(parentValue, { title }) {
+        return new Series({ title }).save()
+      }
+    },
+
+    deleteSeries: {
+      type: SeriesType,
+      args: { _id: { type: GraphQLID } },
+      resolve(parentValue, { _id }) {
+        return Series.deleteOne({ _id })
+      }
+    },
+
+    createSetting: {
+      type: SettingType,
+      args: {
+        setting: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve(parentValue, { setting }) {
+        return new Setting({ setting }).save()
+      }
+    },
+
+    deleteSetting: {
+      type: SettingType,
+      args: { _id: { type: GraphQLID } },
+      resolve(parentValue, { _id }) {
+        return Setting.deleteOne({ _id })
+      }
+    },
+
+    createShelf: {
+      type: ShelfType,
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        user: { type: GraphQLID }
+      },
+      resolve(parentValue, { name, user }) {
+        return new Shelf({ name, user }).save()
+      }
+    },
+
+    deleteShelf: {
+      type: ShelfType,
+      args: { _id: { type: GraphQLID } },
+      resolve(parentValue, { _id }) {
+        return Shelf.deleteOne({ _id })
+      }
+    },
   }
 });
 

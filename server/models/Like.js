@@ -13,6 +13,18 @@ const LikeSchema = new Schema({
   book: {
     type: Schema.Types.ObjectId,
     ref: "books"
+  },
+  comment: {
+    type: Schema.Types.ObjectId,
+    ref: "comments"
+  },
+  question: {
+    type: Schema.Types.ObjectId,
+    ref: "questions"
+  },
+  answers: {
+    type: Schema.Types.ObjectId,
+    ref: "answers"
   }
 });
 
