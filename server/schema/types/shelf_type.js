@@ -8,7 +8,7 @@ const ShelfType = new GraphQLObjectType({
     name: "ShelfType",
     fields: () => ({
         _id: { type: GraphQLID },
-        name: { type, GraphQLString },
+        name: { type: GraphQLString },
         user: { type: UserType },
         books: {
             type: new GraphQLList(require("./book_type")),
