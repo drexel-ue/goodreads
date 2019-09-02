@@ -258,7 +258,8 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
       const shelfData = {
         name: faker.hacker.adjective(),
         user: user._id,
-        books: pickBooks()
+        books: pickBooks(),
+        profilePhoto: faker.internet.avatar()
       };
 
       const shelf = await new Shelf(shelfData).save();
