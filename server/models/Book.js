@@ -127,6 +127,7 @@ BookSchema.statics.findSettings = function(bookId) {
     .populate("settings")
     .then(book => book.settings);
 };
+
 BookSchema.statics.addCharacter = (bookId, characterId) => {
   const Book = mongoose.model("books");
   const Character = mongoose.model("characters");
@@ -164,12 +165,12 @@ BookSchema.statics.findCharacters = function(bookId) {
     .populate("characters")
     .then(book => book.characters);
 };
-BookSchema.statics.addGenre = (bookId, genreId) => {
+BookSchema.statics.addGenre = (bookId, authorId) => {
   const Book = mongoose.model("books");
   const Genre = mongoose.model("genres");
 
   return Book.findById(bookId).then(book => {
-    return Genre.findById(genreId).then(genre => {
+    return Genre.findById(authorId).then(genre => {
       book.genres.push(genre);
       genre.books.push(book);
 
@@ -180,12 +181,12 @@ BookSchema.statics.addGenre = (bookId, genreId) => {
   });
 };
 
-BookSchema.statics.removeGenre = (bookId, genreId) => {
+BookSchema.statics.removeGenre = (bookId, authorId) => {
   const Book = mongoose.model("books");
   const Genre = mongoose.model("genres");
 
   return Book.findById(bookId).then(book => {
-    return Genre.findById(genreId).then(genre => {
+    return Genre.findById(authorId).then(genre => {
       book.genres.pull(genre);
       genre.books.pull(book);
 
@@ -201,5 +202,104 @@ BookSchema.statics.findGenres = function(bookId) {
     .populate("genres")
     .then(book => book.genres);
 };
+
+BookSchema.statics.addAuthor = (bookId, authorId) => {
+  const Book = mongoose.model("books");
+  const Author = mongoose.model("authors");
+
+  return Book.findById(bookId).then(book => {
+    return Author.findById(authorId).then(author => {
+      book.authors.push(author);
+      author.books.push(book);
+
+      return Promise.all([book.save(), author.save()]).then(
+        ([book, author]) => book
+      );
+    });
+  });
+};
+
+BookSchema.statics.removeAuthor = (bookId, authorId) => {
+  const Book = mongoose.model("books");
+  const Author = mongoose.model("authors");
+
+  return Book.findById(bookId).then(book => {
+    return Author.findById(authorId).then(author => {
+      book.authors.pull(author);
+      author.books.pull(book);
+
+      return Promise.all([book.save(), author.save()]).then(
+        ([book, author]) => book
+      );
+    });
+  });
+};
+
+
+BookSchema.statics.addRating = (bookId, ratingId) => {
+  const Book = mongoose.model("books");
+  const Rating = mongoose.model("ratings");
+
+  return Book.findById(bookId).then(book => {
+    return Rating.findById(ratingId).then(rating => {
+      book.ratings.push(rating);
+      rating.books.push(book);
+
+      return Promise.all([book.save(), rating.save()]).then(
+        ([book, rating]) => book
+      );
+    });
+  });
+};
+
+BookSchema.statics.removeRating = (bookId, ratingId) => {
+  const Book = mongoose.model("books");
+  const Rating = mongoose.model("ratings");
+
+  return Book.findById(bookId).then(book => {
+    return Rating.findById(ratingId).then(rating => {
+      book.ratings.pull(rating);
+      rating.books.pull(book);
+
+      return Promise.all([book.save(), rating.save()]).then(
+        ([book, rating]) => book
+      );
+    });
+  });
+};
+
+
+BookSchema.statics.addQuestion = (bookId, ratingId) => {
+  const Book = mongoose.model("books");
+  const Question = mongoose.model("questions");
+
+  return Book.findById(bookId).then(book => {
+    return Question.findById(questionId).then(question => {
+      book.questions.push(question);
+      question.books.push(book);
+
+      return Promise.all([book.save(), question.save()]).then(
+        ([book, question]) => book
+      );
+    });
+  });
+};
+
+BookSchema.statics.removeQuestion = (bookId, questionId) => {
+  const Book = mongoose.model("books");
+  const Question = mongoose.model("questions");
+
+  return Book.findById(bookId).then(book => {
+    return Question.findById(questionId).then(question => {
+      book.questions.pull(question);
+      question.books.pull(book);
+
+      return Promise.all([book.save(), question.save()]).then(
+        ([book, question]) => book
+      );
+    });
+  });
+};
+
 
 module.exports = mongoose.model("books", BookSchema);
