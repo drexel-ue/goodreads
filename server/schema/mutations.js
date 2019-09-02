@@ -12,6 +12,7 @@ const mongoose = require("mongoose");
 
 const UserType = require("./types/user_type");
 const BookType = require("./types/book_type")
+const AnswerType = require("./answer_type")
 const AuthorType = require("./types/author_type")
 const CharacterType = require("./types/character_type")
 const CommentType = require("./types/comment_type")
@@ -30,6 +31,7 @@ const AuthService = require("../services/auth");
 
 const User = mongoose.model("users");
 const Book = mongoose.model("books")
+const Answer = mongoose.model("answers")
 const Author = mongoose.model("authors")
 const Character = mongoose.model("characters")
 const Comment = mongoose.model("comments")
@@ -123,6 +125,43 @@ const mutation = new GraphQLObjectType({
       }
     },
 
+    updateBook: {
+      type: BookType,
+      args: {
+        id: { type: GraphQLID },
+        title: { type: GraphQLString },
+        coverPhoto: { type: GraphQLString },
+        coverType: { type: GraphQLString },
+        description: { type: GraphQLString },
+        publishDate: { type: GraphQLDateTime },
+        edition: { type: GraphQLString },
+        pages: { type: GraphQLInt },
+        isbn: { type: GraphQLString }
+      },
+      resolve(parentValue, { id, title, coverPhoto, coverType, description,
+        publishDate, edition, pages, isbn }) {
+          const updateBookField = {}
+
+          if (title) updateBookField.title = title
+          if (coverPhoto) updateBookField.coverPhoto = coverPhoto
+          if (coverType) updateBookField.coverType = coverType
+          if (description) updateBookField.description = description
+          if (publishDate) updateBookField.publishDate = publishDate
+          if (edition) updateBookField.edition = edition
+          if (pages) updateBookField.pages = pages
+          if (isbn) updateBookField.isbn = isbn
+
+          return Book.findOneAndUpdate(
+            { _id: id },
+            { $set: updateBookField },
+            { new: true },
+            (err, book) => {
+              return book
+            }
+          )
+        }
+    },
+
     createAuthor: {
       type: AuthorType,
       args: {
@@ -145,6 +184,37 @@ const mutation = new GraphQLObjectType({
       resolve(parentValue, { _id }) {
         return Author.deleteOne({ _id })
       }
+    },
+
+    updateAuthor: {
+      type: AuthorType,
+      args: {
+        id: { type: GraphQLID },
+        name: { type: GraphQLString },
+        profilePhoto: { type: GraphQLString },
+        website: { type: GraphQLString },
+        twitter: { type: GraphQLString },
+        bio: { type: GraphQLString }
+      },
+      resolve(parentValue, { name, profilePhoto,
+        website, twitter, bio }) {
+          const updateAuthorField = {}
+
+          if (name) updateAuthorField.name = name
+          if (profilePhoto) updateAuthorField.profilePhoto = profilePhoto
+          if (website) updateAuthorField.website = website
+          if (twitter) updateAuthorField.twitter = twitter
+          if (bio) updateAuthorField.bio = bio
+
+          return Author.findOneAndUpdate(
+            { _id: id },
+            { $set: updateAuthorField },
+            { new: true },
+            (err, author) => {
+              return author
+            }
+          )
+        }
     },
 
     createCharacter: {
