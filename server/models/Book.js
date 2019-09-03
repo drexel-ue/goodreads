@@ -13,8 +13,7 @@ const BookSchema = new Schema({
     }
   ],
   rating: {
-    type: Schema.Types.ObjectId,
-    ref: "ratings"
+    type: Number
   },
   coverPhoto: {
     type: String,
@@ -235,7 +234,6 @@ BookSchema.statics.removeAuthor = (bookId, authorId) => {
   });
 };
 
-
 BookSchema.statics.addRating = (bookId, ratingId) => {
   const Book = mongoose.model("books");
   const Rating = mongoose.model("ratings");
@@ -268,7 +266,6 @@ BookSchema.statics.removeRating = (bookId, ratingId) => {
   });
 };
 
-
 BookSchema.statics.addQuestion = (bookId, ratingId) => {
   const Book = mongoose.model("books");
   const Question = mongoose.model("questions");
@@ -300,6 +297,5 @@ BookSchema.statics.removeQuestion = (bookId, questionId) => {
     });
   });
 };
-
 
 module.exports = mongoose.model("books", BookSchema);

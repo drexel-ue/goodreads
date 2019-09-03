@@ -203,6 +203,29 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
   }
 
   // Users.
+  let users = [];
+
+  const pickFriends = async user => {
+    let ids = [];
+    for (
+      let index = 0;
+      index < faker.random.number({ min: 0, max: users.length });
+      index++
+    ) {
+      const id = users[faker.random.number({ min: 0, max: users.length })];
+      ids.push(id);
+
+      const friend = await User.findById(id);
+
+      if (!friend.friends.includes(user._id)) {
+        friend.friends.push(user._id);
+      }
+
+      await friend.save();
+    }
+    return ids;
+  };
+
   const pickAuthorsToFollow = () => {
     let picked = [];
     for (
@@ -226,7 +249,7 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
     };
     const hashedPassword = await bcrypt.hash(userData.password, 10);
     userData.password = hashedPassword;
-    const user = new User(userData);
+    let user = new User(userData);
 
     const authIds = pickAuthorsToFollow();
     user.followedAuthors = authIds;
@@ -264,6 +287,14 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
 
       const shelf = await new Shelf(shelfData).save();
       user.shelves.push(shelf);
+    }
+
+    user = await user.save();
+
+    users.push(user._id);
+
+    if (users.length > 1) {
+      user.friends = await pickFriends(user);
     }
 
     await user.save();

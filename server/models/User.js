@@ -43,6 +43,12 @@ const UserSchema = new Schema({
       ref: "authors"
     }
   ],
+  friends: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "users"
+    }
+  ],
   shelves: [
     {
       type: Schema.Types.ObjectId,
