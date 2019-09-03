@@ -623,10 +623,33 @@ const mutation = new GraphQLObjectType({
       }
     },
 
+    addCharacterBook: {
+      type: CharacterType,
+      args: {
+        characterId: { type: GraphQLID },
+        bookId: { type: GraphQLID }
+      },
+      resolve(parentValue, { characterId, bookId }) {
+        return Character.addBook(characterId, bookId)
+      }
+    },
+
+    removeCharacterBook: {
+      type: CharacterType,
+      args: {
+        characterId: { type: GraphQLID },
+        bookId: { type: GraphQLID }
+      },
+      resolve(parentValue, { characterId, bookId }) {
+        return Character.removeBook(characterId, bookId)
+      }
+    },
+
     createComment: {
       type: CommentType,
       args: {
         comment: { type: new GraphQLNonNull(GraphQLString) },
+        user: { type: GraphQLID },
         date: { type: new GraphQLNonNull(GraphQLDateTime) }
       },
       resolve(parentValue, { comment, date }) {
@@ -647,6 +670,7 @@ const mutation = new GraphQLObjectType({
       args: {
         id: { type: GraphQLID },
         comment: { type: GraphQLString },
+        user: { type, GraphQLID },
         date: { type: GraphQLDateTime }
       },
       resolve(parentValue, { id, comment, date }) {
@@ -663,6 +687,28 @@ const mutation = new GraphQLObjectType({
             return comment
           }
         )
+      }
+    },
+
+    addCommentLike: {
+      type: CommentType,
+      args: {
+        commentId: { type: GraphQLID },
+        likeId: { type: GraphQLID }
+      },
+      resolve(parentValue, { commentId, likeId }) {
+        return Comment.addLike(commentId, likeId)
+      }
+    },
+
+    removeCommentLike: {
+      type: CommentType,
+      args: {
+        commentId: { type: GraphQLID },
+        likeId: { type: GraphQLID }
+      },
+      resolve(parentValue, { commentId, likeId }) {
+        return Comment.removeLike(commentId, likeId)
       }
     },
 
