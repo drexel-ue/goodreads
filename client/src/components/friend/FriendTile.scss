@@ -9,9 +9,19 @@
   .profile {
     height: 66px;
     width: 50px;
+    padding: 5px;
   }
 
   .books_and_friends {
     display: flex;
+
+    .books {
+      display: flex;
+    }
+  }
+
+  .book_info {
+    right: 300px;
+    top: 30px;
   }
 }

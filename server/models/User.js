@@ -25,6 +25,15 @@ const UserSchema = new Schema({
     min: 8,
     max: 32
   },
+  currentPage: {
+    type: Number,
+    default: 420
+  },
+  currentlyReading: {
+    type: Schema.Types.ObjectId,
+    ref: "book",
+    default: "5d6e955423a103754cd3e60e"
+  },
   questions: [
     {
       type: Schema.Types.ObjectId,

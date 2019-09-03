@@ -5,7 +5,8 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLID,
-  GraphQLBoolean
+  GraphQLBoolean,
+  GraphQLInt
 } = graphql;
 const User = mongoose.model("users");
 
@@ -18,6 +19,8 @@ const UserType = new GraphQLObjectType({
     profilePhoto: { type: GraphQLString },
     token: { type: GraphQLString },
     loggedIn: { type: GraphQLBoolean },
+    currentlyReading: { type: require("./book_type") },
+    currentPage: { type: GraphQLInt },
     friends: {
       type: new GraphQLList(UserType),
       async resolve(parentValue) {

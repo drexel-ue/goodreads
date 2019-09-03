@@ -7,6 +7,11 @@ export default {
         _id
         name
         profilePhoto
+        currentPage
+        currentlyReading {
+          title
+          coverPhoto
+        }
         friends {
           name
         }
