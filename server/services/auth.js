@@ -69,7 +69,8 @@ const login = async data => {
       throw new Error(message);
     }
 
-    const user = await User.findOne({ email: data.email });
+    const regexp = new RegExp(data.email, "i");
+    const user = await User.findOne({ email: regexp });
 
     if (user) {
       if (await bcrypt.compareSync(data.password, user.password)) {

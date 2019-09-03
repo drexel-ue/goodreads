@@ -1,22 +1,12 @@
 import gql from "graphql-tag";
 
 export default {
-  FETCH_PRODUCTS: gql`
-    {
-      products {
+  QUERY_USERS: gql`
+    query QueryUsers($queryString: String) {
+      users(queryString: $queryString) {
         _id
         name
-        description
-      }
-    }
-  `,
-  FETCH_PRODUCT: gql`
-    query FetchProduct($_id: ID!) {
-      product(_id: $_id) {
-        _id
-        name
-        description
-        weight
+        profilePhoto
       }
     }
   `,

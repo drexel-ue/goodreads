@@ -22,7 +22,7 @@ const LikeSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "questions"
   },
-  answers: {
+  answer: {
     type: Schema.Types.ObjectId,
     ref: "answers"
   }
