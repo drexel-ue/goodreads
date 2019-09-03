@@ -9,7 +9,7 @@ export default {
         profilePhoto
         shelves {
           books {
-            name
+            title
           }
         }
       }
