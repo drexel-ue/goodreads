@@ -670,7 +670,7 @@ const mutation = new GraphQLObjectType({
       args: {
         id: { type: GraphQLID },
         comment: { type: GraphQLString },
-        user: { type, GraphQLID },
+        user: { type: GraphQLID },
         date: { type: GraphQLDateTime }
       },
       resolve(parentValue, { id, comment, date }) {
@@ -749,6 +749,28 @@ const mutation = new GraphQLObjectType({
       }
     },
 
+    addGenreBook: {
+      type: GenreType,
+      args: {
+        genreId: { type: GraphQLID },
+        bookId: { type: GraphQLID }
+      },
+      resolve(parentValue, { genreId, bookId }) {
+        return Genre.addBook(genreId, bookId)
+      }
+    },
+
+    removeGenreBook: {
+      type: GenreType,
+      args: {
+        genreId: { type: GraphQLID },
+        bookId: { type: GraphQLID }
+      },
+      resolve(parentValue, { genreId, bookId }) {
+        return Genre.removeBook(genreId, bookId)
+      }
+    },
+
     createLike: {
       type: LikeType,
       args: {
@@ -818,6 +840,28 @@ const mutation = new GraphQLObjectType({
       }
     },
 
+    addPublisherBook: {
+      type: PublisherType,
+      args: {
+        publisherId: { type: GraphQLID },
+        bookId: { type: GraphQLID }
+      },
+      resolve(parentValue, { publisherId, bookId }) {
+        return Publisher.addBook(publisherId, bookId)
+      }
+    },
+
+    removePublisherBook: {
+      type: PublisherType,
+      args: {
+        publisherId: { type: GraphQLID },
+        bookId: { type: GraphQLID }
+      },
+      resolve(parentValue, { publisherId, bookId }) {
+        return Publisher.removeBook(publisherId, bookId)
+      }
+    },
+
     createQuestion: {
       type: QuestionType,
       args: {
@@ -860,6 +904,28 @@ const mutation = new GraphQLObjectType({
             return question
           }
         )
+      }
+    },
+
+    addQuestionLike: {
+      type: QuestionType,
+      args: {
+        questionId: { type: GraphQLID },
+        likeId: { type: GraphQLID }
+      },
+      resolve(parentValue, { questionId, likeId }) {
+        return Question.addLike(questionId, likeId)
+      }
+    },
+
+    removeQuestionLike: {
+      type: QuestionType,
+      args: {
+        questionId: { type: GraphQLID },
+        likeId: { type: GraphQLID }
+      },
+      resolve(parentValue, { questionId, likeId }) {
+        return Question.removeLike(questionId, likeId)
       }
     },
 
@@ -1025,6 +1091,28 @@ const mutation = new GraphQLObjectType({
       }
     },
 
+    addSeriesBook: {
+      type: SeriesType,
+      args: {
+        seriesId: { type: GraphQLID },
+        bookId: { type: GraphQLID }
+      },
+      resolve(parentValue, { seriesId, bookId }) {
+        return Series.addBook(seriesId, bookId)
+      }
+    },
+
+    removeSeriesBook: {
+      type: SeriesType,
+      args: {
+        seriesId: { type: GraphQLID },
+        bookId: { type: GraphQLID }
+      },
+      resolve(parentValue, { seriesId, bookId }) {
+        return Series.removeBook(seriesId, bookId)
+      }
+    },
+
     createSetting: {
       type: SettingType,
       args: {
@@ -1060,6 +1148,28 @@ const mutation = new GraphQLObjectType({
             return setting
           }
         )
+      }
+    },
+
+    addSettingBook: {
+      type: SettingType,
+      args: {
+        settingId: { type: GraphQLID },
+        bookId: { type: GraphQLID }
+      },
+      resolve(parentValue, { settingId, bookId }) {
+        return Setting.addBook(settingId, bookId)
+      }
+    },
+
+    removeSettingBook: {
+      type: SettingType,
+      args: {
+        settingId: { type: GraphQLID },
+        bookId: { type: GraphQLID }
+      },
+      resolve(parentValue, { settingId, bookId }) {
+        return Setting.removeBook(settingId, bookId)
       }
     },
 
@@ -1100,7 +1210,29 @@ const mutation = new GraphQLObjectType({
           }
         )
       }
-    }
+    },
+
+    addShelfBook: {
+      type: ShelfType,
+      args: {
+        shelfId: { type: GraphQLID },
+        bookId: { type: GraphQLID }
+      },
+      resolve(parentValue, { shelfId, bookId }) {
+        return Shelf.addBook(shelfId, bookId)
+      }
+    },
+
+    removeShelfBook: {
+      type: ShelfType,
+      args: {
+        shelfId: { type: GraphQLID },
+        bookId: { type: GraphQLID }
+      },
+      resolve(parentValue, { shelfId, bookId }) {
+        return Shelf.removeBook(shelfId, bookId)
+      }
+    },
   }
 });
 
