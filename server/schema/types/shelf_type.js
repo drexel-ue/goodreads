@@ -13,7 +13,7 @@ const ShelfType = new GraphQLObjectType({
     books: {
       type: new GraphQLList(require("./book_type")),
       async resolve(parentValue) {
-        const shelf = Shelf.findById(parentValue.id).populate("books");
+        const shelf = await Shelf.findById(parentValue.id).populate("books");
         return shelf.books;
       }
     }

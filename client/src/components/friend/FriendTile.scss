@@ -1,2 +1,11 @@
 .friend_tile {
+  width: 625px;
+  border-bottom: 1px solid #d7d7d7;
+  padding: 5px;
+  font-size: 12px;
+
+  .profile {
+    height: 66px;
+    width: 50px;
+  }
 }
