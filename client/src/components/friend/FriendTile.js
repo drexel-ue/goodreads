@@ -20,7 +20,7 @@ export default withRouter(({ history, location, user }) => {
       <div className="user_info">
         <div className="name">{user.name}</div>
         <div className="books_and_friends">
-          <div className="books">{sumBooks()} books | </div>
+          <div className="books">{`${sumBooks()} books  `}</div>
           <div className="friends">
             {friendCount} {user.friends.length !== 1 ? "friends" : "friend"}
           </div>
