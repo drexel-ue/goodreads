@@ -18,6 +18,13 @@ const UserType = new GraphQLObjectType({
     profilePhoto: { type: GraphQLString },
     token: { type: GraphQLString },
     loggedIn: { type: GraphQLBoolean },
+    friends: {
+      type: new GraphQLList(UserType),
+      async resolve(parentValue) {
+        const user = await User.findById(parentValue.id).populate("friends");
+        return user.friends;
+      }
+    },
     questions: {
       type: new GraphQLList(require("./question_type")),
       async resolve(parentValue) {

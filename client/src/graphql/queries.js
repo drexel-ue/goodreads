@@ -7,6 +7,9 @@ export default {
         _id
         name
         profilePhoto
+        friends {
+          name
+        }
         shelves {
           books {
             title

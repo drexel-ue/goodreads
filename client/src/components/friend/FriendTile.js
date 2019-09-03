@@ -11,6 +11,8 @@ export default withRouter(({ history, location, user }) => {
     return sum;
   };
 
+  const friendCount = user.friends.length;
+
   console.log(user);
   return (
     <div className="friend_tile">
@@ -19,7 +21,9 @@ export default withRouter(({ history, location, user }) => {
         <div className="name">{user.name}</div>
         <div className="books_and_friends">
           <div className="books">{sumBooks()} books | </div>
-          <div className="friends"></div>
+          <div className="friends">
+            {friendCount} {user.friends.length !== 1 ? "friends" : "friend"}
+          </div>
         </div>
       </div>
     </div>
