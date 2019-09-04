@@ -6,6 +6,7 @@ export default {
       login(email: $email, password: $password) {
         token
         loggedIn
+        name
       }
     }
   `,

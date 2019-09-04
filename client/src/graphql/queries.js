@@ -7,12 +7,30 @@ export default {
         _id
         name
         profilePhoto
+        currentPage
+        currentlyReading {
+          title
+          coverPhoto
+        }
+        friends {
+          name
+        }
+        shelves {
+          books {
+            title
+          }
+        }
       }
     }
   `,
   IS_LOGGED_IN: gql`
     query IsUserLoggedIn {
       isLoggedIn @client
+    }
+  `,
+  CACHED_USER: gql`
+    query WhoDis {
+      user @client
     }
   `
 };

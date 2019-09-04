@@ -36,12 +36,8 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
   // Genres.
   let genres = await Genre.find();
   if (genres.length === 0) {
-    for (let index = 0; index < genreTitles.length; index++) {
-      genres.push(await new Genre({ name: genreTitles[index] }).save());
-      if (index === genreTitles.length - 1) {
-        console.log("Genres Seeded");
-      }
-    }
+    genres = await Genre.create(genreTitles.map(title => ({ name: title })));
+    console.log("Genres Seeded");
   } else {
     console.log("Genre Seed Not Needed");
   }
@@ -49,14 +45,11 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
   // Publishers.
   let publishers = await Publisher.find();
   if (publishers.length === 0) {
-    for (let index = 0; index < topPublishers.length; index++) {
-      publishers.push(
-        await new Publisher({ name: topPublishers[index] }).save()
-      );
-      if (index === topPublishers.length - 1) {
-        console.log("Publishers Seeded");
-      }
-    }
+    publishers = await Publisher.create(
+      topPublishers.map(name => ({ name: name }))
+    );
+
+    console.log("Publishers Seeded");
   } else {
     console.log("Publisher Seed Not Needed");
   }
@@ -94,21 +87,16 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
   };
 
   // Return random Author ids
-  const pickAuthors = () => {
+  const pickCoAuthor = author => {
     let picked = [];
-    if (faker.random.boolean() && authors.length > 2) {
-      for (let pickIndex = 0; pickIndex < 2; pickIndex++) {
-        const id =
-          authors[faker.random.number({ min: 0, max: authors.length - 1 })]._id;
-        if (!picked.includes(id)) {
-          picked.push(id);
-        }
-      }
-    } else {
-      picked.push(
-        authors[faker.random.number({ min: 0, max: authors.length - 1 })]._id
-      );
+
+    const coAuth =
+      authors[faker.random.number({ min: 0, max: authors.length - 1 })]._id;
+
+    if (coAuth !== author._id) {
+      picked.push(coAuth);
     }
+
     return picked;
   };
 
@@ -131,33 +119,29 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
 
   let books = [];
 
-  // Authors.
-  for (let authorIndex = 0; authorIndex < 20; authorIndex++) {
-    const authorData = {
-      name: faker.name.firstName() + " " + faker.name.lastName(),
-      profilePhoto: faker.internet.avatar(),
-      website: faker.internet.url(),
-      twitter: faker.internet.url(),
-      genres: pickGenres(),
-      bio: faker.lorem.paragraph()
-    };
-    const author = await new Author(authorData).save();
-    authors.push(author);
+  const genAuthors = () => {
+    let authors = [];
+    for (let index = 0; index < 5; index++) {
+      authors.push({
+        name: faker.name.firstName() + " " + faker.name.lastName(),
+        profilePhoto: faker.internet.avatar(),
+        website: faker.internet.url(),
+        twitter: faker.internet.url(),
+        genres: pickGenres(),
+        bio: faker.lorem.paragraph()
+      });
+    }
+    return authors;
+  };
 
-    // Books.
-    for (let bookIndex = 0; bookIndex < 20; bookIndex++) {
-      const publisher =
-        publishers[faker.random.number({ min: 0, max: publishers.length - 1 })];
-      const pickedSettings = [];
-      const setIds = pickSettings();
-      for (let setIndex = 0; setIndex < setIds.length; setIndex++) {
-        const set = await Setting.findById(setIds[setIndex]);
-        pickedSettings.push(set);
-      }
+  const genBooks = author => {
+    let books = [];
 
-      const bookData = {
+    for (let index = 0; index < 5; index++) {
+      const ble = [author._id].concat(pickCoAuthor(author));
+      books.push({
         title: faker.hacker.phrase(),
-        authors: pickAuthors(),
+        authors: ble,
         rating: faker.random.number({ min: 0, max: 5 }),
         coverPhoto: faker.image.image(),
         coverType: ["Hardcover", "Paperback"][
@@ -165,7 +149,6 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
         ],
         description: faker.lorem.paragraphs(3),
         publishDate: Date.parse(faker.date.future()),
-        publisher: publisher,
         genres: author.genres.slice(
           0,
           faker.random.number({ min: 1, max: author.genres.length })
@@ -175,34 +158,70 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
         ],
         pages: faker.random.number({ min: 100, max: 1000 }),
         isbn: faker.random.uuid(),
-        settings: pickedSettings
-      };
+        settings: pickSettings()
+      });
+    }
+    return books;
+  };
 
-      const book = await new Book(bookData).save();
-      books.push(book);
+  const authorDocs = await Author.collection.insertMany(genAuthors());
 
-      publisher.books.push(book);
-      await publisher.save();
+  authors = authorDocs.ops;
 
-      author.books.push(book._id);
+  for (let index = 0; index < authors.length; index++) {
+    const publisher =
+      publishers[faker.random.number({ min: 0, max: publishers.length - 1 })];
+    const bookDocs = await Book.collection.insertMany(genBooks(authors[index]));
+    books = Object.values(bookDocs.insertedIds);
 
-      for (let index = 0; index < pickedSettings.length; index++) {
-        const set = pickedSettings[index];
-        set.books.push(book);
-        await set.save();
+    books = await Book.find({
+      _id: {
+        $in: books
       }
+    });
 
-      if (bookIndex === 19) {
-        await author.save();
-      }
+    for (let bookIndex = 0; bookIndex < books.length; bookIndex++) {
+      const setting =
+        settings[faker.random.number({ min: 0, max: settings.length - 1 })];
+      books[bookIndex].setting = setting;
+      books[bookIndex].publisher = publisher;
+      setting.books.push(books[bookIndex]);
+      await setting.save();
+      await books[bookIndex].save();
     }
 
-    if (authorIndex === 19) {
-      console.log("Authors Seeded");
-    }
+    publisher.books = books;
   }
 
   // Users.
+  let users = [];
+
+  const pickFriends = async user => {
+    let ids = [];
+    for (
+      let index = 0;
+      index < faker.random.number({ min: 0, max: users.length - 1 });
+      index++
+    ) {
+      const id = users[faker.random.number({ min: 0, max: users.length - 1 })];
+      if (id !== user._id) ids.push(id);
+
+      let friend;
+      try {
+        friend = await User.findById(id);
+      } catch (e) {
+        console.log(">>>>", e);
+      }
+
+      if (!friend.friends.includes(user._id)) {
+        friend.friends.push(user._id);
+      }
+
+      await friend.save();
+    }
+    return ids;
+  };
+
   const pickAuthorsToFollow = () => {
     let picked = [];
     for (
@@ -218,15 +237,18 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
     }
     return picked;
   };
-  for (let userIndex = 0; userIndex < 20; userIndex++) {
+
+  for (let userIndex = 0; userIndex < 4; userIndex++) {
     const userData = {
       email: faker.internet.email(),
       password: "test123",
-      name: faker.name.firstName() + " " + faker.name.lastName()
+      name: faker.name.firstName() + " " + faker.name.lastName(),
+      currentlyReading:
+        books[faker.random.number({ min: 0, max: books.length - 1 })]
     };
     const hashedPassword = await bcrypt.hash(userData.password, 10);
     userData.password = hashedPassword;
-    const user = new User(userData);
+    let user = new User(userData);
 
     const authIds = pickAuthorsToFollow();
     user.followedAuthors = authIds;
@@ -254,7 +276,7 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
     };
 
     // Shelves.
-    for (let shelfIndex = 0; shelfIndex < 10; shelfIndex++) {
+    for (let shelfIndex = 0; shelfIndex < 5; shelfIndex++) {
       const shelfData = {
         name: faker.hacker.adjective(),
         user: user._id,
@@ -266,9 +288,20 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
       user.shelves.push(shelf);
     }
 
-    await user.save();
+    users.push(user._id);
 
-    if (userIndex === 19) {
+    if (users.length > 1) {
+      user.friends = await pickFriends(user);
+      try {
+        await user.save();
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      await user.save();
+    }
+
+    if (userIndex === 9) {
       console.log("Users Seeded");
     }
   }

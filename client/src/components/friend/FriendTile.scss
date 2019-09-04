@@ -1,2 +1,27 @@
 .friend_tile {
+  width: 625px;
+  border-bottom: 1px solid #d7d7d7;
+  padding: 5px;
+  font-size: 12px;
+  display: flex;
+  min-height: 82px;
+
+  .profile {
+    height: 66px;
+    width: 50px;
+    padding: 5px;
+  }
+
+  .books_and_friends {
+    display: flex;
+
+    .books {
+      display: flex;
+    }
+  }
+
+  .book_info {
+    right: 300px;
+    top: 30px;
+  }
 }

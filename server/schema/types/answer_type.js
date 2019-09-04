@@ -15,7 +15,7 @@ const AnswerType = new GraphQLObjectType({
     likes: {
       type: new GraphQLList(require("./like_type")),
       async resolve(parentValue) {
-        const answer = Answer.findById(parentValue.id).populate("likes");
+        const answer = await Answer.findById(parentValue.id).populate("likes");
         return answer.likes;
       }
     },
