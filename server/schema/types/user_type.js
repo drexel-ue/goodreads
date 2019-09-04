@@ -18,7 +18,7 @@ const UserType = new GraphQLObjectType({
     email: { type: GraphQLString },
     profilePhoto: { type: GraphQLString },
     token: { type: GraphQLString },
-    loggedIn: { type: GraphQLBoolean },
+    isLoggedIn: { type: GraphQLBoolean },
     currentlyReading: { type: require("./book_type") },
     currentPage: { type: GraphQLInt },
     friends: {

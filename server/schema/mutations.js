@@ -67,8 +67,8 @@ const mutation = new GraphQLObjectType({
         email: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) }
       },
-      resolve(_, args) {
-        return AuthService.login(args);
+      async resolve(_, args) {
+        return await AuthService.login(args);
       }
     },
     verifyUser: {

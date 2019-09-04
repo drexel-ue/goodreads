@@ -30,7 +30,9 @@ export default {
   `,
   CACHED_USER: gql`
     query WhoDis {
-      user @client
+      user {
+        name @client
+      }
     }
   `
 };
