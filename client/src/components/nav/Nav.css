@@ -259,6 +259,7 @@ header {
     border-top: 1px solid lightgray;
     border-left: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
+    border-right: none;
     outline: none;
 }
 
@@ -266,6 +267,7 @@ header {
     border-top: 1px solid lightgray;
     border-right: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
+    border-left: none;
     background: white;
     padding-top: 7px;
     padding-bottom: 7px;

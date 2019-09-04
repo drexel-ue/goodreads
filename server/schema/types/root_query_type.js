@@ -1,14 +1,9 @@
 const mongoose = require("mongoose");
 const graphql = require("graphql");
-const {
-  GraphQLObjectType,
-  GraphQLList,
-  GraphQLID,
-  GraphQLNonNull,
-  GraphQLString
-} = graphql;
+const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql;
 
 const UserType = require("./user_type");
+const BookType = require("./book_type");
 
 const User = mongoose.model("users");
 
@@ -24,15 +19,7 @@ const RootQueryType = new GraphQLObjectType({
     },
     users: {
       type: new GraphQLList(UserType),
-      args: { queryString: { type: GraphQLString } },
-      async resolve(_, { queryString }) {
-        if (queryString) {
-          const regexp = new RegExp(queryString, "i");
-          return await User.find({
-            $or: [{ name: regexp }, { email: regexp }]
-          });
-        }
-
+      async resolve() {
         return await User.find({});
       }
     }

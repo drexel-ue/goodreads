@@ -1,23 +1,20 @@
 import gql from "graphql-tag";
 
 export default {
-  QUERY_USERS: gql`
-    query QueryUsers($queryString: String) {
-      users(queryString: $queryString) {
-        _id
-        name
-        profilePhoto
-        currentPage
-        currentlyReading {
-          title
-          coverPhoto
-        }
-        friends {
-          name
-        }
+  FETCH_USER: gql`
+    query FetchUser($_id: ID!) {
+      user(_id: $_id) {
         shelves {
           books {
+            _id
+            coverPhoto
             title
+            authors {
+              name
+            }
+            rating {
+              stars
+            }
           }
         }
       }
@@ -26,11 +23,6 @@ export default {
   IS_LOGGED_IN: gql`
     query IsUserLoggedIn {
       isLoggedIn @client
-    }
-  `,
-  CACHED_USER: gql`
-    query WhoDis {
-      user @client
     }
   `
 };
