@@ -86,42 +86,30 @@ const BookSchema = new Schema({
   ]
 });
 
-BookSchema.statics.addSetting = (bookId, settingId) => {
+BookSchema.statics.addSetting = async (bookId, setting) => {
   const Book = mongoose.model("books");
-  const Setting = mongoose.model("settings");
 
-  return Book.findById(bookId).then(book => {
-    return Setting.findById(settingId).then(setting => {
-      book.settings.push(setting);
-      setting.books.push(book);
+  const book = await Book.findById(bookId);
+  book.settings.push(setting);
 
-      return Promise.all([book.save(), setting.save()]).then(
-        ([book, setting]) => book
-      );
-    });
-  });
+  return await book.save();
 };
 
-BookSchema.statics.removeSetting = (bookId, settingId) => {
+BookSchema.statics.removeSetting = async (bookId, setting) => {
   const Book = mongoose.model("books");
-  const Setting = mongoose.model("settings");
 
-  return Book.findById(bookId).then(book => {
-    return Setting.findById(settingId).then(setting => {
-      book.settings.pull(setting);
-      setting.books.pull(book);
+  const book = await Book.findById(bookId);
+  book.settings = book.settings.filter(set => set !== setting);
 
-      return Promise.all([book.save(), setting.save()]).then(
-        ([book, setting]) => book
-      );
-    });
-  });
+  return await book.save();
 };
 
-BookSchema.statics.findSettings = function(bookId) {
-  return this.findById(bookId)
-    .populate("settings")
-    .then(book => book.settings);
+BookSchema.statics.findSettings = async bookId => {
+  const Book = mongoose.model("books");
+
+  const book = await Book.findById(bookId);
+
+  return book.settings;
 };
 
 BookSchema.statics.addCharacter = (bookId, characterId) => {
@@ -161,42 +149,30 @@ BookSchema.statics.findCharacters = function(bookId) {
     .populate("characters")
     .then(book => book.characters);
 };
-BookSchema.statics.addGenre = (bookId, authorId) => {
+BookSchema.statics.addGenre = async (bookId, genre) => {
   const Book = mongoose.model("books");
-  const Genre = mongoose.model("genres");
 
-  return Book.findById(bookId).then(book => {
-    return Genre.findById(authorId).then(genre => {
-      book.genres.push(genre);
-      genre.books.push(book);
+  const book = await Book.findById(bookId);
+  book.genres.push(genre);
 
-      return Promise.all([book.save(), genre.save()]).then(
-        ([book, genre]) => book
-      );
-    });
-  });
+  return await book.save();
 };
 
-BookSchema.statics.removeGenre = (bookId, authorId) => {
+BookSchema.statics.removeGenre = async (bookId, genre) => {
   const Book = mongoose.model("books");
-  const Genre = mongoose.model("genres");
 
-  return Book.findById(bookId).then(book => {
-    return Genre.findById(authorId).then(genre => {
-      book.genres.pull(genre);
-      genre.books.pull(book);
+  const book = await Book.findById(bookId);
+  book.genres = book.genres.filter(gen => gen !== genre);
 
-      return Promise.all([book.save(), genre.save()]).then(
-        ([book, genre]) => book
-      );
-    });
-  });
+  return await Book.save();
 };
 
-BookSchema.statics.findGenres = function(bookId) {
-  return this.findById(bookId)
-    .populate("genres")
-    .then(book => book.genres);
+BookSchema.statics.findGenres = async bookId => {
+  const Book = mongoose.model("books");
+
+  const book = await Book.findById(bookId);
+
+  return await book.genres;
 };
 
 BookSchema.statics.addAuthor = (bookId, authorId) => {

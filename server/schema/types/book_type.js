@@ -10,7 +10,6 @@ const {
   GraphQLID
 } = graphql;
 const RatingType = require("./rating_type");
-const PublisherType = require("./publisher_type");
 const SeriesType = require("./series_type");
 const Book = mongoose.model("books");
 
@@ -31,11 +30,11 @@ const BookType = new GraphQLObjectType({
     coverType: { type: GraphQLString },
     description: { type: GraphQLString },
     publishDate: { type: GraphQLDate },
-    publisher: { type: PublisherType },
+    publisher: { type: GraphQLString },
     genres: {
-      type: new GraphQLList(require("./genre_type")),
+      type: new GraphQLList(GraphQLString),
       async resolve(parentValue) {
-        const book = await Book.findById(parentValue.id).populate("genres");
+        const book = await Book.findById(parentValue.id);
         return book.genres;
       }
     },
@@ -72,9 +71,9 @@ const BookType = new GraphQLObjectType({
     pages: { type: GraphQLInt },
     isbn: { type: GraphQLString },
     settings: {
-      type: new GraphQLList(require("./setting_type")),
+      type: new GraphQLList(GraphQLString),
       async resolve(parentValue) {
-        const book = await Book.findById(parentValue.id).populate("settings");
+        const book = await Book.findById(parentValue.id);
         return book.settings;
       }
     }
