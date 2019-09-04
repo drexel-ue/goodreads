@@ -40,7 +40,12 @@ const token = localStorage.getItem("auth-token");
 
 cache.writeData({
   data: {
-    isLoggedIn: Boolean(token)
+    isLoggedIn: Boolean(token),
+    name: "",
+    _id: "",
+    profilePhoto: "",
+    email: "",
+    currentPage: 0
   }
 });
 
@@ -48,10 +53,10 @@ if (token) {
   client
     .mutate({ mutation: Mutations.VERIFY_USER, variables: { token } })
     .then(({ data }) => {
+      console.log(data);
       cache.writeData({
         data: {
-          isLoggedIn: data.verifyUser.loggedIn,
-          user: data.verifyUser.user
+          ...data.verifyUser
         }
       });
     });

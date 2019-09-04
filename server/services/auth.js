@@ -40,8 +40,8 @@ const register = async data => {
     // we'll create a token for the user
     const token = jwt.sign({ id: user._id }, keys.secretOrKey);
 
-    // then return our created token, set loggedIn to be true, null their password, and send the rest of the user
-    return { token, loggedIn: true, ...user._doc, password: null };
+    // then return our created token, set isLoggedIn to be true, null their password, and send the rest of the user
+    return { token, isLoggedIn: true, ...user._doc, password: null };
   } catch (err) {
     throw err;
   }
@@ -52,7 +52,7 @@ const logout = async ({ _id }) => {
     const user = await User.findById(_id);
 
     user.token = "";
-    user.loggedIn = false;
+    user.isLoggedIn = false;
 
     return await user.save();
   } catch (err) {
@@ -76,7 +76,7 @@ const login = async data => {
       if (await bcrypt.compareSync(data.password, user.password)) {
         const token = jwt.sign({ id: user._id }, keys.secretOrKey);
         user.token = token;
-        user.loggedIn = true;
+        user.isLoggedIn = true;
         return await user.save();
       } else {
         throw new Error("Invalid password.");
@@ -100,14 +100,14 @@ const verifyUser = async data => {
 
     // then we try to use the User with the id we just decoded
     // making sure we await the response
-    let loggedIn;
+    let isLoggedIn;
     const user = await User.findById(id);
 
-    loggedIn = user ? true : false;
-    return { loggedIn, ...user._doc };
+    isLoggedIn = user ? true : false;
+    return { isLoggedIn, ...user._doc };
   } catch (err) {
     console.log(err);
-    return { loggedIn: false };
+    return { isLoggedIn: false };
   }
 };
 
