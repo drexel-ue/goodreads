@@ -26,4 +26,36 @@ const QuestionSchema = new Schema({
   }
 });
 
+QuestionSchema.statics.addLike = (questionId, likeId) => {
+  const Question = mongoose.model("questions");
+  const Like = mongoose.model("likes");
+
+  return Question.findById(questionId).then(question => {
+    return Like.findById(likeId).then(like => {
+      question.likes.push(like);
+      like.questions = questionId;
+
+      return Promise.all([question.save(), like.save()]).then(
+        ([question, like]) => question
+      );
+    });
+  });
+};
+
+QuestionSchema.statics.removeLike = (questionId, likeId) => {
+  const Question = mongoose.model("questions");
+  const Like = mongoose.model("likes");
+
+  return Question.findById(questionId).then(question => {
+    return Like.findById(likeId).then(like => {
+      question.likes.pull(like);
+      Like.findByIdAndRemove(likeId)
+
+      return Promise.all([question.save(), like.save()]).then(
+        ([question, like]) => question
+      );
+    });
+  });
+};
+
 module.exports = mongoose.model("questions", QuestionSchema);
