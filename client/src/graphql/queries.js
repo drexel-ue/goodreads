@@ -24,5 +24,12 @@ export default {
     query IsUserLoggedIn {
       isLoggedIn @client
     }
+  `,
+  CACHED_USER: gql`
+    query WhoDis {
+      user {
+        name @client
+      }
+    }
   `
 };

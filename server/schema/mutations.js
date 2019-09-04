@@ -12,39 +12,38 @@ const {
 const mongoose = require("mongoose");
 
 const UserType = require("./types/user_type");
-const BookType = require("./types/book_type")
-const AnswerType = require("./types/answer_type")
-const AuthorType = require("./types/author_type")
-const CharacterType = require("./types/character_type")
-const CommentType = require("./types/comment_type")
 const GenreType = require("./types/genre_type")
-const LikeType = require("./types/like_type")
 const PublisherType = require("./types/publisher_type")
-const QuestionType = require("./types/question_type")
-const RatingType = require("./types/rating_type")
-const ReviewType = require("./types/review_type")
-const SeriesType = require("./types/series_type")
 const SettingType = require("./types/setting_type")
-const ShelfType = require("./types/shelf_type")
+const BookType = require("./types/book_type");
+const AnswerType = require("./types/answer_type");
+const AuthorType = require("./types/author_type");
+const CharacterType = require("./types/character_type");
+const CommentType = require("./types/comment_type");
+const LikeType = require("./types/like_type");
+const QuestionType = require("./types/question_type");
+const RatingType = require("./types/rating_type");
+const ReviewType = require("./types/review_type");
+const SeriesType = require("./types/series_type");
+const ShelfType = require("./types/shelf_type");
 
 const AuthService = require("../services/auth");
 
-
 const User = mongoose.model("users");
-const Book = mongoose.model("books")
-const Answer = mongoose.model("answers")
-const Author = mongoose.model("authors")
-const Character = mongoose.model("characters")
-const Comment = mongoose.model("comments")
 const Genre = mongoose.model("genres")
-const Like = mongoose.model("likes")
 const Publisher = mongoose.model("publishers")
-const Question = mongoose.model("questions")
-const Rating = mongoose.model("ratings")
-const Review = mongoose.model("reviews")
-const Series = mongoose.model("series")
 const Setting = mongoose.model("settings")
-const Shelf = mongoose.model("shelves")
+const Book = mongoose.model("books");
+const Answer = mongoose.model("answers");
+const Author = mongoose.model("authors");
+const Character = mongoose.model("characters");
+const Comment = mongoose.model("comments");
+const Like = mongoose.model("likes");
+const Question = mongoose.model("questions");
+const Rating = mongoose.model("ratings");
+const Review = mongoose.model("reviews");
+const Series = mongoose.model("series");
+const Shelf = mongoose.model("shelves");
 
 const mutation = new GraphQLObjectType({
   name: "Mutation",
@@ -75,8 +74,8 @@ const mutation = new GraphQLObjectType({
         email: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) }
       },
-      resolve(_, args) {
-        return AuthService.login(args);
+      async resolve(_, args) {
+        return await AuthService.login(args);
       }
     },
     verifyUser: {
@@ -97,7 +96,7 @@ const mutation = new GraphQLObjectType({
         coverType: { type: new GraphQLNonNull(GraphQLString) },
         description: { type: new GraphQLNonNull(GraphQLString) },
         publishDate: { type: new GraphQLNonNull(GraphQLDateTime) },
-        publisher: { type: GraphQLID },
+        publisher: { type: new GraphQLNonNull(GraphQLString) },
         edition: { type: new GraphQLNonNull(GraphQLString) },
         series: { type: GraphQLID },
         pages: { type: new GraphQLNonNull(GraphQLInt) },
@@ -130,7 +129,7 @@ const mutation = new GraphQLObjectType({
         coverType: { type: GraphQLString },
         description: { type: GraphQLString },
         publishDate: { type: GraphQLDateTime },
-        publisher: { type: GraphQLID },
+        publisher: { type: GraphQLString },
         edition: { type: GraphQLString },
         series: { type: GraphQLID },
         pages: { type: GraphQLInt },
@@ -168,10 +167,10 @@ const mutation = new GraphQLObjectType({
       type: BookType,
       args: {
         bookId: { type: GraphQLID },
-        settingId: { type: GraphQLID }
+        setting: { type: GraphQLString }
       },
-      resolve(parentValue, { bookId, settingId }) {
-        return Book.addSetting(bookId, settingId)
+      async resolve(parentValue, { bookId, setting }) {
+        return await Book.addSetting(bookId, setting);
       }
     },
 
@@ -179,10 +178,10 @@ const mutation = new GraphQLObjectType({
       type: BookType,
       args: {
         bookId: { type: GraphQLID },
-        settingId: { type: GraphQLID }
+        setting: { type: GraphQLString }
       },
-      resolve(parentValue, { bookId, settingId }) {
-        return Book.removeSetting(bookId, settingId)
+      async resolve(parentValue, { bookId, setting }) {
+        return await Book.removeSetting(bookId, setting);
       }
     },
 
@@ -212,10 +211,10 @@ const mutation = new GraphQLObjectType({
       type: BookType,
       args: {
         bookId: { type: GraphQLID },
-        genreId: { type: GraphQLID }
+        genre: { type: GraphQLString }
       },
-      resolve(parentValue, { bookId, genreId }) {
-        return Book.addGenre(bookId, genreId)
+      async resolve(parentValue, { bookId, genre }) {
+        return await Book.addGenre(bookId, genre);
       }
     },
 
@@ -223,10 +222,10 @@ const mutation = new GraphQLObjectType({
       type: BookType,
       args: {
         bookId: { type: GraphQLID },
-        genreId: { type: GraphQLID }
+        genre: { type: GraphQLString }
       },
-      resolve(parentValue, { bookId, genreId }) {
-        return Book.removeGenre(bookId, genreId)
+      async resolve(parentValue, { bookId, genre }) {
+        return await Book.removeGenre(bookId, genre);
       }
     },
 
@@ -480,44 +479,6 @@ const mutation = new GraphQLObjectType({
         )
       }
     },
-
-    createGenre: {
-      type: GenreType,
-      args: { name: { type: new GraphQLNonNull(GraphQLString) } },
-      resolve(parentValue, { name }) {
-        return new Genre({ name }).save()
-      }
-    },
-
-    deleteGenre: {
-      type: GenreType,
-      args: { _id: { type: GraphQLID } },
-      resolve(parentValue, { _id }) {
-        return Genre.deleteOne({ _id })
-      }
-    },
-
-    updateGenre: {
-      type: GenreType,
-      args: {
-        id: { type: GraphQLID },
-        name: { type: GraphQLString }
-      },
-      resolve(parentValue, { id, name }) {
-        const updateGenreField = {}
-        updateGenreField.name = name
-
-        return Genre.findOneAndUpdate(
-          { _id: id },
-          { $set: updateGenreField },
-          { new: true },
-          (err, genre) => {
-            return genre
-          }
-        )
-      }
-    },
-
     createLike: {
       type: LikeType,
       args: {
@@ -550,43 +511,6 @@ const mutation = new GraphQLObjectType({
         return Like.deleteOne({ _id })
       }
     },
-
-    createPublisher: {
-      type: PublisherType,
-      args: { name: { type: new GraphQLNonNull(GraphQLString) } },
-      resolve(parentValue, { name }) {
-        return new Publisher({ name }).save()
-      }
-    },
-
-    deletePublisher: {
-      type: PublisherType,
-      args: { _id: { type: GraphQLID } },
-      resolve(parentValue, { _id }) {
-        return Publisher.deleteOne({ _id })
-      }
-    },
-
-    updatePublisher: {
-      type: PublisherType,
-      args: {
-        id: { type: GraphQLID },
-        name: { type: GraphQLString }
-      },
-      resolve(parentValue, { id, name }) {
-        const updatePublisherField = {}
-        updatePublisherField.name = name
-        return Publisher.findOneAndUpdate(
-          { _id: id },
-          { $set: updatePublisherField },
-          { new: true },
-          (err, publisher) => {
-            return publisher
-          }
-        )
-      }
-    },
-
     createQuestion: {
       type: QuestionType,
       args: {
@@ -793,45 +717,6 @@ const mutation = new GraphQLObjectType({
         )
       }
     },
-
-    createSetting: {
-      type: SettingType,
-      args: {
-        setting: { type: new GraphQLNonNull(GraphQLString) }
-      },
-      resolve(parentValue, { setting }) {
-        return new Setting({ setting }).save()
-      }
-    },
-
-    deleteSetting: {
-      type: SettingType,
-      args: { _id: { type: GraphQLID } },
-      resolve(parentValue, { _id }) {
-        return Setting.deleteOne({ _id })
-      }
-    },
-
-    updateSetting: {
-      type: SettingType,
-      args: {
-        id: { type: GraphQLID },
-        setting: { type: GraphQLString }
-      },
-      resolve(parentValue, { id, setting }) {
-        const updateSettingField = {}
-        updateSettingField.setting = setting
-        return Setting.findOneAndUpdate(
-          { _id: id },
-          { $set: updateSettingField },
-          { new: true },
-          (err, setting) => {
-            return setting
-          }
-        )
-      }
-    },
-
     createShelf: {
       type: ShelfType,
       args: {

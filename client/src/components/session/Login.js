@@ -21,7 +21,7 @@ export default withRouter(
     updateCache(client, { data }) {
       // here we can write directly to our cache with our returned mutation data
       client.writeData({
-        data: { user: data.login, isLoggedIn: data.login.loggedIn }
+        data: { ...data.login }
       });
     }
 

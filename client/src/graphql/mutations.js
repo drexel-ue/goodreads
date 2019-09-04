@@ -5,8 +5,12 @@ export default {
     mutation LoginUser($email: String!, $password: String!) {
       login(email: $email, password: $password) {
         token
-        loggedIn
+        isLoggedIn
         name
+        _id
+        profilePhoto
+        email
+        currentPage
       }
     }
   `,
@@ -14,14 +18,19 @@ export default {
     mutation RegisterUser($email: String!, $password: String!, $name: String!) {
       register(email: $email, password: $password, name: $name) {
         token
-        loggedIn
+        isLoggedIn
       }
     }
   `,
   VERIFY_USER: gql`
     mutation VerifyUser($token: String!) {
       verifyUser(token: $token) {
-        loggedIn
+        isLoggedIn
+        name
+        _id
+        profilePhoto
+        email
+        currentPage
       }
     }
   `
