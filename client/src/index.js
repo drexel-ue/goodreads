@@ -48,9 +48,11 @@ if (token) {
   client
     .mutate({ mutation: Mutations.VERIFY_USER, variables: { token } })
     .then(({ data }) => {
+      debugger;
       cache.writeData({
         data: {
-          isLoggedIn: data.verifyUser.loggedIn
+          isLoggedIn: data.verifyUser.loggedIn,
+          user: data.verifyUser.user
         }
       });
     });
