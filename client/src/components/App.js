@@ -42,7 +42,7 @@ const App = () => {
           routeType="auth"
         />
         <AuthRoute
-          exact
+          exact={true}
           path="/"
           component={ProtectedHome}
           routeType="protected"

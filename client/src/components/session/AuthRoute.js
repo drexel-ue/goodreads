@@ -27,13 +27,14 @@ const AuthRoute = ({
         return (
           <Route
             {...rest}
-            render={props =>
-              data.isLoggedIn ? (
+            render={props => {
+              debugger;
+              return data.isLoggedIn ? (
                 <Component {...props} />
               ) : (
                 <Redirect to="/register" />
-              )
-            }
+              );
+            }}
           />
         );
       }
