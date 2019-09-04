@@ -32,13 +32,11 @@ const BookSchema = new Schema({
     required: true
   },
   publisher: {
-    type: Schema.Types.ObjectId,
-    ref: "publishers"
+    type: String
   },
   genres: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "genres"
+      type: String
     }
   ],
   ratings: [
@@ -83,8 +81,7 @@ const BookSchema = new Schema({
   },
   settings: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "settings"
+      type: String
     }
   ]
 });
