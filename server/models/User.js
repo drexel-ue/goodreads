@@ -26,13 +26,11 @@ const UserSchema = new Schema({
     max: 32
   },
   currentPage: {
-    type: Number,
-    default: 420
+    type: Number
   },
   currentlyReading: {
     type: Schema.Types.ObjectId,
-    ref: "book",
-    default: "5d6e955423a103754cd3e60e"
+    ref: "book"
   },
   questions: [
     {

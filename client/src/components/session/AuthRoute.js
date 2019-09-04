@@ -28,7 +28,6 @@ const AuthRoute = ({
           <Route
             {...rest}
             render={props => {
-              debugger;
               return data.isLoggedIn ? (
                 <Component {...props} />
               ) : (

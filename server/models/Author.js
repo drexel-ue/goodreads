@@ -17,8 +17,7 @@ const AuthorSchema = new Schema({
   },
   genres: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "genres"
+      type: String
     }
   ],
   bio: {

@@ -1,14 +1,11 @@
 const faker = require("faker");
 const User = require("../server/models/User");
 const Author = require("../server/models/Author");
-const Genre = require("../server/models/Genre");
-const Publisher = require("../server/models/Publisher");
 const Book = require("../server/models/Book");
-const Setting = require("../server/models/Setting");
 const Shelf = require("../server/models/Shelf");
-const topPublishers = require("./publishers");
-const genreTitles = require("./genres");
-const topSettings = require("./settings");
+const publishers = require("./publishers");
+const genres = require("./genres");
+const settings = require("./settings");
 const bcrypt = require("bcryptjs");
 const db = require("../config/keys").MONGO_URI;
 const mongoose = require("mongoose");
@@ -33,68 +30,34 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
     console.log("No Demo User Needed");
   }
 
-  // Genres.
-  let genres = await Genre.find();
-  if (genres.length === 0) {
-    genres = await Genre.create(genreTitles.map(title => ({ name: title })));
-    console.log("Genres Seeded");
-  } else {
-    console.log("Genre Seed Not Needed");
-  }
-
-  // Publishers.
-  let publishers = await Publisher.find();
-  if (publishers.length === 0) {
-    publishers = await Publisher.create(
-      topPublishers.map(name => ({ name: name }))
-    );
-
-    console.log("Publishers Seeded");
-  } else {
-    console.log("Publisher Seed Not Needed");
-  }
-
-  // Settings.
-  let settings = await Setting.find();
-  if (settings.length === 0) {
-    for (let index = 0; index < topSettings.length; index++) {
-      settings.push(await new Setting({ setting: topSettings[index] }).save());
-      if (index === topSettings.length - 1) {
-        console.log("Settings Seeded");
-      }
-    }
-  } else {
-    console.log("Setting Seed Not Needed");
-  }
-
   let authors = [];
 
   // Return random Genre ids
   const pickGenres = () => {
-    let ids = [];
+    let picked = [];
     for (
       let index = 0;
       index < faker.random.number({ min: 1, max: 4 });
       index++
     ) {
-      const id =
-        genres[faker.random.number({ min: 0, max: genres.length - 1 })]._id;
-      if (!ids.includes(id)) {
-        ids.push(id);
+      const genre =
+        genres[faker.random.number({ min: 0, max: genres.length - 1 })];
+      if (!picked.includes(genre)) {
+        picked.push(genre);
       }
     }
-    return ids;
+    return picked;
   };
 
   // Return random Author ids
   const pickCoAuthor = author => {
     let picked = [];
 
-    const coAuth =
+    const coAuthId =
       authors[faker.random.number({ min: 0, max: authors.length - 1 })]._id;
 
-    if (coAuth !== author._id) {
-      picked.push(coAuth);
+    if (coAuthId !== author._id) {
+      picked.push(coAuthId);
     }
 
     return picked;
@@ -108,10 +71,10 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
       pickIndex < faker.random.number({ min: 3, max: 10 });
       pickIndex++
     ) {
-      const id =
-        settings[faker.random.number({ min: 0, max: settings.length - 1 })]._id;
-      if (!picked.includes(id)) {
-        picked.push(id);
+      const setting =
+        settings[faker.random.number({ min: 0, max: settings.length - 1 })];
+      if (!picked.includes(setting)) {
+        picked.push(setting);
       }
     }
     return picked;
@@ -121,190 +84,185 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
 
   const genAuthors = () => {
     let authors = [];
-    for (let index = 0; index < 5; index++) {
-      authors.push({
-        name: faker.name.firstName() + " " + faker.name.lastName(),
-        profilePhoto: faker.internet.avatar(),
-        website: faker.internet.url(),
-        twitter: faker.internet.url(),
-        genres: pickGenres(),
-        bio: faker.lorem.paragraph()
-      });
+    for (let index = 0; index < 100; index++) {
+      authors.push(
+        new Author({
+          name: faker.name.firstName() + " " + faker.name.lastName(),
+          profilePhoto: faker.internet.avatar(),
+          website: faker.internet.url(),
+          twitter: faker.internet.url(),
+          genres: pickGenres(),
+          bio: faker.lorem.paragraph()
+        })
+      );
+      console.log(`Author ${index + 1} spawned`);
     }
     return authors;
   };
 
   const genBooks = author => {
-    let books = [];
-
-    for (let index = 0; index < 5; index++) {
+    for (let index = 0; index < 100; index++) {
       const ble = [author._id].concat(pickCoAuthor(author));
-      books.push({
-        title: faker.hacker.phrase(),
-        authors: ble,
-        rating: faker.random.number({ min: 0, max: 5 }),
-        coverPhoto: faker.image.image(),
-        coverType: ["Hardcover", "Paperback"][
-          faker.random.number({ min: 0, max: 1 })
-        ],
-        description: faker.lorem.paragraphs(3),
-        publishDate: Date.parse(faker.date.future()),
-        genres: author.genres.slice(
-          0,
-          faker.random.number({ min: 1, max: author.genres.length })
-        ),
-        edition: ["First", "Second", "Limited"][
-          faker.random.number({ min: 0, max: 2 })
-        ],
-        pages: faker.random.number({ min: 100, max: 1000 }),
-        isbn: faker.random.uuid(),
-        settings: pickSettings()
-      });
+      books.push(
+        new Book({
+          title: faker.hacker.phrase(),
+          authors: ble,
+          rating: faker.random.number({ min: 0, max: 5 }),
+          coverPhoto: faker.image.image(),
+          coverType: ["Hardcover", "Paperback"][
+            faker.random.number({ min: 0, max: 1 })
+          ],
+          description: faker.lorem.paragraphs(3),
+          publishDate: Date.parse(faker.date.future()),
+          genres: author.genres.slice(
+            0,
+            faker.random.number({ min: 1, max: author.genres.length - 1 })
+          ),
+          edition: ["First", "Second", "Limited"][
+            faker.random.number({ min: 0, max: 2 })
+          ],
+          pages: faker.random.number({ min: 100, max: 1000 }),
+          isbn: faker.random.uuid(),
+          settings: pickSettings()
+        })
+      );
+      console.log(`Book ${index + 1} spawned`);
     }
     return books;
   };
 
-  const authorDocs = await Author.collection.insertMany(genAuthors());
-
-  authors = authorDocs.ops;
+  authors = genAuthors();
 
   for (let index = 0; index < authors.length; index++) {
     const publisher =
       publishers[faker.random.number({ min: 0, max: publishers.length - 1 })];
-    const bookDocs = await Book.collection.insertMany(genBooks(authors[index]));
-    books = Object.values(bookDocs.insertedIds);
-
-    books = await Book.find({
-      _id: {
-        $in: books
-      }
-    });
+    const author = authors[index];
+    author.books = genBooks(author);
 
     for (let bookIndex = 0; bookIndex < books.length; bookIndex++) {
-      const setting =
-        settings[faker.random.number({ min: 0, max: settings.length - 1 })];
-      books[bookIndex].setting = setting;
-      books[bookIndex].publisher = publisher;
-      setting.books.push(books[bookIndex]);
-      await setting.save();
-      await books[bookIndex].save();
+      const book = books[bookIndex];
+      book.settings = pickSettings();
+      book.publisher = publisher;
     }
-
-    publisher.books = books;
   }
 
   // Users.
-  let users = [];
+  const genUsers = async () => {
+    let users = [];
+    for (let index = 0; index < 100; index++) {
+      const book =
+        books[faker.random.number({ min: 0, max: books.length - 1 })];
+      const currentPage = faker.random.number({ min: 1, max: book.pages });
+      users.push(
+        new User({
+          email: faker.internet.email(),
+          password: await bcrypt.hash("test123", 10),
+          name: faker.name.firstName() + " " + faker.name.lastName(),
+          currentlyReading: book.pages,
+          currentPage: currentPage
+        })
+      );
+    }
+    return users;
+  };
 
-  const pickFriends = async user => {
-    let ids = [];
+  const users = await genUsers();
+
+  const pickFriends = user => {
+    let friends = [];
     for (
       let index = 0;
       index < faker.random.number({ min: 0, max: users.length - 1 });
       index++
     ) {
-      const id = users[faker.random.number({ min: 0, max: users.length - 1 })];
-      if (id !== user._id) ids.push(id);
-
-      let friend;
-      try {
-        friend = await User.findById(id);
-      } catch (e) {
-        console.log(">>>>", e);
-      }
+      const friend =
+        users[faker.random.number({ min: 0, max: users.length - 1 })];
+      if (friend._id !== user._id) friends.push(friend);
 
       if (!friend.friends.includes(user._id)) {
         friend.friends.push(user._id);
       }
 
-      await friend.save();
+      friends.push(friend);
     }
-    return ids;
+    return friends;
   };
 
-  const pickAuthorsToFollow = () => {
+  const pickAuthorsToFollow = user => {
     let picked = [];
     for (
       let pickIndex = 0;
       pickIndex < faker.random.number({ min: 3, max: 7 });
       pickIndex++
     ) {
-      const id =
-        authors[faker.random.number({ min: 0, max: authors.length - 1 })]._id;
-      if (!picked.includes(id)) {
-        picked.push(id);
+      const author =
+        authors[faker.random.number({ min: 0, max: authors.length - 1 })];
+      if (!picked.includes(author._id)) {
+        picked.push(author._id);
+        author.followers.push(user);
       }
     }
     return picked;
   };
 
-  for (let userIndex = 0; userIndex < 4; userIndex++) {
-    const userData = {
-      email: faker.internet.email(),
-      password: "test123",
-      name: faker.name.firstName() + " " + faker.name.lastName(),
-      currentlyReading:
-        books[faker.random.number({ min: 0, max: books.length - 1 })]
-    };
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
-    userData.password = hashedPassword;
-    let user = new User(userData);
-
-    const authIds = pickAuthorsToFollow();
-    user.followedAuthors = authIds;
-
-    for (let index = 0; index < authIds.length; index++) {
-      const author = await Author.findById(authIds[index]);
-      author.followers.push(user);
-      await author.save();
+  const pickBooks = () => {
+    const pickedIds = [];
+    for (
+      let index = 0;
+      index <
+      faker.random.number({
+        min: 1,
+        max: books.length - 1
+      });
+      index++
+    ) {
+      const book =
+        books[faker.random.number({ min: 0, max: books.length - 1 })];
+      if (!pickedIds.includes(book._id)) pickedIds.push(book._id);
     }
+    return pickedIds;
+  };
 
-    const pickBooks = () => {
-      let picked = [];
-      for (
-        let pickIndex = 0;
-        pickIndex < faker.random.number({ min: 3, max: books.length });
-        pickIndex++
-      ) {
-        const id =
-          books[faker.random.number({ min: 0, max: books.length - 1 })]._id;
-        if (!picked.includes(id)) {
-          picked.push(id);
-        }
-      }
-      return picked;
-    };
-
-    // Shelves.
-    for (let shelfIndex = 0; shelfIndex < 5; shelfIndex++) {
-      const shelfData = {
-        name: faker.hacker.adjective(),
-        user: user._id,
-        books: pickBooks(),
-        profilePhoto: faker.internet.avatar()
-      };
-
-      const shelf = await new Shelf(shelfData).save();
-      user.shelves.push(shelf);
+  let shelves = [];
+  const genShelves = user => {
+    for (let index = 0; index < 100; index++) {
+      shelves.push(
+        new Shelf({
+          name: faker.internet.domainWord(),
+          user: user,
+          books: pickBooks()
+        })
+      );
+      console.log(`Shelf ${index + 1} spawned`);
     }
+    return shelves;
+  };
 
-    users.push(user._id);
+  for (let index = 0; index < users.length; index++) {
+    const user = users[index];
 
-    if (users.length > 1) {
-      user.friends = await pickFriends(user);
-      try {
-        await user.save();
-      } catch (e) {
-        console.log(e);
-      }
-    } else {
-      await user.save();
-    }
+    user.friends = pickFriends(user);
+    user.shelves = genShelves(user);
+    user.followedAuthors = pickAuthorsToFollow(user);
 
-    if (userIndex === 9) {
-      console.log("Users Seeded");
-    }
+    console.log(`User ${index + 1} spawned`);
   }
+
+  console.log("Commencing User inserts");
+  await User.collection.insertMany(users);
+  console.log("Users seeded");
+
+  console.log("Commencing Author inserts");
+  await Author.collection.insertMany(authors);
+  console.log("Authors seeded");
+
+  console.log("Commencing Book inserts");
+  await Book.collection.insertMany(books);
+  console.log("Books seeded");
+
+  console.log("Commencing Shelf inserts");
+  await Shelf.collection.insertMany(shelves);
+  console.log("Shelves seeded");
 
   await mongoose.connection.close();
 });

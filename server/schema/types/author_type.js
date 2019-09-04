@@ -12,9 +12,9 @@ const AuthorType = new GraphQLObjectType({
     website: { type: GraphQLString },
     twitter: { type: GraphQLString },
     genres: {
-      type: new GraphQLList(require("./genre_type")),
+      type: new GraphQLList(GraphQLString),
       async resolve(parentValue) {
-        const author = await Author.findById(parentValue.id).populate("genres");
+        const author = await Author.findById(parentValue.id);
         return author.genres;
       }
     },
