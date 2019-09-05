@@ -56,10 +56,30 @@ export default withRouter(({ match, history }) => {
                 <div className="link">To Become Series</div>
                 <div>)</div>
               </div>
-            </div>
-            <div className="author">
-              <div>by</div>
-              <div className="name">{book.author.name}</div>
+              <div className="by">
+                <div className="by">by</div>
+                <div className="authors">
+                  {book.authors.map((author, index) => {
+                    if (
+                      book.authors.length > 1 &&
+                      index === book.authors.length - 1
+                    ) {
+                      return (
+                        <div key={index} className="author">
+                          {author.name}
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div key={index} className="with_comma">
+                          <div className="author">{author.name}</div>
+                          <div>,</div>
+                        </div>
+                      );
+                    }
+                  })}
+                </div>
+              </div>
             </div>
             <div className="section_3"></div>
           </div>

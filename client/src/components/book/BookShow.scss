@@ -76,6 +76,7 @@
       color: #999999;
       font-size: 1.5em;
       display: flex;
+      margin: 5px 0;
       .link {
         margin: 0 2px;
       }
@@ -84,6 +85,29 @@
       cursor: pointer;
       .link {
         text-decoration: underline;
+      }
+    }
+    .by {
+      display: flex;
+      color: #333;
+      font-size: 16px;
+      .by {
+        margin-right: 3px;
+      }
+      .authors {
+        display: flex;
+        .with_comma {
+          display: flex;
+          margin-right: 3px;
+          .author:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .author:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
       }
     }
   }
