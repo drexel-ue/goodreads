@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import Register from '../session/Register';
+import Register from '../../session/Register';
 
 const AuthHome = (props) => (
     <div className='register'>

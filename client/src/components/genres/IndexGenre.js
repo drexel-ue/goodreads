@@ -11,6 +11,7 @@ const IndexGenre = props => {
             <div className="index-genre-container">
             <Query query={BOOKS_BY_GENRE} variables={{ genreString: "Science-fiction"}}>
 
+
                 {({ loading, error, data }) => {
                     if (loading) return <p>Loading...</p>;
                     if (error) return <p>Error</p>;
