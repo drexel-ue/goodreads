@@ -44,6 +44,7 @@ export default {
         edition
         pages
         isbn
+        genres
         rating
         series
         authors {

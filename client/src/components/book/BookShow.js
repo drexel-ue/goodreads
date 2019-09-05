@@ -150,11 +150,35 @@ export default withRouter(
               );
             };
 
+            const section3 = () => {
+              const placeBorder = (index, total) =>
+                index === total - 1 ? { borderBottom: "" } : {};
+
+              return (
+                <div className="section_3">
+                  <div className="genre_block">
+                    <div className="header">GENRES</div>
+                    <div className="genres">
+                      {book.genres.map((genre, index) => (
+                        <div
+                          key={index}
+                          className="genre"
+                          style={placeBorder(index, book.genres.length)}
+                        >
+                          {genre}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            };
+
             return (
               <div className="book_show">
                 {section1}
                 {section2()}
-                <div className="section_3"></div>
+                {section3()}
               </div>
             );
           }}

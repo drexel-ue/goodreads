@@ -33,8 +33,7 @@ const BookType = new GraphQLObjectType({
     genres: {
       type: new GraphQLList(GraphQLString),
       async resolve(parentValue) {
-        const book = await Book.findById(parentValue.id);
-        return book.genres;
+        return parentValue.genres;
       }
     },
     ratings: {
