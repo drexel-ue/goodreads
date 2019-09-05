@@ -149,6 +149,40 @@
       text-decoration: underline;
       cursor: pointer;
     }
+    .purchase_block {
+      border-top: 1px solid #d8d8d8;
+      border-bottom: 1px solid #d8d8d8;
+      display: flex;
+      flex-direction: column;
+      padding: 10px 0;
+      margin: 10px 0;
+      .get_a_copy {
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1.15;
+        text-transform: uppercase;
+        color: #382110;
+      }
+      .purchase_options {
+        display: flex;
+        // justify-content: space-around;
+        .option {
+          padding: 10px;
+          border-radius: 3px;
+          border: 1px solid #d6d0c4;
+          font-size: 14px;
+          cursor: pointer;
+          color: #333333;
+          background-color: #f4f1ea;
+          line-height: 1;
+          margin-right: 8px;
+          margin-top: 8px;
+        }
+        .option:hover {
+          background-color: #ece8e1;
+        }
+      }
+    }
   }
   .section_3 {
     width: 300px;

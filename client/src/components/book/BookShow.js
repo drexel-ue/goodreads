@@ -118,6 +118,15 @@ export default withRouter(
                   <div className="exdespander">
                     {this.state.descriptionExpanded ? "(less)" : "...more"}
                   </div>
+                  <div className="purchase_block">
+                    <div className="get_a_copy">Get a copy</div>
+                    <div className="purchase_options">
+                      <div className="option">Amazon $9.99</div>
+                      <div className="option">Kindle</div>
+                      <div className="option dropdown">Stores <i className="fas fa-caret-down"></i></div>
+                      <div className="option">Libraries</div>
+                    </div>
+                  </div>
                 </div>
               );
             };
