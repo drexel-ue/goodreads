@@ -53,7 +53,6 @@ if (token) {
   client
     .mutate({ mutation: Mutations.VERIFY_USER, variables: { token } })
     .then(({ data }) => {
-      console.log(data);
       cache.writeData({
         data: {
           ...data.verifyUser

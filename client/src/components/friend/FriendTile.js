@@ -3,6 +3,8 @@ import { withRouter } from "react-router-dom";
 import "./FriendTile.scss";
 
 export default withRouter(({ history, location, user }) => {
+  console.log(user);
+
   const sumBooks = () => {
     let sum = 0;
     user.shelves.forEach(shelf => {
@@ -13,7 +15,6 @@ export default withRouter(({ history, location, user }) => {
 
   const friendCount = user.friends.length;
 
-  console.log(user);
   return (
     <div className="friend_tile">
       <img className="profile" src={user.profilePhoto} alt="profile" />
