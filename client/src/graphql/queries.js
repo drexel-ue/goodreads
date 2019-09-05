@@ -50,6 +50,8 @@ export default {
         authors {
           name
           _id
+          followerIds
+          profilePhoto
         }
       }
     }

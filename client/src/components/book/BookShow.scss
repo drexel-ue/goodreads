@@ -240,5 +240,66 @@
         }
       }
     }
+    .author_block {
+      .header {
+        color: #382110;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+        padding-bottom: 5px;
+        margin-top: 20px;
+        border-bottom: 1px solid #d8d8d8;
+      }
+      .header:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+      .top {
+        display: flex;
+        margin: 10px 0;
+        .photo {
+          border-radius: 50%;
+          width: 75px;
+          height: 75px;
+          margin-right: 5px;
+        }
+        .info {
+          .name {
+            color: #000000;
+            font-size: 16px;
+            font-weight: bold;
+          }
+          .name:hover {
+            cursor: pointer;
+            text-decoration: underline;
+          }
+          .follower_count {
+            color: #999999;
+            margin-bottom: 4px;
+            margin-top: 4px;
+            font-size: 14px;
+          }
+          .option {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            padding: 10px;
+            border-radius: 3px;
+            border: 1px solid #d6d0c4;
+            font-size: 14px;
+            cursor: pointer;
+            color: #333333;
+            background-color: #f4f1ea;
+            line-height: 1;
+            margin-right: 8px;
+            margin-top: 8px;
+          }
+          .option:hover {
+            background-color: #ece8e1;
+          }
+        }
+      }
+    }
   }
 }

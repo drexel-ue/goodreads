@@ -26,6 +26,12 @@ const AuthorType = new GraphQLObjectType({
         return author.books;
       }
     },
+    followerIds: {
+      type: new GraphQLList(GraphQLID),
+      resolve(parentValue) { 
+        return parentValue.followers
+      }
+    },
     followers: {
       type: new GraphQLList(require("./user_type")),
       async resolve(parentValue) {

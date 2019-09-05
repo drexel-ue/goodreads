@@ -156,6 +156,8 @@ export default withRouter(
                   ? {}
                   : { borderBottom: "1px solid #d8d8d8" };
 
+              const author = book.authors[0];
+
               return (
                 <div className="section_3">
                   <div className="genre_block">
@@ -170,6 +172,22 @@ export default withRouter(
                           {genre}
                         </div>
                       ))}
+                    </div>
+                  </div>
+
+                  <div className="author_block">
+                    <div className="header">{`About ${author.name}`}</div>
+                    <div className="top">
+                      <img
+                        className="photo"
+                        src={author.profilePhoto}
+                        alt="headshot"
+                      />
+                      <div className="info">
+                        <div className="name">{author.name}</div>
+                        <div className="follower_count">{`${author.followerIds.length} followers`}</div>
+                        <div className="option">{`Follow ${author.name}`}</div>
+                      </div>
                     </div>
                   </div>
                 </div>
