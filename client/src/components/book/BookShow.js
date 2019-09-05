@@ -32,6 +32,7 @@ export default withRouter(({ match, history }) => {
                   <i className="fas fa-caret-down"></i>
                 </div>
               </div>
+              <div className="rate_text">Rate this book</div>
             </div>
             <div className="section_2"></div>
             <div className="section_3"></div>
