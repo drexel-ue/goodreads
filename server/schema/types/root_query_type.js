@@ -48,6 +48,13 @@ const RootQueryType = new GraphQLObjectType({
       resolve(parentValue, { genreString } ) {
         return Book.find({ genres: genreString }).limit(6)
       }
+    },
+    booksByGenreShow: {
+      type: new GraphQLList(BookType),
+      args: { genreString: { type: GraphQLString } },
+      resolve(parentValue, { genreString }) {
+      return Book.find({ genres: genreString }).limit(24)
+      }
     }
   })
 });

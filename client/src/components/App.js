@@ -22,6 +22,7 @@ import {
 import Login from "./session/Login";
 import Friends from "./friend/friends";
 import IndexGenre from "./genres/IndexGenre"
+import ShowGenre from "./genres/ShowGenre"
 
 const App = () => {
   return (
@@ -125,6 +126,12 @@ const App = () => {
           exact
           path="/genres"
           component={IndexGenre}
+          routeType="protected"
+        />
+        <AuthRoute
+          exact
+          path="/genres/:genre"
+          component={ShowGenre}
           routeType="protected"
         />
         <AuthRoute
