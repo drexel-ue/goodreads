@@ -61,6 +61,8 @@ export default withRouter(
                 ? {}
                 : { height: "168px" };
 
+              const publishDate = new Date(book.publishDate);
+
               return (
                 <div className="section_2">
                   <div className="title">{book.title}</div>
@@ -123,9 +125,16 @@ export default withRouter(
                     <div className="purchase_options">
                       <div className="option">Amazon $9.99</div>
                       <div className="option">Kindle</div>
-                      <div className="option dropdown">Stores <i className="fas fa-caret-down"></i></div>
+                      <div className="option dropdown">
+                        Stores <i className="fas fa-caret-down"></i>
+                      </div>
                       <div className="option">Libraries</div>
                     </div>
+                  </div>
+                  <div className="less_details">
+                    {`${book.coverType}, ${book.pages} pages`}
+                    <br />
+                    {`Published ${publishDate.toDateString()} by ${book.publisher}`}
                   </div>
                 </div>
               );
