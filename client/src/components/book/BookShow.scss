@@ -43,6 +43,21 @@
     }
     .stars {
       display: flex;
+      margin-bottom: 10px;
+    }
+    .preview {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #181818;
+      .text {
+        font-size: 12px;
+        margin-left: 5px;
+      }
+      .text:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
   }
   .section_2 {

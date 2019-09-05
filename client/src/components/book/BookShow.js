@@ -40,6 +40,10 @@ export default withRouter(({ match, history }) => {
                 <i className="far fa-star"></i>
                 <i className="far fa-star"></i>
               </div>
+              <div className="preview">
+                <i className="fas fa-book-open"></i>
+                <div className="text">Preview</div>
+              </div>
             </div>
             <div className="section_2"></div>
             <div className="section_3"></div>
