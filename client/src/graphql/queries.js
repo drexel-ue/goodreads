@@ -44,6 +44,9 @@ export default {
         edition
         pages
         isbn
+        series {
+          title
+        }
       }
     }
   `,
