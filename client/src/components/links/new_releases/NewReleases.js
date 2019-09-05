@@ -3,6 +3,7 @@ import { withRouter, Link } from "react-router-dom";
 import { Query } from "react-apollo";
 import Queries from "../../../graphql/queries";
 import BookItem from "./BookItem";
+import './NewReleases.css';
 const { BOOKS_BY_GENRE, FETCH_BOOKS } = Queries;
 
 const NewReleases = (props) => (
@@ -21,18 +22,13 @@ const NewReleases = (props) => (
                                         </div>
                                     </td>
                                     <td>
-                                        <div className='new-book'>
-                                            <div className='new-book-cover'>
-                                                <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Young adult' }}>
-                                                    {({ loading, error, data }) => {
-                                                        if (loading) return <p>Loading...</p>;
-                                                        if (error) return <p>Error</p>;
-
-                                                        if (data) return <BookItem data={data} />;
-                                                    }}
-                                                </Query>
-                                            </div>
-                                        </div>
+                                        <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Young adult' }}>
+                                            {({ loading, error, data }) => {
+                                                if (loading) return <p>Loading...</p>;
+                                                if (error) return <p>Error</p>
+                                                if (data) return <BookItem data={data} />;
+                                            }}
+                                        </Query>
                                     </td>
                                 </tr>
                                 <tr>
@@ -42,18 +38,13 @@ const NewReleases = (props) => (
                                         </div>
                                     </td>
                                     <td>
-                                        <div className='new-book'>
-                                            <div className='new-book-cover'>
-                                                <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Children\'s' }}>
-                                                    {({ loading, error, data }) => {
-                                                        if (loading) return <p>Loading...</p>;
-                                                        if (error) return <p>Error</p>;
-
-                                                        if (data) return <BookItem data={data} />;
-                                                    }}
-                                                </Query>
-                                            </div>
-                                        </div>
+                                        <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Children\'s' }}>
+                                            {({ loading, error, data }) => {
+                                                if (loading) return <p>Loading...</p>;
+                                                if (error) return <p>Error</p>
+                                                if (data) return <BookItem data={data} />;
+                                            }}
+                                        </Query>
                                     </td>
                                 </tr>
                                 <tr>
@@ -80,18 +71,13 @@ const NewReleases = (props) => (
                                         </div>
                                     </td>
                                     <td>
-                                        <div className='new-book'>
-                                            <div className='new-book-cover'>
-                                                <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Memoir' }}>
-                                                    {({ loading, error, data }) => {
-                                                        if (loading) return <p>Loading...</p>;
-                                                        if (error) return <p>Error</p>;
-
-                                                        if (data) return <BookItem data={data} />;
-                                                    }}
-                                                </Query>
-                                            </div>
-                                        </div>
+                                        <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Memoir' }}>
+                                            {({ loading, error, data }) => {
+                                                if (loading) return <p>Loading...</p>;
+                                                if (error) return <p>Error</p>
+                                                if (data) return <BookItem data={data} />;
+                                            }}
+                                        </Query>
                                     </td>
                                 </tr>
                                 <tr>
@@ -101,18 +87,13 @@ const NewReleases = (props) => (
                                         </div>
                                     </td>
                                     <td>
-                                        <div className='new-book'>
-                                            <div className='new-book-cover'>
-                                                <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Mystery' }}>
-                                                    {({ loading, error, data }) => {
-                                                        if (loading) return <p>Loading...</p>;
-                                                        if (error) return <p>Error</p>;
-
-                                                        if (data) return <BookItem data={data} />;
-                                                    }}
-                                                </Query>
-                                            </div>
-                                        </div>
+                                        <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Mystery' }}>
+                                            {({ loading, error, data }) => {
+                                                if (loading) return <p>Loading...</p>;
+                                                if (error) return <p>Error</p>
+                                                if (data) return <BookItem data={data} />;
+                                            }}
+                                        </Query>
                                     </td>
                                 </tr>
                                 <tr>
@@ -122,18 +103,13 @@ const NewReleases = (props) => (
                                         </div>
                                     </td>
                                     <td>
-                                        <div className='new-book'>
-                                            <div className='new-book-cover'>
-                                                <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Romance' }}>
-                                                    {({ loading, error, data }) => {
-                                                        if (loading) return <p>Loading...</p>;
-                                                        if (error) return <p>Error</p>;
-
-                                                        if (data) return <BookItem data={data} />;
-                                                    }}
-                                                </Query>
-                                            </div>
-                                        </div>
+                                        <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Romance' }}>
+                                            {({ loading, error, data }) => {
+                                                if (loading) return <p>Loading...</p>;
+                                                if (error) return <p>Error</p>
+                                                if (data) return <BookItem data={data} />;
+                                            }}
+                                        </Query>
                                     </td>
                                 </tr>
                                 <tr>
@@ -143,18 +119,13 @@ const NewReleases = (props) => (
                                         </div>
                                     </td>
                                     <td>
-                                        <div className='new-book'>
-                                            <div className='new-book-cover'>
-                                                <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Science fiction' }}>
-                                                    {({ loading, error, data }) => {
-                                                        if (loading) return <p>Loading...</p>;
-                                                        if (error) return <p>Error</p>;
-
-                                                        if (data) return <BookItem data={data} />;
-                                                    }}
-                                                </Query>
-                                            </div>
-                                        </div>
+                                        <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Science fiction' }}>
+                                            {({ loading, error, data }) => {
+                                                if (loading) return <p>Loading...</p>;
+                                                if (error) return <p>Error</p>
+                                                if (data) return <BookItem data={data} />;
+                                            }}
+                                        </Query>
                                     </td>
                                 </tr>
                                 <tr>
@@ -164,18 +135,13 @@ const NewReleases = (props) => (
                                         </div>
                                     </td>
                                     <td>
-                                        <div className='new-book'>
-                                            <div className='new-book-cover'>
-                                                <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Fantasy' }}>
-                                                    {({ loading, error, data }) => {
-                                                        if (loading) return <p>Loading...</p>;
-                                                        if (error) return <p>Error</p>;
-
-                                                        if (data) return <BookItem data={data} />;
-                                                    }}
-                                                </Query>
-                                            </div>
-                                        </div>
+                                        <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Fantasy' }}>
+                                            {({ loading, error, data }) => {
+                                                if (loading) return <p>Loading...</p>;
+                                                if (error) return <p>Error</p>
+                                                if (data) return <BookItem data={data} />;
+                                            }}
+                                        </Query>
                                     </td>
                                 </tr>
                                 <tr>
@@ -185,18 +151,13 @@ const NewReleases = (props) => (
                                         </div>
                                     </td>
                                     <td>
-                                        <div className='new-book'>
-                                            <div className='new-book-cover'>
-                                                <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Historical fiction' }}>
-                                                    {({ loading, error, data }) => {
-                                                        if (loading) return <p>Loading...</p>;
-                                                        if (error) return <p>Error</p>;
-
-                                                        if (data) return <BookItem data={data} />;
-                                                    }}
-                                                </Query>
-                                            </div>
-                                        </div>
+                                        <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Historical fiction' }}>
+                                            {({ loading, error, data }) => {
+                                                if (loading) return <p>Loading...</p>;
+                                                if (error) return <p>Error</p>
+                                                if (data) return <BookItem data={data} />;
+                                            }}
+                                        </Query>
                                     </td>
                                 </tr>
                                 <tr>
@@ -206,18 +167,13 @@ const NewReleases = (props) => (
                                         </div>
                                     </td>
                                     <td>
-                                        <div className='new-book'>
-                                            <div className='new-book-cover'>
-                                                <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Graphic novel' }}>
-                                                    {({ loading, error, data }) => {
-                                                        if (loading) return <p>Loading...</p>;
-                                                        if (error) return <p>Error</p>;
-
-                                                        if (data) return <BookItem data={data} />;
-                                                    }}
-                                                </Query>
-                                            </div>
-                                        </div>
+                                        <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Graphic novel' }}>
+                                            {({ loading, error, data }) => {
+                                                if (loading) return <p>Loading...</p>;
+                                                if (error) return <p>Error</p>
+                                                if (data) return <BookItem data={data} />;
+                                            }}
+                                        </Query>
                                     </td>
                                 </tr>
                                 <tr>
@@ -227,18 +183,13 @@ const NewReleases = (props) => (
                                         </div>
                                     </td>
                                     <td>
-                                        <div className='new-book'>
-                                            <div className='new-book-cover'>
-                                                <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Biography' }}>
-                                                    {({ loading, error, data }) => {
-                                                        if (loading) return <p>Loading...</p>;
-                                                        if (error) return <p>Error</p>;
-
-                                                        if (data) return <BookItem data={data} />;
-                                                    }}
-                                                </Query>
-                                            </div>
-                                        </div>
+                                        <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Biography' }}>
+                                            {({ loading, error, data }) => {
+                                                if (loading) return <p>Loading...</p>;
+                                                if (error) return <p>Error</p>
+                                                if (data) return <BookItem data={data} />;
+                                            }}
+                                        </Query>
                                     </td>
                                 </tr>
                                 <tr>
@@ -248,18 +199,14 @@ const NewReleases = (props) => (
                                         </div>
                                     </td>
                                     <td>
-                                        <div className='new-book'>
-                                            <div className='new-book-cover'>
-                                                <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Autobiography' }}>
-                                                    {({ loading, error, data }) => {
-                                                        if (loading) return <p>Loading...</p>;
-                                                        if (error) return <p>Error</p>;
-
-                                                        if (data) return <BookItem data={data} />;
-                                                    }}
-                                                </Query>
-                                            </div>
-                                        </div>
+                                        <Query query={BOOKS_BY_GENRE} variables={{ genreString: 'Autobiography' }}>
+                                            {({ loading, error, data }) => {
+                                                if (loading) return <p>Loading...</p>;
+                                                if (error) return <p>Error</p>
+                                                
+                                                if (data) return <BookItem data={data} />;
+                                            }}
+                                        </Query>
                                     </td>
                                 </tr>
                             </tbody>
