@@ -21,7 +21,6 @@ const ProtectedHome = props => (
             `
           })
         );
-        // console.log(client);
         return (
           <Query query={CACHED_USER}>
             {({ loading, error, data }) => {

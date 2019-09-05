@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const graphql = require("graphql");
 const { GraphQLList, GraphQLObjectType, GraphQLString, GraphQLID } = graphql;
-const UserType = require("./user_type");
-const Shelf = mongoose.model("shelves");
+const UserType = require("./user_type")
+const Shelf = mongoose.model("shelves")
 
 const ShelfType = new GraphQLObjectType({
   name: "ShelfType",
@@ -18,12 +18,13 @@ const ShelfType = new GraphQLObjectType({
     },
     books: {
       type: new GraphQLList(require("./book_type")),
-      async resolve(parentValue) {
-        const shelf = await Shelf.findById(parentValue.id).populate("books");
-        return shelf.books;
+      resolve(parentValue) {
+        return Shelf.findById(parentValue.id)
+          .populate("books")
+          .then(shelf => shelf.books)
       }
     }
   })
-});
+})
 
-module.exports = ShelfType;
+module.exports = ShelfType
