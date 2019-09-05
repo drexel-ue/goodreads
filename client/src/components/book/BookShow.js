@@ -189,6 +189,7 @@ export default withRouter(
                         <div className="option">{`Follow ${author.name}`}</div>
                       </div>
                     </div>
+                    <div className="bottom">{author.bio}</div>
                   </div>
                 </div>
               );

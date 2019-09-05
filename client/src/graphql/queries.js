@@ -52,6 +52,7 @@ export default {
           _id
           followerIds
           profilePhoto
+          bio
         }
       }
     }
