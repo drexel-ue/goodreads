@@ -20,7 +20,13 @@ const IndexGenre = props => {
                         <ul className="index-ul">
                             {data.booksByGenre.map(book => (
                                 <li className="list-item" key={book._id}>
-                                    <img className="img" src={book.coverPhoto} alt=""></img>
+                                    <div className="tooltip">
+                                        <img className="book-img" src={book.coverPhoto} alt=""></img>
+                                        <div className="book-info right">
+                                            <div>{book.title}</div>
+                                            <div>{book.description}</div>
+                                        </div>
+                                    </div>
                                 </li>
                             ))}
                         </ul>
@@ -42,7 +48,13 @@ const IndexGenre = props => {
                         <ul className="index-ul">
                             {data.booksByGenre.map(book => (
                                 <li className="list-item" key={book._id}>
-                                    <img className="img" src={book.coverPhoto} alt=""></img>
+                                    <div className="tooltip">
+                                        <img className="book-img" src={book.coverPhoto} alt=""></img>
+                                        <div className="book-info right">
+                                            <div>{book.title}</div>
+                                            <div>{book.description}</div>
+                                        </div>
+                                    </div>
                                 </li>
                             ))}
                         </ul>
@@ -64,7 +76,13 @@ const IndexGenre = props => {
                         <ul className="index-ul">
                             {data.booksByGenre.map(book => (
                                 <li className="list-item" key={book._id}>
-                                    <img className="img" src={book.coverPhoto} alt=""></img>
+                                    <div className="tooltip">
+                                        <img className="book-img" src={book.coverPhoto} alt=""></img>
+                                        <div className="book-info right">
+                                            <div>{book.title}</div>
+                                            <div>{book.description}</div>
+                                        </div>
+                                    </div>
                                 </li>
                             ))}
                         </ul>
@@ -86,7 +104,13 @@ const IndexGenre = props => {
                         <ul className="index-ul">
                             {data.booksByGenre.map(book => (
                                 <li className="list-item" key={book._id}>
-                                    <img className="img" src={book.coverPhoto} alt=""></img>
+                                    <div className="tooltip">
+                                        <img className="book-img" src={book.coverPhoto} alt=""></img>
+                                        <div className="book-info right">
+                                            <div>{book.title}</div>
+                                            <div>{book.description}</div>
+                                        </div>
+                                    </div>
                                 </li>
                             ))}
                         </ul>
@@ -108,7 +132,13 @@ const IndexGenre = props => {
                         <ul className="index-ul">
                             {data.booksByGenre.map(book => (
                                 <li className="list-item" key={book._id}>
-                                    <img className="img" src={book.coverPhoto} alt=""></img>
+                                    <div className="tooltip">
+                                        <img className="book-img" src={book.coverPhoto} alt=""></img>
+                                        <div className="book-info right">
+                                            <div>{book.title}</div>
+                                            <div>{book.description}</div>
+                                        </div>
+                                    </div>
                                 </li>
                             ))}
                         </ul>
@@ -130,7 +160,13 @@ const IndexGenre = props => {
                         <ul className="index-ul">
                             {data.booksByGenre.map(book => (
                                 <li className="list-item" key={book._id}>
-                                    <img className="img" src={book.coverPhoto} alt=""></img>
+                                    <div className="tooltip">
+                                        <img className="book-img" src={book.coverPhoto} alt=""></img>
+                                        <div className="book-info right">
+                                            <div>{book.title}</div>
+                                            <div>{book.description}</div>
+                                        </div>
+                                    </div>
                                 </li>
                             ))}
                         </ul>
