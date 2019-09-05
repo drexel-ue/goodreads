@@ -165,7 +165,6 @@
       }
       .purchase_options {
         display: flex;
-        // justify-content: space-around;
         .option {
           padding: 10px;
           border-radius: 3px;
@@ -199,5 +198,32 @@
   }
   .section_3 {
     width: 300px;
+    .genre_block {
+      .header {
+        color: #382110;
+        font-size: 12px;
+        font-weight: bold;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #d8d8d8;
+      }
+      .header:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+      .genres {
+        margin-top: 5px;
+        .genre {
+          font-size: 14px;
+          line-height: 21px;
+          color: #00635d;
+          margin-left: 5px;
+          padding: 5px 0;
+        }
+        .genre:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+    }
   }
 }

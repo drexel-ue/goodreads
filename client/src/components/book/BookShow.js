@@ -152,7 +152,9 @@ export default withRouter(
 
             const section3 = () => {
               const placeBorder = (index, total) =>
-                index === total - 1 ? { borderBottom: "" } : {};
+                index === total - 1
+                  ? {}
+                  : { borderBottom: "1px solid #d8d8d8" };
 
               return (
                 <div className="section_3">
