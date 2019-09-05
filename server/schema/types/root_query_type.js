@@ -46,7 +46,7 @@ const RootQueryType = new GraphQLObjectType({
       type: BookType,
       args: { _id: { type: GraphQLID } },
       async resolve(_, { _id }) {
-        return await Book.findById(_id).populate(["series", "authors"]);
+        return await Book.findById(_id).populate("authors");
       }
     },
     books: {

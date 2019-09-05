@@ -6,6 +6,7 @@ const Shelf = require("../server/models/Shelf");
 const publishers = require("./publishers");
 const genres = require("./genres");
 const settings = require("./settings");
+const series = require("./series");
 const bcrypt = require("bcryptjs");
 const db = require("../config/keys").MONGO_URI;
 const mongoose = require("mongoose");
@@ -109,6 +110,8 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
           authors: ble,
           rating: faker.random.number({ min: 0, max: 5 }),
           coverPhoto: faker.image.image(),
+          series:
+            series[faker.random.number({ min: 0, max: series.length - 1 })],
           coverType: ["Hardcover", "Paperback"][
             faker.random.number({ min: 0, max: 1 })
           ],

@@ -10,7 +10,6 @@ const {
   GraphQLID
 } = graphql;
 const RatingType = require("./rating_type");
-const SeriesType = require("./series_type");
 const Book = mongoose.model("books");
 
 const BookType = new GraphQLObjectType({
@@ -52,7 +51,7 @@ const BookType = new GraphQLObjectType({
         return book.reviews;
       }
     },
-    series: { type: SeriesType },
+    series: { type: GraphQLString },
     questions: {
       type: new GraphQLList(require("./question_type")),
       async resolve(parentValue) {

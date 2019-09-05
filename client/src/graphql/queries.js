@@ -44,9 +44,7 @@ export default {
         edition
         pages
         isbn
-        series {
-          title
-        }
+        series
         authors {
           name
           _id

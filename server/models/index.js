@@ -7,6 +7,5 @@ require("./Like");
 require("./Question");
 require("./Rating");
 require("./Review");
-require("./Series");
 require("./Shelf");
 require("./User");
