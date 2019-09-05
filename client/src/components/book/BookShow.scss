@@ -110,6 +110,31 @@
         }
       }
     }
+    .rating_row {
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      color: #00635d;
+      font-size: 11px;
+      .fa-circle {
+        font-size: 5px;
+        color: #999999;
+        margin: 0 8px;
+      }
+      .stars {
+        display: flex;
+        font-size: 13px;
+        color: #aaa;
+        margin-right: 3px;
+      }
+      .details_button {
+        display: flex;
+        align-items: center;
+        .button_text {
+          margin-left: 3px;
+        }
+      }
+    }
   }
   .section_3 {
     width: 300px;

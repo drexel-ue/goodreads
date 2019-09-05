@@ -80,6 +80,25 @@ export default withRouter(({ match, history }) => {
                   })}
                 </div>
               </div>
+              <div className="rating_row">
+                <div className="stars">
+                  <i className="fas fa-star"></i>
+                  <i className="fas fa-star"></i>
+                  <i className="fas fa-star"></i>
+                  <i className="fas fa-star"></i>
+                  <i className="fas fa-star"></i>
+                </div>
+                <div className="rating">{book.rating}</div>
+                <i className="fas fa-circle"></i>
+                <div className="details_button">
+                  <i className="far fa-chart-bar"></i>
+                  <div className="button_text">Rating details</div>
+                </div>
+                <i className="fas fa-circle"></i>
+                <div className="rating_count">280,209 ratings</div>
+                <i className="fas fa-circle"></i>
+                <div className="review_count">209,280 reviews</div>
+              </div>
             </div>
             <div className="section_3"></div>
           </div>

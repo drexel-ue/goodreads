@@ -24,7 +24,7 @@ const BookType = new GraphQLObjectType({
         return book.authors;
       }
     },
-    rating: { type: RatingType },
+    rating: { type: GraphQLInt },
     coverPhoto: { type: GraphQLString },
     coverType: { type: GraphQLString },
     description: { type: GraphQLString },
