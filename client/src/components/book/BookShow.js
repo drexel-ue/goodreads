@@ -33,6 +33,13 @@ export default withRouter(({ match, history }) => {
                 </div>
               </div>
               <div className="rate_text">Rate this book</div>
+              <div className="stars">
+                <i className="far fa-star"></i>
+                <i className="far fa-star"></i>
+                <i className="far fa-star"></i>
+                <i className="far fa-star"></i>
+                <i className="far fa-star"></i>
+              </div>
             </div>
             <div className="section_2"></div>
             <div className="section_3"></div>
