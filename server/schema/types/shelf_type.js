@@ -10,6 +10,12 @@ const ShelfType = new GraphQLObjectType({
     _id: { type: GraphQLID },
     name: { type: GraphQLString },
     user: { type: UserType },
+    bookIds: {
+      type: new GraphQLList(GraphQLID),
+      resolve(parentValue) {
+        return parentValue.books;
+      }
+    },
     books: {
       type: new GraphQLList(require("./book_type")),
       async resolve(parentValue) {

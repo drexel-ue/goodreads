@@ -12,13 +12,9 @@ export default {
           title
           coverPhoto
         }
-        friends {
-          name
-        }
+        friendIds
         shelves {
-          books {
-            title
-          }
+          bookIds
         }
       }
     }

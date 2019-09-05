@@ -30,10 +30,14 @@ const RootQueryType = new GraphQLObjectType({
           const regexp = new RegExp(queryString, "i");
           return await User.find({
             $or: [{ name: regexp }, { email: regexp }]
-          });
+          })
+            .populate("shelves")
+            .limit(30);
         }
 
-        return await User.find({});
+        return await User.find({})
+          .populate("shelves")
+          .limit(30);
       }
     }
   })
