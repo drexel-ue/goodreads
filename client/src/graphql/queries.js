@@ -31,6 +31,22 @@ export default {
       }
     }
   `,
+  BOOK_BY_ID: gql`
+    query BookById($_id: ID!) {
+      book(_id: $_id) {
+        _id
+        title
+        coverPhoto
+        coverType
+        description
+        publishDate
+        publisher
+        edition
+        pages
+        isbn
+      }
+    }
+  `,
   BOOKS_BY_GENRE: gql`
     query BooksByGenre($genreString: String) {
       booksByGenre(genreString: $genreString) {
