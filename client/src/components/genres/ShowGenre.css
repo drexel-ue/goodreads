@@ -1,6 +1,27 @@
-.genre-show-container{
+.content-genre-show-container{
     margin-top: 100px;
+    margin-left:25%
+}
+
+.genre-show-container{
     display: flex;
     justify-content: center;
-    align-items: center;
+    height: 100%;
+    margin-left: 25%;
+    width: 55%;
+}
+
+.col {
+    flex: 1;
+    padding-bottom: 14px
+}
+
+.show-ul {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap
+}
+
+.show-ul .col{
+    width: 32%;
 }

@@ -37,7 +37,7 @@ module.exports = [
   "Thriller",
   "Young-adult",
   "Art",
-  "Alternate history",
+  "Alternate-history",
   "Autobiography",
   "Anthology",
   "Biography",
