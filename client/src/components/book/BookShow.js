@@ -34,11 +34,11 @@ export default withRouter(({ match, history }) => {
               </div>
               <div className="rate_text">Rate this book</div>
               <div className="stars">
-                <i className="far fa-star"></i>
-                <i className="far fa-star"></i>
-                <i className="far fa-star"></i>
-                <i className="far fa-star"></i>
-                <i className="far fa-star"></i>
+                <i className="fas fa-star"></i>
+                <i className="fas fa-star"></i>
+                <i className="fas fa-star"></i>
+                <i className="fas fa-star"></i>
+                <i className="fas fa-star"></i>
               </div>
               <div className="preview">
                 <i className="fas fa-book-open"></i>
