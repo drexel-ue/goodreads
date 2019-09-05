@@ -115,7 +115,7 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
           coverType: ["Hardcover", "Paperback"][
             faker.random.number({ min: 0, max: 1 })
           ],
-          description: faker.lorem.paragraphs(3),
+          description: faker.lorem.paragraphs(15, "\n\n"),
           publishDate: Date.parse(faker.date.future()),
           genres: author.genres.slice(
             0,
