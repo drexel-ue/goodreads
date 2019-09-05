@@ -22,11 +22,6 @@ const httpLink = createHttpLink({
   }
 });
 
-// make sure we log any additional errors we receive
-// const errorLink = onError(({ graphQLErrors }) => {
-//   if (graphQLErrors) graphQLErrors.map(({ message }) => console.log(message));
-// });
-
 const client = new ApolloClient({
   link: httpLink,
   cache,
@@ -37,12 +32,13 @@ const client = new ApolloClient({
 });
 
 const token = localStorage.getItem("auth-token");
+const currentUserId = localStorage.getItem("user-id");
 
 cache.writeData({
   data: {
     isLoggedIn: Boolean(token),
     name: "",
-    _id: "",
+    _id: currentUserId,
     profilePhoto: "",
     email: "",
     currentPage: 0

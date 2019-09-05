@@ -41,6 +41,7 @@ export default {
   IS_LOGGED_IN: gql`
     query IsUserLoggedIn {
       isLoggedIn @client
+      _id @client
     }
   `,
   CACHED_USER: gql`

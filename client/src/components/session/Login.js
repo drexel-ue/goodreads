@@ -30,8 +30,9 @@ export default withRouter(
         <Mutation
           mutation={Mutations.LOGIN_USER}
           onCompleted={data => {
-            const { token } = data.login;
+            const { token, _id } = data.login;
             localStorage.setItem("auth-token", token);
+            localStorage.setItem("user-id", _id);
             this.props.history.push("/");
           }}
           update={(client, data) => this.updateCache(client, data)}
