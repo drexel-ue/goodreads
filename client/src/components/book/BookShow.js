@@ -11,7 +11,10 @@ export default withRouter(
     constructor(props) {
       super(props);
 
-      this.state = { descriptionExpanded: false };
+      this.state = {
+        descriptionExpanded: false,
+        detailsExpanded: false
+      };
     }
     render() {
       return (
@@ -117,7 +120,7 @@ export default withRouter(
                   <div className="description" style={expanderStyle}>
                     {book.description}{" "}
                   </div>
-                  <div className="exdespander">
+                  <div className="description_expander">
                     {this.state.descriptionExpanded ? "(less)" : "...more"}
                   </div>
                   <div className="purchase_block">
@@ -134,7 +137,14 @@ export default withRouter(
                   <div className="less_details">
                     {`${book.coverType}, ${book.pages} pages`}
                     <br />
-                    {`Published ${publishDate.toDateString()} by ${book.publisher}`}
+                    {`Published ${publishDate.toDateString()} by ${
+                      book.publisher
+                    }`}
+                  </div>
+                  <div className="details_expander">
+                    {this.state.detailsExpanded
+                      ? "...Less Detail"
+                      : "More Details..."}
                   </div>
                 </div>
               );
