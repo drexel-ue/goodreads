@@ -30,5 +30,21 @@ export default {
         name @client
       }
     }
+  `,
+  BOOKS_BY_GENRE: gql`
+    query BooksByGenre($genreString: String) {
+      booksByGenre(genreString: $genreString) {
+        _id
+        title
+        description
+        coverPhoto
+        authors {
+          name
+        }
+        ratings {
+          stars
+        }
+      }
+    }
   `
 };
