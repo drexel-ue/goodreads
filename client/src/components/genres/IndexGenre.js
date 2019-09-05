@@ -58,7 +58,7 @@ const IndexGenre = props => {
                                     </li>
                                 ))}
                             </ul>
-                            <div className="genre-footer">More suspense...</div>
+                            <Link to={"/genres/Suspense"} className="genre-footer">More suspense...</Link>
                         </div>
                     )
                 }
@@ -86,7 +86,7 @@ const IndexGenre = props => {
                                     </li>
                                 ))}
                             </ul>
-                            <div className="genre-footer">More fantasy...</div>
+                            <Link to={"/genres/Fantasy"} className="genre-footer">More fantasy...</Link>
                         </div>
                     )
                 }
@@ -114,7 +114,7 @@ const IndexGenre = props => {
                                     </li>
                                 ))}
                             </ul>
-                            <div className="genre-footer">More history...</div>
+                            <Link to={"/genres/History"} className="genre-footer">More history...</Link>
                         </div>
                     )
                 }
@@ -142,7 +142,7 @@ const IndexGenre = props => {
                                     </li>
                                 ))}
                             </ul>
-                            <div className="genre-footer">More paranormal romance...</div>
+                            <Link to={"/genres/Paranormal-romance"} className="genre-footer">More paranormal romance...</Link>
                         </div>
                     )
                 }
@@ -170,7 +170,7 @@ const IndexGenre = props => {
                                     </li>
                                 ))}
                             </ul>
-                            <div className="genre-footer">More chick lit...</div>
+                            <Link to={"/genres/Chick-lit"} className="genre-footer">More chick lit...</Link>
                         </div>
                 )
             }
@@ -179,54 +179,60 @@ const IndexGenre = props => {
             </div>
             <div className="genre-side-bar-container">
                 <div>
-                    <h3>Browse</h3>
+                    <h2 className="side-bar-header">Browse</h2>
                     <div className="side-bar-links-container">
-                        <Link to={"/genres/Science-fiction"} className="side-bar-link">Science-fiction</Link>
-                        <Link to={"/genres/Comic-book"} className="side-bar-link">Comic-book</Link>
-                        <Link to={"/genres/Diary"} className="side-bar-link">Diary</Link>
-                        <Link to={"/genres/Coming-of-age"} className="side-bar-link">Coming-of-age</Link>
-                        <Link to={"/genres/Dictionary"} className="side-bar-link">Dictionary</Link>
-                        <Link to={"/genres/Crime"} className="side-bar-link">Crime</Link>
-                        <Link to={"/genres/Encyclopedia"} className="side-bar-link">Encyclopedia</Link>
-                        <Link to={"/genres/Drama"} className="side-bar-link">Drama</Link>
-                        <Link to={"/genres/Guide"} className="side-bar-link">Guide</Link>
-                        <Link to={"/genres/Fairytale"} className="side-bar-link">Fairytale</Link>
-                        <Link to={"/genres/Health"} className="side-bar-link">Health</Link>
-                        <Link to={"/genres/Fantasy"} className="side-bar-link">Fantasy</Link>
-                        <Link to={"/genres/History"} className="side-bar-link">History</Link>
-                        <Link to={"/genres/Graphic-novel"} className="side-bar-link">Graphic-novel</Link>
-                        <Link to={"/genres/Journal"} className="side-bar-link">Journal</Link>
-                        <Link to={"/genres/Historical-fiction"} className="side-bar-link">Historical-fiction</Link>
-                        <Link to={"/genres/Math"} className="side-bar-link">Math</Link>
-                        <Link to={"/genres/Horror"} className="side-bar-link">Horror</Link>
-                        <Link to={"/genres/Memoir"} className="side-bar-link">Memoir</Link>
-                        <Link to={"/genres/Mystery"} className="side-bar-link">Mystery</Link>
-                        <Link to={"/genres/Prayer"} className="side-bar-link">Prayer</Link>
-                        <Link to={"/genres/Paranormal-romance"} className="side-bar-link">Paranormal-romance</Link>
-                        <Link to={"/genres/Picture-book"} className="side-bar-link">Picture-book</Link>
-                        <Link to={"/genres/Textbook"} className="side-bar-link">Textbook</Link>
-                        <Link to={"/genres/Poetry"} className="side-bar-link">Poetry</Link>
-                        <Link to={"/genres/Review"} className="side-bar-link">Review</Link>
-                        <Link to={"/genres/Political-thriller"} className="side-bar-link">Political-thriller</Link>
-                        <Link to={"/genres/Science"} className="side-bar-link">Science</Link>
-                        <Link to={"/genres/Romance"} className="side-bar-link">Romance</Link>
-                        <Link to={"/genres/Self-help"} className="side-bar-link">Self-help</Link>
-                        <Link to={"/genres/Satire"} className="side-bar-link">Satire</Link>
-                        <Link to={"/genres/Travel"} className="side-bar-link">Travel</Link>
-                        <Link to={"/genres/Science-fiction"} className="side-bar-link">Science-fiction</Link>
-                        <Link to={"/genres/True-crime"} className="side-bar-link">True-crime</Link>
-                        <Link to={"/genres/Short-story"} className="side-bar-link">Short-story</Link>
-                        <Link to={"/genres/Suspense"} className="side-bar-link">Suspense</Link>
-                        <Link to={"/genres/Thriller"} className="side-bar-link">Thriller</Link>
-                        <Link to={"/genres/Young-adult"} className="side-bar-link">Young-adult</Link>
-                        <Link to={"/genres/Art"} className="side-bar-link">Art</Link>
-                        <Link to={"/genres/Alternate-history"} className="side-bar-link">Alternate-history</Link>
-                        <Link to={"/genres/Autobiography"} className="side-bar-link">Autobiography</Link>
-                        <Link to={"/genres/Anthology"} className="side-bar-link">Anthology</Link>
-                        <Link to={"/genres/Biography"} className="side-bar-link">Biography</Link>
-                        <Link to={"/genres/Chick-lit"} className="side-bar-link">Chick-lit</Link>
-                        <Link to={"/genres/Children's"} className="side-bar-link">Children's</Link>
-                        <Link to={"/genres/"} className="side-bar-link"></Link>
+                        <div className="side-bar-row">
+                            <div className="side-bar-column">
+                                <Link to={"/genres/Science-fiction"} className="side-bar-link">Science-fiction</Link>
+                                <Link to={"/genres/Comic-book"} className="side-bar-link">Comic-book</Link>
+                                <Link to={"/genres/Diary"} className="side-bar-link">Diary</Link>
+                                <Link to={"/genres/Coming-of-age"} className="side-bar-link">Coming-of-age</Link>
+                                <Link to={"/genres/Dictionary"} className="side-bar-link">Dictionary</Link>
+                                <Link to={"/genres/Crime"} className="side-bar-link">Crime</Link>
+                                <Link to={"/genres/Encyclopedia"} className="side-bar-link">Encyclopedia</Link>
+                                <Link to={"/genres/Drama"} className="side-bar-link">Drama</Link>
+                                <Link to={"/genres/Guide"} className="side-bar-link">Guide</Link>
+                                <Link to={"/genres/Fairytale"} className="side-bar-link">Fairytale</Link>
+                                <Link to={"/genres/Health"} className="side-bar-link">Health</Link>
+                                <Link to={"/genres/Fantasy"} className="side-bar-link">Fantasy</Link>
+                                <Link to={"/genres/History"} className="side-bar-link">History</Link>
+                                <Link to={"/genres/Graphic-novel"} className="side-bar-link">Graphic-novel</Link>
+                                <Link to={"/genres/Journal"} className="side-bar-link">Journal</Link>
+                                <Link to={"/genres/Historical-fiction"} className="side-bar-link">Historical-fiction</Link>
+                                <Link to={"/genres/Math"} className="side-bar-link">Math</Link>
+                                <Link to={"/genres/Horror"} className="side-bar-link">Horror</Link>
+                                <Link to={"/genres/Memoir"} className="side-bar-link">Memoir</Link>
+                                <Link to={"/genres/Mystery"} className="side-bar-link">Mystery</Link>
+                                <Link to={"/genres/Prayer"} className="side-bar-link">Prayer</Link>
+                                <Link to={"/genres/Paranormal-romance"} className="side-bar-link">Paranormal-romance</Link>
+                            </div>
+                            <div className="side-bar-column">
+                                <Link to={"/genres/Picture-book"} className="side-bar-link">Picture-book</Link>
+                                <Link to={"/genres/Textbook"} className="side-bar-link">Textbook</Link>
+                                <Link to={"/genres/Poetry"} className="side-bar-link">Poetry</Link>
+                                <Link to={"/genres/Review"} className="side-bar-link">Review</Link>
+                                <Link to={"/genres/Political-thriller"} className="side-bar-link">Political-thriller</Link>
+                                <Link to={"/genres/Science"} className="side-bar-link">Science</Link>
+                                <Link to={"/genres/Romance"} className="side-bar-link">Romance</Link>
+                                <Link to={"/genres/Self-help"} className="side-bar-link">Self-help</Link>
+                                <Link to={"/genres/Satire"} className="side-bar-link">Satire</Link>
+                                <Link to={"/genres/Travel"} className="side-bar-link">Travel</Link>
+                                <Link to={"/genres/Science-fiction"} className="side-bar-link">Science-fiction</Link>
+                                <Link to={"/genres/True-crime"} className="side-bar-link">True-crime</Link>
+                                <Link to={"/genres/Short-story"} className="side-bar-link">Short-story</Link>
+                                <Link to={"/genres/Suspense"} className="side-bar-link">Suspense</Link>
+                                <Link to={"/genres/Thriller"} className="side-bar-link">Thriller</Link>
+                                <Link to={"/genres/Young-adult"} className="side-bar-link">Young-adult</Link>
+                                <Link to={"/genres/Art"} className="side-bar-link">Art</Link>
+                                <Link to={"/genres/Alternate-history"} className="side-bar-link">Alternate-history</Link>
+                                <Link to={"/genres/Autobiography"} className="side-bar-link">Autobiography</Link>
+                                <Link to={"/genres/Anthology"} className="side-bar-link">Anthology</Link>
+                                <Link to={"/genres/Biography"} className="side-bar-link">Biography</Link>
+                                <Link to={"/genres/Chick-lit"} className="side-bar-link">Chick-lit</Link>
+                                <Link to={"/genres/Children's"} className="side-bar-link">Children's</Link>
+                                <Link to={"/genres/"} className="side-bar-link"></Link>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

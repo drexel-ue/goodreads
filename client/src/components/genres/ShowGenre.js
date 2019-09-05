@@ -14,12 +14,12 @@ const ShowGenre = props => (
             return (
                 <div>
                     <div className="content-genre-show-container">
-                        <div>
-                            <Link to={"/genres"}>Genres</Link>
+                        <div className="genre-show-header-links">
+                            <Link className="from" to={"/genres"}>Genres</Link>
                             >
-                            <Link to={`/genres/${props.match.params.genre}`}>{props.match.params.genre}</Link>
+                            <Link className="to" to={`/genres/${props.match.params.genre}`}>{props.match.params.genre}</Link>
                         </div>
-                        <h2>{props.match.params.genre}</h2>
+                        <h2 className="genre-show-header">{props.match.params.genre}</h2>
                         <p>new releases tagged "{props.match.params.genre}"</p>
                     </div>
                     <div className="genre-show-container">
