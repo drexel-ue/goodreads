@@ -44,8 +44,9 @@ const RootQueryType = new GraphQLObjectType({
     },
     book: {
       type: BookType,
-      async resolve(_, args) {
-        return await Book.findById(args._id);
+      args: { _id: { type: GraphQLID } },
+      async resolve(_, { _id }) {
+        return await Book.findById(_id);
       }
     },
     books: {
