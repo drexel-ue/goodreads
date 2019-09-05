@@ -15,12 +15,12 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
   console.log("Connected to MongoDB successfully");
 
   const demoUserData = {
-    email: "DemoUser@badreads.com",
+    email: "12@34.com",
     password: "test123",
     name: "DemoUser"
   };
 
-  const demoUser = await User.findOne({ email: "DemoUser@badreads.com" });
+  const demoUser = await User.findOne({ email: "12@34.com" });
 
   if (!demoUser) {
     const hashedPassword = await bcrypt.hash(demoUserData.password, 10);
