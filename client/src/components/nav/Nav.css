@@ -214,6 +214,7 @@ header {
 }
 
 .dropdown-content {
+    background-color: #FFFFFF;
     width: 150px;
     box-sizing: inherit;
     left: auto;
