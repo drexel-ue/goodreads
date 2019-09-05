@@ -38,6 +38,13 @@ export default {
       }
     }
   `,
+  FETCH_BOOKS: gql`
+    query FetchBooks {
+      books {
+        coverPhoto
+      }
+    }
+  `,
   IS_LOGGED_IN: gql`
     query IsUserLoggedIn {
       isLoggedIn @client
@@ -58,6 +65,7 @@ export default {
         title
         description
         coverPhoto
+        publishDate
         authors {
           name
         }

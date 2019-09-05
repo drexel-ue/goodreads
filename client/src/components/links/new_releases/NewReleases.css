@@ -1,0 +1,221 @@
+div {
+    display: block;
+}
+
+a {
+    color: #00635d;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+img {
+    border: 0;
+}
+
+.releases-container {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+.releases {
+    margin: 0px auto;
+    text-align: left;
+    width: 970px;
+    background: #FFFFFF;
+}
+
+.releases-float {
+    float: left;
+    width: 960px;
+    margin-top: 15px;
+    margin-left: 5px;
+    font-size: 12px;
+    min-height: 400px;
+    background: #FFFFFF;
+}
+
+.left-container {
+    float: left;
+    width: 625px;
+    padding-right: 10px;
+    padding-left: 8px;
+    word-wrap: break-word;
+}
+
+.left-container h1 {
+    color: #382110;
+    background-color: transparent;
+    padding: 0px 0px 2px 0px;
+    font-size: 24px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 15px;
+    line-height: 24px;
+    margin: 4px 0px 4px 0px;
+    display: block;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.new-releases table {
+    -webkit-border-horizontal-spacing: 10px;
+    -webkit-border-vertical-spacing: 10px;
+    display: table;
+    border-collapse: separate;
+    border-color: grey;
+}
+
+.new-releases tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+.new-releases tr {
+    text-align: center;
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+.new-releases td {
+    font-size: 12px;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 18px;
+    padding: 0;
+    width: 130px;
+    display: table-cell;
+    vertical-align: inherit;
+}
+
+.genre {
+    font-size: 12pt;
+    text-align: center;
+}
+
+.genre h3 {
+    font-style: italic;
+    color: #382110;
+    background-color: transparent;
+    margin: 4px 0px 4px 0px;
+    font-weight: normal;
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.new-books-container::after {
+    content: "";
+    clear: both;
+    display: table;
+    width: 600px;
+}
+
+.new-book {
+    margin-right: 0px;
+    margin-bottom: 0px;
+    float: left;
+    display: block;
+    text-align: left;
+    width: 80px;
+    padding: 5px;
+}
+
+.new-book-cover {
+    float: left;
+    margin-right: 10px;
+}
+
+.new-book-cover img {
+    width: 80px;
+    max-height: 120px;
+    min-height: 120px;
+}
+
+.clear {
+    clear: both;
+    display: block;
+    height: 0;
+    margin: 0;
+    font-size: 1px;
+    line-height: 0;
+}
+
+.right-container {
+    float: left;
+    width: 300px;
+    display: inline;
+    margin-left: 8px;
+}
+
+.popular-releases {
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+.release-head-container {
+    padding-bottom: 10px;
+    width: 100%;
+    background-position: top right;
+    background-repeat: no-repeat;
+    height: 28px;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.release-head-container h2 {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 2px 0;
+    width: auto;
+    height: 24px;
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: 11px;
+    text-transform: uppercase;
+    background: transparent;
+    border-bottom: 1px solid #D8D8D8;
+    position: relative;
+    top: 0px;
+    margin-top: 0;
+    color: #382110;
+    line-height: 24px;
+    margin: 4px 0px 4px 0px;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.popular-release-content {
+    padding: 0 0 10px 0;
+    width: 100%;
+    margin: 0;
+}
+
+.popular {
+    text-align: center;
+}
+
+.popular img {
+    width: 80px;
+    min-height: 114px;
+    max-height: 114px;
+    border: none;
+    margin-right: 3px;
+    margin-bottom: 3px;
+}
+
+.new-book-cover p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
