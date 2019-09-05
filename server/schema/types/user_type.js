@@ -13,6 +13,12 @@ const UserType = new GraphQLObjectType({
     isLoggedIn: { type: GraphQLBoolean },
     currentlyReading: { type: require("./book_type") },
     currentPage: { type: GraphQLInt },
+    friendIds: {
+      type: new GraphQLList(GraphQLString),
+      resolve(parentValue) {
+        return parentValue.friends;
+      }
+    },
     friends: {
       type: new GraphQLList(UserType),
       async resolve(parentValue) {

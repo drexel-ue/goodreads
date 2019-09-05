@@ -84,7 +84,7 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
 
   const genAuthors = () => {
     let authors = [];
-    for (let index = 0; index < 100; index++) {
+    for (let index = 0; index < 20; index++) {
       authors.push(
         new Author({
           name: faker.name.firstName() + " " + faker.name.lastName(),
@@ -101,7 +101,7 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
   };
 
   const genBooks = author => {
-    for (let index = 0; index < 100; index++) {
+    for (let index = 0; index < 20; index++) {
       const ble = [author._id].concat(pickCoAuthor(author));
       books.push(
         new Book({
@@ -121,7 +121,7 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
           edition: ["First", "Second", "Limited"][
             faker.random.number({ min: 0, max: 2 })
           ],
-          pages: faker.random.number({ min: 100, max: 1000 }),
+          pages: faker.random.number({ min: 20, max: 200 }),
           isbn: faker.random.uuid(),
           settings: pickSettings()
         })
@@ -149,17 +149,13 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
   // Users.
   const genUsers = async () => {
     let users = [];
-    for (let index = 0; index < 100; index++) {
-      const book =
-        books[faker.random.number({ min: 0, max: books.length - 1 })];
-      const currentPage = faker.random.number({ min: 1, max: book.pages });
+    const pass = await bcrypt.hash("test123", 10);
+    for (let index = 0; index < 20; index++) {
       users.push(
         new User({
           email: faker.internet.email(),
-          password: await bcrypt.hash("test123", 10),
-          name: faker.name.firstName() + " " + faker.name.lastName(),
-          currentlyReading: book.pages,
-          currentPage: currentPage
+          password: pass,
+          name: faker.name.firstName() + " " + faker.name.lastName()
         })
       );
     }
@@ -178,11 +174,7 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
       const friend =
         users[faker.random.number({ min: 0, max: users.length - 1 })];
       if (friend._id !== user._id) friends.push(friend);
-
-      if (!friend.friends.includes(user._id)) {
-        friend.friends.push(user._id);
-      }
-
+      friend.friends.push(user._id);
       friends.push(friend);
     }
     return friends;
@@ -225,7 +217,7 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
 
   let shelves = [];
   const genShelves = user => {
-    for (let index = 0; index < 100; index++) {
+    for (let index = 0; index < 20; index++) {
       shelves.push(
         new Shelf({
           name: faker.internet.domainWord(),
@@ -240,10 +232,14 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
 
   for (let index = 0; index < users.length; index++) {
     const user = users[index];
+    const book = books[faker.random.number({ min: 0, max: books.length - 1 })];
+    const currentPage = faker.random.number({ min: 1, max: book.pages });
 
     user.friends = pickFriends(user);
     user.shelves = genShelves(user);
     user.followedAuthors = pickAuthorsToFollow(user);
+    user.currentlyReading = book;
+    user.currentPage = currentPage;
 
     console.log(`User ${index + 1} spawned`);
   }

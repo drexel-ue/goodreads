@@ -6,6 +6,7 @@ const UserType = require("./user_type");
 const BookType = require("./book_type");
 
 const User = mongoose.model("users");
+const Book = mongoose.model("books");
 
 const RootQueryType = new GraphQLObjectType({
   name: "RootQueryType",
@@ -19,8 +20,33 @@ const RootQueryType = new GraphQLObjectType({
     },
     users: {
       type: new GraphQLList(UserType),
-      async resolve() {
-        return await User.find({});
+      args: { queryString: { type: GraphQLString } },
+      async resolve(_, { queryString }) {
+        if (queryString) {
+          const regexp = new RegExp(queryString, "i");
+          return await User.find({
+            $or: [{ name: regexp }, { email: regexp }]
+          })
+            .populate("shelves")
+            .limit(30);
+        }
+
+        return await User.find({})
+          .populate("shelves")
+          .limit(30);
+      }
+    },
+    books: {
+      type: new GraphQLList(BookType),
+      resolve(parentValue) {
+        return Book.find({})
+      }
+    },
+    booksByGenre: {
+      type: new GraphQLList(BookType),
+      args: { genreString: { type: GraphQLString } },
+      resolve(parentValue, { genreString } ) {
+        return Book.find({ genres: genreString }).limit(6)
       }
     }
   })
