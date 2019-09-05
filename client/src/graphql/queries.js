@@ -47,6 +47,10 @@ export default {
         series {
           title
         }
+        authors {
+          name
+          _id
+        }
       }
     }
   `,

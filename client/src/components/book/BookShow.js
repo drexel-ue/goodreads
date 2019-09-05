@@ -57,6 +57,10 @@ export default withRouter(({ match, history }) => {
                 <div>)</div>
               </div>
             </div>
+            <div className="author">
+              <div>by</div>
+              <div className="name">{book.author.name}</div>
+            </div>
             <div className="section_3"></div>
           </div>
         );
