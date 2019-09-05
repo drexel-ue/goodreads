@@ -1,0 +1,9 @@
+.img {
+    height: 100px;
+    width: 60px;
+    display: block
+}
+
+.list-item {
+    display: flex
+}

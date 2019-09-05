@@ -20,7 +20,8 @@ import {
 } from "react-router-dom";
 import AuthRoute from "./session/AuthRoute";
 import Login from "./session/Login";
-import Friends from "./friend/Friends";
+import Friends from "./friend/friends";
+import IndexGenre from "./genres/IndexGenre"
 
 const App = () => {
   return (
@@ -112,6 +113,12 @@ const App = () => {
           exact
           path="/edit_fav_genres"
           component={EditGenres}
+          routeType="protected"
+        />
+        <AuthRoute
+          exact
+          path="/genres"
+          component={IndexGenre}
           routeType="protected"
         />
         <AuthRoute

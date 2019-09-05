@@ -9,8 +9,10 @@ const {
 } = graphql;
 
 const UserType = require("./user_type");
+const BookType = require("./book_type");
 
 const User = mongoose.model("users");
+const Book = mongoose.model("books");
 
 const RootQueryType = new GraphQLObjectType({
   name: "RootQueryType",
@@ -34,6 +36,19 @@ const RootQueryType = new GraphQLObjectType({
         }
 
         return await User.find({});
+      }
+    },
+    books: {
+      type: new GraphQLList(BookType),
+      resolve(parentValue) {
+        return Book.find({})
+      }
+    },
+    booksByGenre: {
+      type: new GraphQLList(BookType),
+      args: { genreString: { type: GraphQLString } },
+      resolve(parentValue, { genreString } ) {
+        return Book.find({ genres: genreString }).limit(6)
       }
     }
   })

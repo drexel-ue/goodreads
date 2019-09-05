@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Switch } from "react-router-dom";
-import Header from "./Header";
+import Header from "./header";
 import AuthRoute from "../session/AuthRoute";
 import Show from "./Show";
 import Make from "./Make";
-import "./Friends.scss";
+import "./friends.scss";
 
 export default class Friends extends Component {
   constructor(props) {
