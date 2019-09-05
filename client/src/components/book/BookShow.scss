@@ -135,6 +135,20 @@
         }
       }
     }
+    .description {
+      margin-top: 10px;
+      width: 455px;
+      overflow: hidden;
+      font-size: 14px;
+    }
+    .exdespander {
+      color: #00635d;
+      font-size: 14px;
+    }
+    .exdespander:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
   }
   .section_3 {
     width: 300px;

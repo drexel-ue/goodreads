@@ -56,72 +56,76 @@ export default withRouter(
               </div>
             );
 
-            const section2 = (
-              <div className="section_2">
-                <div className="title">{book.title}</div>
-                <div className="series">
-                  <div>(</div>
-                  <div className="link">{book.series}</div>
-                  <div>)</div>
-                </div>
-                <div className="by">
-                  <div className="by">by</div>
-                  <div className="authors">
-                    {book.authors.map((author, index) => {
-                      if (
-                        book.authors.length > 1 &&
-                        index === book.authors.length - 1
-                      ) {
-                        return (
-                          <div key={index} className="author">
-                            {author.name}
-                          </div>
-                        );
-                      } else {
-                        return (
-                          <div key={index} className="with_comma">
-                            <div className="author">{author.name}</div>
-                            <div>,</div>
-                          </div>
-                        );
-                      }
-                    })}
+            const section2 = () => {
+              const expanderStyle = this.state.descriptionExpanded
+                ? {}
+                : { height: "168px" };
+
+              return (
+                <div className="section_2">
+                  <div className="title">{book.title}</div>
+                  <div className="series">
+                    <div>(</div>
+                    <div className="link">{book.series}</div>
+                    <div>)</div>
                   </div>
-                </div>
-                <div className="rating_row">
-                  <div className="stars">
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                  </div>
-                  <div className="rating">{book.rating}</div>
-                  <i className="fas fa-circle"></i>
-                  <div className="details_button">
-                    <i className="far fa-chart-bar"></i>
-                    <div className="button_text">Rating details</div>
-                  </div>
-                  <i className="fas fa-circle"></i>
-                  <div className="rating_count">280,209 ratings</div>
-                  <i className="fas fa-circle"></i>
-                  <div className="review_count">209,280 reviews</div>
-                </div>
-                <div className="description_box">
-                  <div className="description">
-                    {book.description}{" "}
-                    <div className="exdespander">
-                      {this.state.descriptionExpanded ? "(less)" : "...more"}
+                  <div className="by">
+                    <div className="by">by</div>
+                    <div className="authors">
+                      {book.authors.map((author, index) => {
+                        if (
+                          book.authors.length > 1 &&
+                          index === book.authors.length - 1
+                        ) {
+                          return (
+                            <div key={index} className="author">
+                              {author.name}
+                            </div>
+                          );
+                        } else {
+                          return (
+                            <div key={index} className="with_comma">
+                              <div className="author">{author.name}</div>
+                              <div>,</div>
+                            </div>
+                          );
+                        }
+                      })}
                     </div>
                   </div>
+                  <div className="rating_row">
+                    <div className="stars">
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                    </div>
+                    <div className="rating">{book.rating}</div>
+                    <i className="fas fa-circle"></i>
+                    <div className="details_button">
+                      <i className="far fa-chart-bar"></i>
+                      <div className="button_text">Rating details</div>
+                    </div>
+                    <i className="fas fa-circle"></i>
+                    <div className="rating_count">280,209 ratings</div>
+                    <i className="fas fa-circle"></i>
+                    <div className="review_count">209,280 reviews</div>
+                  </div>
+                  <div className="description" style={expanderStyle}>
+                    {book.description}{" "}
+                  </div>
+                  <div className="exdespander">
+                    {this.state.descriptionExpanded ? "(less)" : "...more"}
+                  </div>
                 </div>
-              </div>
-            );
+              );
+            };
 
             return (
               <div className="book_show">
                 {section1}
-                {section2}
+                {section2()}
                 <div className="section_3"></div>
               </div>
             );
