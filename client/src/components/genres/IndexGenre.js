@@ -7,7 +7,7 @@ const { BOOKS_BY_GENRE } = Queries
 
 const IndexGenre = props => {
     return (
-        <div>
+        <div className="index-genre-container">
         <Query query={BOOKS_BY_GENRE} variables={{ genreString: "Science fiction"}}>
 
             {({ loading, error, data }) => {
@@ -15,15 +15,17 @@ const IndexGenre = props => {
                 if (loading) return <p>Loading...</p>;
                 if (error) return <p>Error</p>;
                 return (
-                    <ul>Science Fiction
-                        {data.booksByGenre.map(book =>(
-                            <li className="list-item" key={book._id}>
-                                <img className="img" src={book.coverPhoto} alt=""></img> 
-                                <div>{book.title}</div>
-                                <div>{book.description}</div>
-                            </li>
-                        ))}
-                    </ul>
+                    <div className="genre-container">
+                        <div className="genre-header">Science Fiction</div>
+                        <ul className="index-ul">
+                            {data.booksByGenre.map(book => (
+                                <li className="list-item" key={book._id}>
+                                    <img className="img" src={book.coverPhoto} alt=""></img>
+                                </li>
+                            ))}
+                        </ul>
+                        <div className="genre-footer">More science fiction...</div>
+                    </div>
                 )
             }
         }
@@ -35,14 +37,17 @@ const IndexGenre = props => {
                 if (loading) return <p>Loading...</p>;
                 if (error) return <p>Error</p>;
                 return (
-                    <ul>Suspense
-                        {data.booksByGenre.map(book =>(
-                            <li key={book._id}>
-                                <div>{book.title}</div>
-                                <div>{book.description}</div>
-                            </li>
-                        ))}
-                    </ul>
+                    <div className="genre-container">
+                        <div className="genre-header">Suspense</div>
+                        <ul className="index-ul">
+                            {data.booksByGenre.map(book => (
+                                <li className="list-item" key={book._id}>
+                                    <img className="img" src={book.coverPhoto} alt=""></img>
+                                </li>
+                            ))}
+                        </ul>
+                        <div className="genre-footer">More suspense...</div>
+                    </div>
                 )
             }
         }
@@ -54,14 +59,17 @@ const IndexGenre = props => {
                 if (loading) return <p>Loading...</p>;
                 if (error) return <p>Error</p>;
                 return (
-                    <ul>Fantasy
-                        {data.booksByGenre.map(book =>(
-                            <li key= { book._id }>
-                                <div>{book.title}</div>
-                                <div>{book.description}</div>
-                            </li>
-                        ))}
-                    </ul>
+                    <div className="genre-container">
+                        <div className="genre-header">Fantasy</div>
+                        <ul className="index-ul">
+                            {data.booksByGenre.map(book => (
+                                <li className="list-item" key={book._id}>
+                                    <img className="img" src={book.coverPhoto} alt=""></img>
+                                </li>
+                            ))}
+                        </ul>
+                        <div className="genre-footer">More fantasy...</div>
+                    </div>
                 )
             }
         }
@@ -73,14 +81,17 @@ const IndexGenre = props => {
                 if (loading) return <p>Loading...</p>;
                 if (error) return <p>Error</p>;
                 return (
-                    <ul>History
-                        {data.booksByGenre.map(book =>(
-                            <li key={book._id}>
-                                <div>{book.title}</div>
-                                <div>{book.description}</div>
-                            </li>
-                        ))}
-                    </ul>
+                    <div className="genre-container">
+                        <div className="genre-header">History</div>
+                        <ul className="index-ul">
+                            {data.booksByGenre.map(book => (
+                                <li className="list-item" key={book._id}>
+                                    <img className="img" src={book.coverPhoto} alt=""></img>
+                                </li>
+                            ))}
+                        </ul>
+                        <div className="genre-footer">More history...</div>
+                    </div>
                 )
             }
         }
@@ -92,14 +103,17 @@ const IndexGenre = props => {
                 if (loading) return <p>Loading...</p>;
                 if (error) return <p>Error</p>;
                 return (
-                    <ul>Paranormal Romance
-                        {data.booksByGenre.map(book =>(
-                            <li key={book._id}>
-                                <div>{book.title}</div>
-                                <div>{book.description}</div>
-                            </li>
-                        ))}
-                    </ul>
+                    <div className="genre-container">
+                        <div className="genre-header">Paranormal Romance</div>
+                        <ul className="index-ul">
+                            {data.booksByGenre.map(book => (
+                                <li className="list-item" key={book._id}>
+                                    <img className="img" src={book.coverPhoto} alt=""></img>
+                                </li>
+                            ))}
+                        </ul>
+                        <div className="genre-footer">More paranormal romance...</div>
+                    </div>
                 )
             }
         }
@@ -111,17 +125,20 @@ const IndexGenre = props => {
                 if (loading) return <p>Loading...</p>;
                 if (error) return <p>Error</p>;
                 return (
-                    <ul>Chick Lit
-                        {data.booksByGenre.map(book =>(
-                            <li key={book._id}>
-                                <div>{book.title}</div>
-                                <div>{book.description}</div>
-                            </li>
-                        ))}
-                    </ul>
-                )
-            }
+                    <div className="genre-container">
+                        <div className="genre-header">Chick Lit</div>
+                        <ul className="index-ul">
+                            {data.booksByGenre.map(book => (
+                                <li className="list-item" key={book._id}>
+                                    <img className="img" src={book.coverPhoto} alt=""></img>
+                                </li>
+                            ))}
+                        </ul>
+                        <div className="genre-footer">More chick lit...</div>
+                    </div>
+            )
         }
+    }
         </Query>
         </div>
     )
