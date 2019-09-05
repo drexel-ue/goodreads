@@ -46,5 +46,21 @@ export default {
         }
       }
     }
+  `,
+  BOOKS_BY_GENRE_SHOW: gql`
+      query BooksByGenreSHOW($genreString: String) {
+      booksByGenreShow(genreString: $genreString) {
+        _id
+        title
+        description
+        coverPhoto
+        authors {
+          name
+        }
+        ratings {
+          stars
+        }
+      }
+    }
   `
 };

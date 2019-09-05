@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
 import "./IndexGenre.css"
@@ -8,7 +8,7 @@ const { BOOKS_BY_GENRE } = Queries
 const IndexGenre = props => {
     return (
         <div className="index-genre-container">
-        <Query query={BOOKS_BY_GENRE} variables={{ genreString: "Science fiction"}}>
+        <Query query={BOOKS_BY_GENRE} variables={{ genreString: "Science-fiction"}}>
 
             {({ loading, error, data }) => {
                 // debugger
@@ -30,7 +30,7 @@ const IndexGenre = props => {
                                 </li>
                             ))}
                         </ul>
-                        <div className="genre-footer">More science fiction...</div>
+                        <Link genreString="Science-fiction" to={"/genres/Science-fiction"} className="genre-footer">More science fiction...</Link>
                     </div>
                 )
             }
@@ -120,7 +120,7 @@ const IndexGenre = props => {
             }
         }
         </Query>
-        <Query query={BOOKS_BY_GENRE} variables={{ genreString: "Paranormal romance"}}>
+        <Query query={BOOKS_BY_GENRE} variables={{ genreString: "Paranormal-romance"}}>
 
             {({ loading, error, data }) => {
 
@@ -148,7 +148,7 @@ const IndexGenre = props => {
             }
         }
         </Query>
-        <Query query={BOOKS_BY_GENRE} variables={{ genreString: "Chick lit"}}>
+        <Query query={BOOKS_BY_GENRE} variables={{ genreString: "Chick-lit"}}>
 
             {({ loading, error, data }) => {
 
