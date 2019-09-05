@@ -26,6 +26,12 @@ export default withRouter(({ match, history }) => {
                 src={book.coverPhoto}
                 alt="book cover"
               />
+              <div className="shelf_button">
+                <div className="want_to_read">Want To Read</div>
+                <div className="dropdown_button">
+                  <i className="fas fa-caret-down"></i>
+                </div>
+              </div>
             </div>
             <div className="section_2"></div>
             <div className="section_3"></div>
