@@ -12,9 +12,6 @@ const {
 const mongoose = require("mongoose");
 
 const UserType = require("./types/user_type");
-const GenreType = require("./types/genre_type")
-const PublisherType = require("./types/publisher_type")
-const SettingType = require("./types/setting_type")
 const BookType = require("./types/book_type");
 const AnswerType = require("./types/answer_type");
 const AuthorType = require("./types/author_type");
@@ -30,9 +27,6 @@ const ShelfType = require("./types/shelf_type");
 const AuthService = require("../services/auth");
 
 const User = mongoose.model("users");
-const Genre = mongoose.model("genres")
-const Publisher = mongoose.model("publishers")
-const Setting = mongoose.model("settings")
 const Book = mongoose.model("books");
 const Answer = mongoose.model("answers");
 const Author = mongoose.model("authors");
