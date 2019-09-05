@@ -51,6 +51,11 @@ export default withRouter(({ match, history }) => {
             {section1}
             <div className="section_2">
               <div className="title">{book.title}</div>
+              <div className="series">
+                <div>(</div>
+                <div className="link">To Become Series</div>
+                <div>)</div>
+              </div>
             </div>
             <div className="section_3"></div>
           </div>
