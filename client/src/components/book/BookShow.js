@@ -16,9 +16,17 @@ export default withRouter(({ match, history }) => {
           return <div>error...</div>;
         }
         console.log("data", data);
+        const { book } = data;
+
         return (
           <div className="book_show">
-            <div className="section_1"></div>
+            <div className="section_1">
+              <img
+                className="main_cover"
+                src={book.coverPhoto}
+                alt="book cover"
+              />
+            </div>
             <div className="section_2"></div>
             <div className="section_3"></div>
           </div>

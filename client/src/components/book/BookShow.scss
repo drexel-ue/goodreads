@@ -1,11 +1,16 @@
 .book_show {
   width: fit-content;
-  margin: 0 auto;
+  margin: 20px auto;
   display: flex;
 
   .section_1 {
     width: 150px;
     height: 100px;
+
+    .main_cover {
+      height: 227px;
+      width: 150px;
+    }
   }
 
   .section_2 {
