@@ -19,6 +19,7 @@ export default class ShelfButton extends Component {
     this.timeOut = undefined;
 
     this.show = this.show.bind(this);
+    this.toggleShow = this.toggleShow.bind(this);
     this.timerHide = this.timerHide.bind(this);
   }
 
@@ -27,6 +28,12 @@ export default class ShelfButton extends Component {
     event.stopPropagation();
     clearTimeout(this.timeOut);
     this.setState({ showing: true });
+  }
+
+  toggleShow(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.setState({ showing: !this.state.showing });
   }
 
   timerHide(event) {
@@ -70,6 +77,7 @@ export default class ShelfButton extends Component {
                       <i
                         className="fas fa-caret-down"
                         onMouseEnter={this.show}
+                        onClick={this.toggleShow}
                         onMouseLeave={this.timerHide}
                       ></i>
                       <div
