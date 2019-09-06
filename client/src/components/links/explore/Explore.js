@@ -3,6 +3,7 @@ import { withRouter, Link } from "react-router-dom";
 import { Query } from "react-apollo";
 import Queries from "../../../graphql/queries";
 import BookItem from "../new_releases/BookItem";
+import './Explore.css';
 const { BOOKS_BY_GENRE, FETCH_BOOKS } = Queries;
 
 const Explore = (props) => (
