@@ -146,6 +146,7 @@ class CreateReview extends React.Component {
             }}</ApolloConsumer>
         )
     }
+    
 }
 
 export default withRouter(CreateReview)
