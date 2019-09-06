@@ -30,6 +30,15 @@
         justify-content: center;
         font-size: 25px;
       }
+      .modal_background {
+        position: absolute;
+        z-index: 2;
+        top: -9vh;
+        left: -17.55vw;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0, 0, 0, 0.562);
+      }
     }
     .shelf_button {
       background-color: #409d69;
