@@ -55,6 +55,7 @@ const BooksList = () => {
                                         {({ loading, error, data }) => {
                                             if (loading) return <p>Loading...</p>;
                                             if (error) {
+                                                console.log(error);
                                                 return <p>Error</p>;
                                             }
 
@@ -108,7 +109,7 @@ const BooksList = () => {
                                                                 </td>
                                                                 <td className='table-rating'>
                                                                     <label>avg rating</label>
-                                                                    <div>Rating</div>
+                                                                    <div>{rating}</div>
                                                                 </td>
                                                                 <td className='table-rate'>
                                                                     <label>rating</label>

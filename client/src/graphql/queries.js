@@ -12,9 +12,7 @@ export default {
             authors {
               name
             }
-            rating {
-              stars
-            }
+            rating
           }
         }
       }
