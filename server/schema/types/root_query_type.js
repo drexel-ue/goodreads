@@ -4,9 +4,11 @@ const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull, GraphQLString
 
 const UserType = require("./user_type");
 const BookType = require("./book_type");
+const ReviewType = require("./review_type");
 
 const User = mongoose.model("users");
 const Book = mongoose.model("books");
+const Review = mongoose.model("reviews");
 const Author = mongoose.model("authors");
 
 const RootQueryType = new GraphQLObjectType({
@@ -77,6 +79,12 @@ const RootQueryType = new GraphQLObjectType({
       args: { genreString: { type: GraphQLString } },
       resolve(parentValue, { genreString }) {
       return Book.find({ genres: genreString }).limit(24)
+      }
+    },
+    reviews: {
+      type: new GraphQLList(ReviewType),
+      resolve(parentValue) {
+        return Review.find({})
       }
     }
   })
