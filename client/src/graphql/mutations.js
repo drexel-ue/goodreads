@@ -33,5 +33,13 @@ export default {
         currentPage
       }
     }
+  `,
+  ADD_TO_SHELF: gql`
+    mutation AddToShelf($shelfId: ID!, $bookId: ID!) {
+      addShelfBook(shelfId: $shelfId, bookId: $bookId) {
+        _id
+        name
+      }
+    }
   `
 };

@@ -7,6 +7,7 @@ import Mutations from "../../graphql/mutations";
 import "./BookShow.scss";
 
 const { SHELVES_BY_USER } = Queries;
+const { ADD_TO_SHELF } = Mutations;
 
 export default class ShelfButton extends Component {
   constructor(props) {
@@ -86,8 +87,36 @@ export default class ShelfButton extends Component {
                         onMouseLeave={this.timerHide}
                       >
                         {shelves.map(shelf => (
-                          <div key={shelf._id} className="shelf">
-                            {shelf.name}
+                          <div key={shelf._id}>
+                            <Mutation
+                              mutation={ADD_TO_SHELF}
+                              onCompleted={data => {
+                                console.log("completed", data);
+                              }}
+                              update={(client, data) =>
+                                console.log("update", data)
+                              }
+                            >
+                              {(addToShelf, { data }) => {
+                                return (
+                                  <div
+                                    className="shelf"
+                                    onClick={event => {
+                                      event.preventDefault();
+                                      event.stopPropagation();
+                                      addToShelf({
+                                        variables: {
+                                          shelfId: shelf._id,
+                                          bookId: this.props._id
+                                        }
+                                      });
+                                    }}
+                                  >
+                                    {shelf.name}
+                                  </div>
+                                );
+                              }}
+                            </Mutation>
                           </div>
                         ))}
                       </div>
