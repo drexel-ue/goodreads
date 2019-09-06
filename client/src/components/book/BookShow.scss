@@ -8,10 +8,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    .main_cover {
-      height: 227px;
-      width: 150px;
-      margin-bottom: 10px;
+    .main_cover_container {
+      position: relative;
+      .main_cover {
+        height: 227px;
+        width: 150px;
+        margin-bottom: 10px;
+      }
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        height: 227px;
+        width: 150px;
+        margin-bottom: 10px;
+        background-color: rgba(0, 0, 0, 0.151);
+      }
     }
     .shelf_button {
       background-color: #409d69;

@@ -4,6 +4,7 @@ import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
 import SeriesBlock from "./SeriesBlock";
 import AuthorBookBlock from "./AuthorBookBlock";
+import MainCover from "./MainCover";
 import "./BookShow.scss";
 
 const { BOOK_BY_ID } = Queries;
@@ -35,11 +36,7 @@ export default withRouter(
 
             const section1 = (
               <div className="section_1">
-                <img
-                  className="main_cover"
-                  src={book.coverPhoto}
-                  alt="book cover"
-                />
+                <MainCover src={book.coverPhoto} />
                 <div className="shelf_button">
                   <div className="want_to_read">Want To Read</div>
                   <div className="dropdown_button">
