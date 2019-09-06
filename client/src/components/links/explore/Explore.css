@@ -6,24 +6,6 @@ h2 {
     margin-inline-end: 0px;
 }
 
-input {
-    -webkit-writing-mode: horizontal-tb !important;
-    text-rendering: auto;
-    color: initial;
-    letter-spacing: normal;
-    word-spacing: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: start;
-    -webkit-appearance: textfield;
-    -webkit-rtl-ordering: logical;
-    cursor: text;
-    margin: 0em;
-    font: 400 13.3333px Arial;
-}
-
 .explore-container {
     width: 100%;
     text-align: center;
@@ -40,7 +22,6 @@ input {
 .explore-float {
     float: left;
     width: 960px;
-    margin-top: 15px;
     margin-left: 5px;
     font-size: 12px;
     min-height: 400px;
@@ -51,7 +32,7 @@ input {
     color: #382110;
     background-color: transparent;
     padding: 0px 0px 2px 0px;
-    font-size: 20px;
+    font-size: 24px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-weight: bold;
     margin-top: 0;
@@ -83,7 +64,7 @@ input {
     margin-top: 0em;
 }
 
-.explore-search input {
+.explore-search-input {
     background: #FFFFFF;
     border-radius: 3px;
     border: #DCD6CC 1px solid;
@@ -96,6 +77,20 @@ input {
     padding: 5px;
     height: 31px;
     width: 80%;
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    -webkit-appearance: textfield;
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    margin: 0em;
+    font: 400 13.3333px Arial;
 }
 
 .explore-search button {
@@ -140,6 +135,18 @@ input {
     margin: 3px 3px 0px 5px;
     padding: initial;
     border: initial;
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    -webkit-rtl-ordering: logical;
+    font: 400 13.3333px Arial;
 }
 
 .explore-box {
@@ -154,7 +161,6 @@ input {
     background-position: top right;
     background-repeat: no-repeat;
     height: 28px;
-    overflow: hidden;
     white-space: nowrap;
 }
 
@@ -204,6 +210,7 @@ input {
 
 .explore-more-genres {
     float: right;
+    margin-top: 5px;
 }
 
 .explore-more-genres a {
