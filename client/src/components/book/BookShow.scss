@@ -16,6 +16,7 @@
         margin-bottom: 10px;
       }
       .overlay {
+        cursor: pointer;
         position: absolute;
         top: 0;
         left: 0;
@@ -38,6 +39,30 @@
         height: 100vh;
         width: 100vw;
         background-color: rgba(0, 0, 0, 0.562);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .modal {
+          position: relative;
+          background: #ffffff;
+          border: 1px solid #a59a9a;
+          border-radius: 4px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .modal_cover {
+            padding: 20px;
+            height: 475px;
+            width: 314px;
+          }
+          .fa-times {
+            cursor: pointer;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: #999999;
+          }
+        }
       }
     }
     .shelf_button {

@@ -11,13 +11,19 @@ export default class MainCover extends Component {
 
     this.src = this.props.src;
     this.toggle = this.toggle.bind(this);
+    this.stopProp = this.stopProp.bind(this);
   }
 
   toggle(field) {
     return event => {
       event.preventDefault();
+      event.stopPropagation();
       this.setState({ [field]: !this.state[field] });
     };
+  }
+
+  stopProp(event) {
+    event.stopPropagation();
   }
 
   render() {
@@ -39,7 +45,12 @@ export default class MainCover extends Component {
         >
           <i className="fas fa-search-plus" />
         </div>
-        <div className={modal} onClick={this.toggle("showModal")}></div>
+        <div className={modal} onClick={this.toggle("showModal")}>
+          <div className="modal" onClick={this.stopProp}>
+            <img className="modal_cover" src={this.src} alt="book cover" />
+            <i className="fas fa-times" onClick={this.toggle("showModal")} />
+          </div>
+        </div>
       </div>
     );
   }
