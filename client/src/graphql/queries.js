@@ -90,5 +90,24 @@ export default {
         }
       }
     }
+  `,
+  FETCH_REVIEWS: gql`
+    query FetchReviews {
+      reviews{
+        user
+        book
+        content
+        hidden
+        dateStarted
+        dateFinished
+        recommendTo
+        recommendBy
+        privateNotes
+        owned
+        postToBlog
+        addToFeed
+        date
+      }
+    }
   `
 };
