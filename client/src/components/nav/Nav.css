@@ -150,7 +150,7 @@ header {
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
-    padding-inline-start: 40px;
+    padding-inline-start: 34px;
 }
 
 .nav-list-item {
@@ -214,6 +214,7 @@ header {
 }
 
 .dropdown-content {
+    background-color: #FFFFFF;
     width: 150px;
     box-sizing: inherit;
     left: auto;
@@ -259,6 +260,7 @@ header {
     border-top: 1px solid lightgray;
     border-left: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
+    border-right: none;
     outline: none;
 }
 
@@ -266,6 +268,7 @@ header {
     border-top: 1px solid lightgray;
     border-right: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
+    border-left: none;
     background: white;
     padding-top: 7px;
     padding-bottom: 7px;

@@ -1,28 +1,31 @@
 import React from "react";
+import AuthRoute from "./session/AuthRoute";
 import Nav from "./nav/Nav";
-import AuthHome from "./home/AuthHome";
-import ProtectedHome from "./home/ProtectedHome";
-import Bookshelf from "./bookshelf/Bookshelf";
-import Recommendations from "./recommendations/Recommendation";
-import NewReleases from "./new_releases/NewReleases";
-import List from "./list/List";
-import Explore from "./explore/Explore";
-import Group from "./groups/Group";
-import Discussion from "./discussions/Discussion";
-import Quotes from "./quotes/Quote";
-import People from "./people/People";
-import Inbox from "./message/Inbox";
-import EditGenres from "./genres/EditGenres";
-import FriendRecommendations from "./recommendations/FriendRecommendations";
+import AuthHome from './links/home/AuthHome';
+import ProtectedHome from './links/home/ProtectedHome';
+import Bookshelf from './links/bookshelf/Bookshelf';
+import Recommendations from './links/recommendations/Recommendation';
+import NewReleases from './links/new_releases/NewReleases';
+import List from './links/list/List';
+import Explore from './links/explore/Explore';
+import Group from './links/groups/Group';
+import Discussion from './links/discussions/Discussion';
+import Quotes from './links/quotes/Quote';
+import People from './links/people/People';
+import Inbox from './links/message/Inbox';
+import EditGenres from './links/genres/EditGenres';
+import FriendRecommendations from './links/recommendations/FriendRecommendations';
 import {
   // Route,
   Switch
 } from "react-router-dom";
-import AuthRoute from "./session/AuthRoute";
 import Login from "./session/Login";
 import Friends from "./friend/friends";
+
 import IndexGenre from "./genres/IndexGenre";
 import BookShow from "./book/BookShow";
+import ShowGenre from "./genres/ShowGenre"
+
 
 const App = () => {
   return (
@@ -44,14 +47,15 @@ const App = () => {
           routeType="auth"
         />
         <AuthRoute
-          exact={true}
+
+          exact
           path="/"
           component={ProtectedHome}
           routeType="protected"
         />
         <AuthRoute
           exact
-          path="/bookshelf"
+          path="/bookshelf/:shelf"
           component={Bookshelf}
           routeType="protected"
         />
@@ -73,7 +77,12 @@ const App = () => {
           component={NewReleases}
           routeType="protected"
         />
-        <AuthRoute exact path="/list" component={List} routeType="protected" />
+        <AuthRoute
+          exact
+          path="/list"
+          component={List}
+          routeType="protected"
+        />
         <AuthRoute
           exact
           path="/book"
@@ -111,7 +120,7 @@ const App = () => {
           routeType="protected"
         />
         <AuthRoute
-          exact={false}
+          exact
           path="/friend"
           component={Friends}
           routeType="protected"
@@ -126,6 +135,12 @@ const App = () => {
           exact
           path="/genres"
           component={IndexGenre}
+          routeType="protected"
+        />
+        <AuthRoute
+          exact
+          path="/genres/:genre"
+          component={ShowGenre}
           routeType="protected"
         />
         <AuthRoute

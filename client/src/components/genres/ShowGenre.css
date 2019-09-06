@@ -1,0 +1,43 @@
+.content-genre-show-container{
+    margin-top: 100px;
+    margin-left:25%
+}
+
+.genre-show-container{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    margin-left: 25%;
+    width: 55%;
+}
+
+.col {
+    flex: 1;
+    padding-bottom: 14px
+}
+
+.show-ul {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap
+}
+
+.show-ul .col{
+    width: 32%;
+}
+
+.genre-show-header-links .from .to {
+    color: #00635d;
+    text-decoration: none;
+}
+
+.genre-show-header {
+    font-size: 24px;
+    color: #382110;
+    font-family: "Merriweather", Georgia, "Times New Roman", serif;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 15px;
+    line-height: 24px;
+    padding-top: 10px;
+}

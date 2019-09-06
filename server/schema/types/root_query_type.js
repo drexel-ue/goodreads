@@ -1,12 +1,6 @@
 const mongoose = require("mongoose");
 const graphql = require("graphql");
-const {
-  GraphQLObjectType,
-  GraphQLList,
-  GraphQLID,
-  GraphQLNonNull,
-  GraphQLString
-} = graphql;
+const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull, GraphQLString } = graphql;
 
 const UserType = require("./user_type");
 const BookType = require("./book_type");
@@ -76,6 +70,13 @@ const RootQueryType = new GraphQLObjectType({
       async resolve(_, { _id }) {
         const author = await Author.findById(_id).populate("books");
         return author.books;
+      }
+    },
+    booksByGenreShow: {
+      type: new GraphQLList(BookType),
+      args: { genreString: { type: GraphQLString } },
+      resolve(parentValue, { genreString }) {
+      return Book.find({ genres: genreString }).limit(24)
       }
     }
   })
