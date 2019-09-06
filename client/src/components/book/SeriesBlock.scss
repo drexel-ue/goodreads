@@ -1,0 +1,43 @@
+.series_block {
+  .header {
+    margin-top: 30px;
+    color: #382110;
+    font-size: 12px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #d8d8d8;
+  }
+  .header:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  .title_and_count {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    margin-bottom: 5px;
+    .title {
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 21px;
+      color: #00635d;
+      margin-left: 5px;
+    }
+    .title:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .count {
+      font-size: 12px;
+      margin-left: 5px;
+    }
+  }
+  .books {
+    display: flex;
+    .cover {
+      height: 75px;
+      width: 49px;
+      margin-right: 5px;
+    }
+  }
+}

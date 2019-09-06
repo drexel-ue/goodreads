@@ -6,6 +6,7 @@ const Shelf = require("../server/models/Shelf");
 const publishers = require("./publishers");
 const genres = require("./genres");
 const settings = require("./settings");
+const series = require("./series");
 const bcrypt = require("bcryptjs");
 const db = require("../config/keys").MONGO_URI;
 const mongoose = require("mongoose");
@@ -14,12 +15,12 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
   console.log("Connected to MongoDB successfully");
 
   const demoUserData = {
-    email: "DemoUser@badreads.com",
+    email: "12@34.com",
     password: "test123",
     name: "DemoUser"
   };
 
-  const demoUser = await User.findOne({ email: "DemoUser@badreads.com" });
+  const demoUser = await User.findOne({ email: "12@34.com" });
 
   if (!demoUser) {
     const hashedPassword = await bcrypt.hash(demoUserData.password, 10);
@@ -109,10 +110,12 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
           authors: ble,
           rating: faker.random.number({ min: 0, max: 5 }),
           coverPhoto: faker.image.image(),
+          series:
+            series[faker.random.number({ min: 0, max: series.length - 1 })],
           coverType: ["Hardcover", "Paperback"][
             faker.random.number({ min: 0, max: 1 })
           ],
-          description: faker.lorem.paragraphs(3),
+          description: faker.lorem.paragraphs(15, "\n\n"),
           publishDate: Date.parse(faker.date.future()),
           genres: author.genres.slice(
             0,

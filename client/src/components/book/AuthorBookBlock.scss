@@ -1,0 +1,37 @@
+.author_book_block {
+  .header {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    color: #382110;
+    font-size: 12px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #d8d8d8;
+  }
+  .header:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  .books {
+    display: flex;
+    .cover {
+      height: 75px;
+      width: 49px;
+      margin-right: 5px;
+    }
+  }
+  .more_link {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 21px;
+    color: #00635d;
+    margin-top: 3px;
+    margin-left: 5px;
+  }
+  .more_link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
