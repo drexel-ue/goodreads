@@ -144,10 +144,11 @@ export default {
         rating
       }
     }
+  `,
+  SHELVES_BY_USER: gql`
+    query ShelvesByUser($_id: ID!) {
+      _id
+      name
+    }
   `
-  // SHELVES_BY_USER: gql`
-  //   query ShelvesByUser($_id: ID!) {
-  //     sh
-  //   }
-  // `
 };
