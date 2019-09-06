@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/drexel-ue/goodreads#readme",
   "dependencies": {
+    "@types/react": "^16.9.2",
+    "@types/react-router-dom": "^4.3.5",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "concurrently": "^4.1.2",
@@ -34,6 +36,7 @@
     "validator": "^11.1.0"
   },
   "devDependencies": {
+    "@types/faker": "^4.1.5",
     "faker": "^4.1.0",
     "nodemon": "^1.19.1"
   }

@@ -21,7 +21,6 @@ const LikeType = require("./types/like_type");
 const QuestionType = require("./types/question_type");
 const RatingType = require("./types/rating_type");
 const ReviewType = require("./types/review_type");
-const SeriesType = require("./types/series_type");
 const ShelfType = require("./types/shelf_type");
 
 const AuthService = require("../services/auth");
@@ -36,7 +35,6 @@ const Like = mongoose.model("likes");
 const Question = mongoose.model("questions");
 const Rating = mongoose.model("ratings");
 const Review = mongoose.model("reviews");
-const Series = mongoose.model("series");
 const Shelf = mongoose.model("shelves");
 
 const mutation = new GraphQLObjectType({
@@ -92,16 +90,40 @@ const mutation = new GraphQLObjectType({
         publishDate: { type: new GraphQLNonNull(GraphQLDateTime) },
         publisher: { type: new GraphQLNonNull(GraphQLString) },
         edition: { type: new GraphQLNonNull(GraphQLString) },
-        series: { type: GraphQLID },
+        series: { type: GraphQLString },
         pages: { type: new GraphQLNonNull(GraphQLInt) },
         isbn: { type: new GraphQLNonNull(GraphQLString) }
       },
-      resolve(parentValue, { title, rating, coverPhoto, coverType, description,
-        publishDate, publisher, edition, series, pages, isbn }) {
-        return new Book({
-          title, rating, coverPhoto, coverType, description,
-          publishDate, publisher, edition, series, pages, isbn
-        }).save()
+
+      async resolve(
+        parentValue,
+        {
+          title,
+          rating,
+          coverPhoto,
+          coverType,
+          description,
+          publishDate,
+          publisher,
+          edition,
+          series,
+          pages,
+          isbn
+        }
+      ) {
+        return await new Book({
+          title,
+          rating,
+          coverPhoto,
+          coverType,
+          description,
+          publishDate,
+          publisher,
+          edition,
+          series,
+          pages,
+          isbn
+        }).save();
       }
     },
 
@@ -125,27 +147,42 @@ const mutation = new GraphQLObjectType({
         publishDate: { type: GraphQLDateTime },
         publisher: { type: GraphQLString },
         edition: { type: GraphQLString },
-        series: { type: GraphQLID },
+        series: { type: GraphQLString },
         pages: { type: GraphQLInt },
         isbn: { type: GraphQLString }
       },
-      resolve(parentValue, { id, title, rating, coverPhoto, coverType, description,
-        publishDate, publisher, edition, series, pages, isbn }) {
-        const updateBookField = {}
+      async resolve(
+        parentValue,
+        {
+          id,
+          title,
+          rating,
+          coverPhoto,
+          coverType,
+          description,
+          publishDate,
+          publisher,
+          edition,
+          series,
+          pages,
+          isbn
+        }
+      ) {
+        const updateBookField = {};
 
-        if (title) updateBookField.title = title
-        if (rating) updateBookField.rating = rating
-        if (coverPhoto) updateBookField.coverPhoto = coverPhoto
-        if (coverType) updateBookField.coverType = coverType
-        if (description) updateBookField.description = description
-        if (publishDate) updateBookField.publishDate = publishDate
-        if (publisher) updateBookField.publisher = publisher
-        if (edition) updateBookField.edition = edition
-        if (series) updateBookField.series = series
-        if (pages) updateBookField.pages = pages
-        if (isbn) updateBookField.isbn = isbn
+        if (title) updateBookField.title = title;
+        if (rating) updateBookField.rating = rating;
+        if (coverPhoto) updateBookField.coverPhoto = coverPhoto;
+        if (coverType) updateBookField.coverType = coverType;
+        if (description) updateBookField.description = description;
+        if (publishDate) updateBookField.publishDate = publishDate;
+        if (publisher) updateBookField.publisher = publisher;
+        if (edition) updateBookField.edition = edition;
+        if (series) updateBookField.series = series;
+        if (pages) updateBookField.pages = pages;
+        if (isbn) updateBookField.isbn = isbn;
 
-        return Book.findOneAndUpdate(
+        return await Book.findOneAndUpdate(
           { _id: id },
           { $set: updateBookField },
           { new: true },
@@ -288,7 +325,93 @@ const mutation = new GraphQLObjectType({
         return Book.removeQuestion(bookId, questionId)
       }
     },
+    addUserQuestion: {
+      type: UserType,
+      args: {
+        userId: { type: GraphQLID },
+        questionId: { type: GraphQLID }
+      },
+      resolve(parentValue, { userId, questionId }) {
+        return User.addQuestion(userId, questionId);
+      }
+    },
 
+    removeUserQuestion: {
+      type: UserType,
+      args: {
+        userId: { type: GraphQLID },
+        questionId: { type: GraphQLID }
+      },
+      resolve(parentValue, { userId, questionId }) {
+        return User.removeQuestion(userId, questionId);
+      }
+    },
+
+    addUserReview: {
+      type: UserType,
+      args: {
+        userId: { type: GraphQLID },
+        reviewId: { type: GraphQLID }
+      },
+      resolve(parentValue, { userId, reviewId }) {
+        return User.addReview(userId, reviewId);
+      }
+    },
+
+    removeUserReview: {
+      type: UserType,
+      args: {
+        userId: { type: GraphQLID },
+        reviewId: { type: GraphQLID }
+      },
+      resolve(parentValue, { userId, reviewId }) {
+        return User.removeReview(userId, reviewId);
+      }
+    },
+
+    addUserFollowedAuthor: {
+      type: UserType,
+      args: {
+        userId: { type: GraphQLID },
+        authorId: { type: GraphQLID }
+      },
+      resolve(parentValue, { userId, authorId }) {
+        return User.addFollowedAuthor(userId, authorId);
+      }
+    },
+
+    removeUserFollowedAuthor: {
+      type: UserType,
+      args: {
+        userId: { type: GraphQLID },
+        authorId: { type: GraphQLID }
+      },
+      resolve(parentValue, { userId, authorId }) {
+        return User.removeFollowedAuthor(userId, authorId);
+      }
+    },
+
+    addUserShelf: {
+      type: UserType,
+      args: {
+        userId: { type: GraphQLID },
+        shelfId: { type: GraphQLID }
+      },
+      resolve(parentValue, { userId, shelfId }) {
+        return User.addShelf(userId, shelfId);
+      }
+    },
+
+    removeUserShelf: {
+      type: UserType,
+      args: {
+        userId: { type: GraphQLID },
+        shelfId: { type: GraphQLID }
+      },
+      resolve(parentValue, { userId, shelfId }) {
+        return User.removeShelf(userId, shelfId);
+      }
+    },
     createAnswer: {
       type: AnswerType,
       args: {
@@ -325,10 +448,53 @@ const mutation = new GraphQLObjectType({
           (err, answer) => {
             return answer
           }
-        )
+        );
       }
     },
 
+    addAnswerLike: {
+      type: AnswerType,
+      args: {
+        answerId: { type: GraphQLID },
+        likeId: { type: GraphQLID }
+      },
+      resolve(parentValue, { answerId, likeId }) {
+        return Answer.addLike(answerId, likeId);
+      }
+    },
+
+    removeAnswerLike: {
+      type: AnswerType,
+      args: {
+        answerId: { type: GraphQLID },
+        likeId: { type: GraphQLID }
+      },
+      resolve(parentValue, { answerId, likeId }) {
+        return Answer.removeLike(answerId, likeId);
+      }
+    },
+
+    addAnswerComment: {
+      type: AnswerType,
+      args: {
+        answerId: { type: GraphQLID },
+        commentId: { type: GraphQLID }
+      },
+      resolve(parentValue, { answerId, commentId }) {
+        return Answer.addComment(answerId, commentId);
+      }
+    },
+
+    removeAnswerComment: {
+      type: AnswerType,
+      args: {
+        answerId: { type: GraphQLID },
+        commentId: { type: GraphQLID }
+      },
+      resolve(parentValue, { answerId, commentId }) {
+        return Answer.removeComment(answerId, commentId);
+      }
+    },
 
     createAuthor: {
       type: AuthorType,
@@ -383,7 +549,52 @@ const mutation = new GraphQLObjectType({
           (err, author) => {
             return author
           }
-        )
+        );
+      }
+    },
+
+    addAuthorGenre: {
+      type: AuthorType,
+      args: {
+        authorId: { type: GraphQLID },
+        genreId: { type: GraphQLID }
+      },
+      resolve(parentValue, { authorId, genreId }) {
+        return Author.addGenre(authorId, genreId);
+      }
+    },
+
+    removeAutherGenre: {
+      type: AuthorType,
+      args: {
+        authorId: { type: GraphQLID },
+        genreId: { type: GraphQLID }
+      },
+      resolve(parentValue, { authorId, genreId }) {
+        return Author.removeGenre(authorId, genreId);
+      }
+    },
+
+    addAuthorFollower: {
+      type: AuthorType,
+      args: {
+        authorId: { type: GraphQLID },
+        userId: { type: GraphQLID }
+      },
+      resolve(parentValue, { authorId, userId }) {
+        return Author.addFollower(authorId, userId);
+      }
+    },
+
+    removeAutherFollower: {
+      type: AuthorType,
+      args: {
+        authorId: { type: GraphQLID },
+        userId: { type: GraphQLID }
+      },
+      resolve(parentValue, { authorId, userId }) {
+        return Author.removeFollower(authorId, userId);
+
       }
     },
 
@@ -426,8 +637,29 @@ const mutation = new GraphQLObjectType({
           (err, character) => {
             return character
           }
-        )
+        );
+      }
+    },
 
+    addCharacterBook: {
+      type: CharacterType,
+      args: {
+        characterId: { type: GraphQLID },
+        bookId: { type: GraphQLID }
+      },
+      resolve(parentValue, { characterId, bookId }) {
+        return Character.addBook(characterId, bookId);
+      }
+    },
+
+    removeCharacterBook: {
+      type: CharacterType,
+      args: {
+        characterId: { type: GraphQLID },
+        bookId: { type: GraphQLID }
+      },
+      resolve(parentValue, { characterId, bookId }) {
+        return Character.removeBook(characterId, bookId);
       }
     },
 
@@ -473,6 +705,29 @@ const mutation = new GraphQLObjectType({
         )
       }
     },
+
+    addCommentLike: {
+      type: CommentType,
+      args: {
+        commentId: { type: GraphQLID },
+        likeId: { type: GraphQLID }
+      },
+      resolve(parentValue, { commentId, likeId }) {
+        return Comment.addLike(commentId, likeId);
+      }
+    },
+
+    removeCommentLike: {
+      type: CommentType,
+      args: {
+        commentId: { type: GraphQLID },
+        likeId: { type: GraphQLID }
+      },
+      resolve(parentValue, { commentId, likeId }) {
+        return Comment.removeLike(commentId, likeId);
+      }
+    },
+
     createLike: {
       type: LikeType,
       args: {
@@ -546,7 +801,29 @@ const mutation = new GraphQLObjectType({
           (err, question) => {
             return question
           }
-        )
+        );
+      }
+    },
+
+    addQuestionLike: {
+      type: QuestionType,
+      args: {
+        questionId: { type: GraphQLID },
+        likeId: { type: GraphQLID }
+      },
+      resolve(parentValue, { questionId, likeId }) {
+        return Question.addLike(questionId, likeId);
+      }
+    },
+
+    removeQuestionLike: {
+      type: QuestionType,
+      args: {
+        questionId: { type: GraphQLID },
+        likeId: { type: GraphQLID }
+      },
+      resolve(parentValue, { questionId, likeId }) {
+        return Question.removeLike(questionId, likeId);
       }
     },
 
@@ -673,44 +950,6 @@ const mutation = new GraphQLObjectType({
         )
       }
     },
-
-    createSeries: {
-      type: SeriesType,
-      args: {
-        title: { type: new GraphQLNonNull(GraphQLString) }
-      },
-      resolve(parentValue, { title }) {
-        return new Series({ title }).save()
-      }
-    },
-
-    deleteSeries: {
-      type: SeriesType,
-      args: { _id: { type: GraphQLID } },
-      resolve(parentValue, { _id }) {
-        return Series.deleteOne({ _id })
-      }
-    },
-
-    updateSeries: {
-      type: SeriesType,
-      args: {
-        id: { type: GraphQLID },
-        title: { type: GraphQLString }
-      },
-      resolve(parentValue, { id, title }) {
-        const updateSeriesField = {}
-        updateSeriesField.title = title
-        return Series.findOneAndUpdate(
-          { _id: id },
-          { $set: updateSeriesField },
-          { new: true },
-          (err, series) => {
-            return series
-          }
-        )
-      }
-    },
     createShelf: {
       type: ShelfType,
       args: {
@@ -748,6 +987,30 @@ const mutation = new GraphQLObjectType({
           }
         )
       }
+
+    },
+
+    addShelfBook: {
+      type: ShelfType,
+      args: {
+        shelfId: { type: GraphQLID },
+        bookId: { type: GraphQLID }
+      },
+      resolve(parentValue, { shelfId, bookId }) {
+        return Shelf.addBook(shelfId, bookId);
+      }
+    },
+
+    removeShelfBook: {
+      type: ShelfType,
+      args: {
+        shelfId: { type: GraphQLID },
+        bookId: { type: GraphQLID }
+      },
+      resolve(parentValue, { shelfId, bookId }) {
+        return Shelf.removeBook(shelfId, bookId);
+      }
+
     }
   }
 });

@@ -1,0 +1,308 @@
+.book_show {
+  width: fit-content;
+  margin: 20px auto;
+  display: flex;
+
+  .section_1 {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .main_cover {
+      height: 227px;
+      width: 150px;
+      margin-bottom: 10px;
+    }
+    .shelf_button {
+      background-color: #409d69;
+      border-radius: 3px;
+      color: white;
+      display: flex;
+      margin-bottom: 5px;
+      .want_to_read {
+        height: 28px;
+        width: 100px;
+        font-size: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .dropdown_button {
+        height: 28px;
+        width: 28px;
+        border-left: 1px solid #38883d;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+    .rate_text {
+      color: #999999;
+      font-size: 11px;
+      margin-bottom: 2px;
+    }
+    .stars {
+      display: flex;
+      margin-bottom: 10px;
+      font-size: 13px;
+      color: #aaa;
+    }
+    .preview {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #181818;
+      .text {
+        font-size: 12px;
+        margin-left: 5px;
+      }
+      .text:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+  .section_2 {
+    margin: 0 15px;
+    width: 455px;
+    .title {
+      color: #333333;
+      font-size: 24px;
+      line-height: 1.25;
+      font-weight: bold;
+      text-overflow: ellipsis;
+    }
+    .series {
+      color: #999999;
+      font-size: 1.5em;
+      display: flex;
+      margin: 5px 0;
+      width: fit-content;
+      .link {
+        margin: 0 2px;
+      }
+    }
+    .series:hover {
+      cursor: pointer;
+      .link {
+        text-decoration: underline;
+      }
+    }
+    .by {
+      display: flex;
+      color: #333;
+      font-size: 16px;
+      .by {
+        margin-right: 3px;
+      }
+      .authors {
+        display: flex;
+        .with_comma {
+          display: flex;
+          margin-right: 3px;
+          .author:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .author:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+    }
+    .rating_row {
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      color: #00635d;
+      font-size: 11px;
+      .fa-circle {
+        font-size: 5px;
+        color: #999999;
+        margin: 0 8px;
+      }
+      .stars {
+        display: flex;
+        font-size: 13px;
+        color: #aaa;
+        margin-right: 3px;
+      }
+      .details_button {
+        display: flex;
+        align-items: center;
+        .button_text {
+          margin-left: 3px;
+        }
+      }
+      .details_button:hover {
+        cursor: pointer;
+        .button_text {
+          text-decoration: underline;
+        }
+      }
+      .rating_count:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+      .review_count:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+    .description {
+      margin-top: 10px;
+      width: 455px;
+      overflow: hidden;
+      font-size: 14px;
+    }
+    .description_expander {
+      color: #00635d;
+      font-size: 14px;
+    }
+    .description_expander:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .purchase_block {
+      border-top: 1px solid #d8d8d8;
+      border-bottom: 1px solid #d8d8d8;
+      display: flex;
+      flex-direction: column;
+      padding: 10px 0;
+      margin: 10px 0;
+      .get_a_copy {
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1.15;
+        text-transform: uppercase;
+        color: #382110;
+      }
+      .purchase_options {
+        display: flex;
+        .option {
+          padding: 10px;
+          border-radius: 3px;
+          border: 1px solid #d6d0c4;
+          font-size: 14px;
+          cursor: pointer;
+          color: #333333;
+          background-color: #f4f1ea;
+          line-height: 1;
+          margin-right: 8px;
+          margin-top: 8px;
+        }
+        .option:hover {
+          background-color: #ece8e1;
+        }
+      }
+    }
+    .less_details {
+      padding: 5px 0;
+      font-size: 12px;
+      color: #333;
+    }
+    .details_expander {
+      color: #00635d;
+      font-size: 12px;
+    }
+    .details_expander:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+  .section_3 {
+    width: 300px;
+    .genre_block {
+      .header {
+        color: #382110;
+        font-size: 12px;
+        font-weight: bold;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #d8d8d8;
+      }
+      .header:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+      .genres {
+        margin-top: 5px;
+        .genre {
+          font-size: 14px;
+          line-height: 21px;
+          color: #00635d;
+          margin-left: 5px;
+          padding: 5px 0;
+        }
+        .genre:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+    }
+    .author_block {
+      .header {
+        color: #382110;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+        padding-bottom: 5px;
+        margin-top: 20px;
+        border-bottom: 1px solid #d8d8d8;
+      }
+      .header:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+      .top {
+        display: flex;
+        margin: 10px 0;
+        .photo {
+          border-radius: 50%;
+          width: 75px;
+          height: 75px;
+          margin-right: 5px;
+        }
+        .info {
+          .name {
+            color: #000000;
+            font-size: 16px;
+            font-weight: bold;
+          }
+          .name:hover {
+            cursor: pointer;
+            text-decoration: underline;
+          }
+          .follower_count {
+            color: #999999;
+            margin-bottom: 4px;
+            margin-top: 4px;
+            font-size: 14px;
+          }
+          .option {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            padding: 10px;
+            border-radius: 3px;
+            border: 1px solid #d6d0c4;
+            font-size: 14px;
+            cursor: pointer;
+            color: #333333;
+            background-color: #f4f1ea;
+            line-height: 1;
+            margin-right: 8px;
+            margin-top: 8px;
+          }
+          .option:hover {
+            background-color: #ece8e1;
+          }
+        }
+      }
+      .bottom {
+        font-size: 14px;
+      }
+    }
+  }
+}

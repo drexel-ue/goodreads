@@ -52,8 +52,7 @@ const BookSchema = new Schema({
     }
   ],
   series: {
-    type: Schema.Types.ObjectId,
-    ref: "series"
+    type: String
   },
   questions: [
     {

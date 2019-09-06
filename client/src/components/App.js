@@ -21,9 +21,12 @@ import {
 } from "react-router-dom";
 import Login from "./session/Login";
 import Friends from "./friend/friends";
-import IndexGenre from "./genres/IndexGenre"
+
+import IndexGenre from "./genres/IndexGenre";
+import BookShow from "./book/BookShow";
 import ShowGenre from "./genres/ShowGenre"
 import CreateReview from "./reviews/CreateReview"
+
 
 const App = () => {
   return (
@@ -55,6 +58,12 @@ const App = () => {
           exact
           path="/bookshelf/:shelf"
           component={Bookshelf}
+          routeType="protected"
+        />
+        <AuthRoute
+          exact
+          path="/book/:bookId"
+          component={BookShow}
           routeType="protected"
         />
         <AuthRoute
