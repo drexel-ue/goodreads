@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
 import "./BookShow.scss";
-import  SeriesBlock from './SeriesBlock'
+import SeriesBlock from "./SeriesBlock";
 
 const { BOOK_BY_ID } = Queries;
 
@@ -159,8 +159,6 @@ export default withRouter(
 
               const author = book.authors[0];
 
-              
-
               return (
                 <div className="section_3">
                   <div className="genre_block">
@@ -195,7 +193,11 @@ export default withRouter(
                     <div className="bottom">{author.bio}</div>
                   </div>
 
-                  {book.series ? <SeriesBlock series={book.series}/>: <div></div>}
+                  {book.series ? (
+                    <SeriesBlock series={book.series} showing={book._id} />
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
               );
             };
