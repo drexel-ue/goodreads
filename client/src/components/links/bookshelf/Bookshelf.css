@@ -7,7 +7,7 @@ a {
     cursor: pointer;
 }
 
-label {
+.bookshelf label {
     display: none;
     vertical-align: baseline;
     cursor: default;
