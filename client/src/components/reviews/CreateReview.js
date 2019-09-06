@@ -21,7 +21,8 @@ class CreateReview extends React.Component {
             privateNotes: "",
             owned: false,
             postToBlog: false,
-            addToFeed: false
+            addToFeed: false,
+            user: ""
         };   
         this.handleSubmit.bind(this)   
         this.updateCache.bind(this)   
@@ -77,6 +78,8 @@ class CreateReview extends React.Component {
                         _id
                     }
                     `})
+                    this.state.user = user._id
+                    debugger
                 return (
                         <Mutation
                         mutation={CREATE_REVIEW}
@@ -146,7 +149,7 @@ class CreateReview extends React.Component {
             }}</ApolloConsumer>
         )
     }
-    
+
 }
 
 export default withRouter(CreateReview)
