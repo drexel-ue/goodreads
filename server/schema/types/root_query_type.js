@@ -61,6 +61,14 @@ const RootQueryType = new GraphQLObjectType({
       resolve(parentValue, { genreString }) {
         return Book.find({ genres: genreString }).limit(6);
       }
+    },
+    booksBySeries: {
+      type: new GraphQLList(BookType),
+      args: { series: { type: GraphQLString } },
+      async resolve(parentValue, { series }) {
+        console.log('hmm')
+        return await Book.find({ series }).populate("authors");
+      }
     }
   })
 });

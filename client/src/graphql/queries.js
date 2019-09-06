@@ -72,5 +72,20 @@ export default {
         }
       }
     }
+  `,
+  BOOKS_BY_SERIES: gql`
+    query BooksBySeries($series: String!) {
+      booksBySeries(series: $series) {
+        _id
+        title
+        description
+        coverPhoto
+        series
+        authors {
+          name
+        }
+        rating
+      }
+    }
   `
 };
