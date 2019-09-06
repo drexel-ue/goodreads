@@ -70,10 +70,17 @@ export default class ShelfButton extends Component {
                 console.log("pizza", data);
                 const shelves = data.shelvesByUser;
                 const show = this.state.showing ? "shelves" : "hide";
+                const containingShelf = shelves.find(shelf =>
+                  shelf.bookIds.includes(this.props._id)
+                );
 
                 return (
                   <div className="shelf_button">
-                    <div className="want_to_read">Want To Read</div>
+                    <div className="want_to_read">
+                      {containingShelf
+                        ? `${containingShelf.name}`
+                        : "Want to read"}
+                    </div>
                     <div className="dropdown_button">
                       <i
                         className="fas fa-caret-down"
