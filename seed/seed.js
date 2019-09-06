@@ -220,6 +220,16 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
 
   let shelves = [];
   const genShelves = user => {
+    const mustHaves = ["Currently Reading", "Want to read", "Read"];
+    for (let index = 0; index < mustHaves.length; index++) {
+      shelves.push(
+        new Shelf({
+          name: mustHaves[index],
+          user: user,
+          books: pickBooks()
+        })
+      );
+    }
     for (let index = 0; index < 20; index++) {
       shelves.push(
         new Shelf({
