@@ -147,8 +147,10 @@ export default {
   `,
   SHELVES_BY_USER: gql`
     query ShelvesByUser($_id: ID!) {
-      _id
-      name
+      shelvesByUser(_id: $_id) {
+        _id
+        name
+      }
     }
   `
 };

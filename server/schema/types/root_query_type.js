@@ -90,8 +90,8 @@ const RootQueryType = new GraphQLObjectType({
     shelvesByUser: {
       type: new GraphQLList(ShelfType),
       args: { _id: { type: GraphQLID } },
-      async resolve(_, { _id}) {
-        return await Shelf.find({user:_id})
+      async resolve(_, { _id }) {
+        return await Shelf.find({ user: _id });
       }
     }
   })
