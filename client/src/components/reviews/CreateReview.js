@@ -79,7 +79,6 @@ class CreateReview extends React.Component {
                     }
                     `})
                     this.state.user = user._id
-                    debugger
                 return (
                         <Mutation
                         mutation={CREATE_REVIEW}
