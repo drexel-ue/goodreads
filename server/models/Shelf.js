@@ -27,7 +27,7 @@ ShelfSchema.statics.addBook = (shelfId, bookId) => {
       shelf.books.push(book);
 
       return Promise.all([shelf.save(), book.save()]).then(
-        ([shelf, book]) => shelf
+        ([shelf, _]) => shelf
       );
     });
   });
