@@ -34,7 +34,9 @@ export default class MainCover extends Component {
           src={this.src}
           alt="book cover"
         />
-        <div onMouseLeave={this.mouseLeave} className={display}></div>
+        <div onMouseLeave={this.mouseLeave} className={display}>
+          <i className="fas fa-search-plus" />
+        </div>
       </div>
     );
   }
