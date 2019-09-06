@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
-import "./BookShow.scss";
 import SeriesBlock from "./SeriesBlock";
+import AuthorBookBlock from "./AuthorBookBlock";
+import "./BookShow.scss";
 
 const { BOOK_BY_ID } = Queries;
 
@@ -195,6 +196,12 @@ export default withRouter(
 
                   {book.series ? (
                     <SeriesBlock series={book.series} showing={book._id} />
+                  ) : (
+                    <div></div>
+                  )}
+
+                  {author.bookIds.length > 1 ? (
+                    <AuthorBookBlock author={author} showing={book._id} />
                   ) : (
                     <div></div>
                   )}

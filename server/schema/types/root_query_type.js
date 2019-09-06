@@ -13,6 +13,7 @@ const BookType = require("./book_type");
 
 const User = mongoose.model("users");
 const Book = mongoose.model("books");
+const Author = mongoose.model("authors");
 
 const RootQueryType = new GraphQLObjectType({
   name: "RootQueryType",
@@ -51,22 +52,30 @@ const RootQueryType = new GraphQLObjectType({
     },
     books: {
       type: new GraphQLList(BookType),
-      resolve(parentValue) {
+      resolve(_) {
         return Book.find({});
       }
     },
     booksByGenre: {
       type: new GraphQLList(BookType),
       args: { genreString: { type: GraphQLString } },
-      resolve(parentValue, { genreString }) {
+      resolve(_, { genreString }) {
         return Book.find({ genres: genreString }).limit(6);
       }
     },
     booksBySeries: {
       type: new GraphQLList(BookType),
       args: { series: { type: GraphQLString } },
-      async resolve(parentValue, { series }) {
+      async resolve(_, { series }) {
         return await Book.find({ series }).populate("authors");
+      }
+    },
+    booksByAuthor: {
+      type: new GraphQLList(BookType),
+      args: { _id: { type: GraphQLID } },
+      async resolve(_, { _id }) {
+        const author = await Author.findById(_id).populate("books");
+        return author.books;
       }
     }
   })

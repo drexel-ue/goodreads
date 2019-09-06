@@ -13,12 +13,17 @@ const AuthorType = new GraphQLObjectType({
     twitter: { type: GraphQLString },
     genres: {
       type: new GraphQLList(GraphQLString),
-      async resolve(parentValue) {
-        const author = await Author.findById(parentValue.id);
-        return author.genres;
+      resolve(parentValue) {
+        return parentValue.genres;
       }
     },
     bio: { type: GraphQLString },
+    bookIds: {
+      type: new GraphQLList(GraphQLID),
+      resolve(parentValue) {
+        return parentValue.books;
+      }
+    },
     books: {
       type: new GraphQLList(require("./book_type")),
       async resolve(parentValue) {
@@ -28,8 +33,8 @@ const AuthorType = new GraphQLObjectType({
     },
     followerIds: {
       type: new GraphQLList(GraphQLID),
-      resolve(parentValue) { 
-        return parentValue.followers
+      resolve(parentValue) {
+        return parentValue.followers;
       }
     },
     followers: {

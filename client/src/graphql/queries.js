@@ -51,6 +51,7 @@ export default {
           name
           _id
           followerIds
+          bookIds
           profilePhoto
           bio
         }
@@ -84,6 +85,18 @@ export default {
         authors {
           name
         }
+        rating
+      }
+    }
+  `,
+  BOOKS_BY_AUTHOR: gql`
+    query BooksByAuthor($_id: ID!) {
+      booksByAuthor(_id: $_id) {
+        _id
+        title
+        description
+        coverPhoto
+        series
         rating
       }
     }
