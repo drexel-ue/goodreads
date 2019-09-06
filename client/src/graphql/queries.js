@@ -103,7 +103,7 @@ export default {
     }
   `,
   BOOKS_BY_GENRE_SHOW: gql`
-      query BooksByGenreSHOW($genreString: String) {
+    query BooksByGenreSHOW($genreString: String) {
       booksByGenreShow(genreString: $genreString) {
         _id
         title
@@ -145,4 +145,9 @@ export default {
       }
     }
   `
+  // SHELVES_BY_USER: gql`
+  //   query ShelvesByUser($_id: ID!) {
+  //     sh
+  //   }
+  // `
 };

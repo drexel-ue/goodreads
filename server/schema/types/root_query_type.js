@@ -1,13 +1,21 @@
 const mongoose = require("mongoose");
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull, GraphQLString } = graphql;
+const {
+  GraphQLObjectType,
+  GraphQLList,
+  GraphQLID,
+  GraphQLNonNull,
+  GraphQLString
+} = graphql;
 
 const UserType = require("./user_type");
 const BookType = require("./book_type");
+const ShelfType = require("./shelf_type");
 
 const User = mongoose.model("users");
 const Book = mongoose.model("books");
 const Author = mongoose.model("authors");
+const Shelf = mongoose.model("shelves");
 
 const RootQueryType = new GraphQLObjectType({
   name: "RootQueryType",
@@ -75,8 +83,15 @@ const RootQueryType = new GraphQLObjectType({
     booksByGenreShow: {
       type: new GraphQLList(BookType),
       args: { genreString: { type: GraphQLString } },
-      resolve(parentValue, { genreString }) {
-      return Book.find({ genres: genreString }).limit(24)
+      resolve(_, { genreString }) {
+        return Book.find({ genres: genreString }).limit(24);
+      }
+    },
+    shelvesByUser: {
+      type: new GraphQLList(ShelfType),
+      args: { _id: { type: GraphQLID } },
+      async resolve(_, { _id}) {
+        return await Shelf.find({user:_id})
       }
     }
   })
