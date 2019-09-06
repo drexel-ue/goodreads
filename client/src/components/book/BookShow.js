@@ -5,6 +5,7 @@ import Queries from "../../graphql/queries";
 import SeriesBlock from "./SeriesBlock";
 import AuthorBookBlock from "./AuthorBookBlock";
 import MainCover from "./MainCover";
+import ShelfButton from "./ShelfButton";
 import "./BookShow.scss";
 
 const { BOOK_BY_ID } = Queries;
@@ -37,12 +38,7 @@ export default withRouter(
             const section1 = (
               <div className="section_1">
                 <MainCover src={book.coverPhoto} />
-                <div className="shelf_button">
-                  <div className="want_to_read">Want To Read</div>
-                  <div className="dropdown_button">
-                    <i className="fas fa-caret-down"></i>
-                  </div>
-                </div>
+                <ShelfButton _id={book._id} />
                 <div className="rate_text">Rate this book</div>
                 <div className="stars">
                   <i className="fas fa-star"></i>
