@@ -6,6 +6,7 @@ import SeriesBlock from "./SeriesBlock";
 import AuthorBookBlock from "./AuthorBookBlock";
 import MainCover from "./MainCover";
 import ShelfButton from "./ShelfButton";
+import StarRow from "./StarRow";
 import "./BookShow.scss";
 
 const { BOOK_BY_ID } = Queries;
@@ -39,13 +40,7 @@ export default withRouter(
                 <MainCover src={book.coverPhoto} />
                 <ShelfButton _id={book._id} />
                 <div className="rate_text">Rate this book</div>
-                <div className="stars">
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                </div>
+                <StarRow _id={book._id} />
                 <div className="preview">
                   <i className="fas fa-book-open"></i>
                   <div className="text">Preview</div>
