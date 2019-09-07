@@ -76,6 +76,7 @@
         height: 28px;
         width: 100px;
         font-size: 12px;
+        text-align: center;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -97,7 +98,8 @@
           right: 4px;
           height: 80px;
           overflow: auto;
-          transition: height 0.4s linear;
+          transition: height;
+          transition-timing-function: ease-in-out;
           .shelf {
             color: black;
           }

@@ -46,6 +46,17 @@ export default class ShelfButton extends Component {
     }, 3000);
   }
 
+  updateCache(client, { data }) {
+    // here we can write directly to our cache with our returned mutation data
+      console.log(data)
+      const shelf = data.addShelfBook;
+    client.writeData({
+        data: {
+          [shelf._id]:shelf
+      }
+    });
+  }
+
   render() {
     return (
       <ApolloConsumer>
@@ -97,14 +108,9 @@ export default class ShelfButton extends Component {
                           <div key={shelf._id}>
                             <Mutation
                               mutation={ADD_TO_SHELF}
-                              onCompleted={data => {
-                                console.log("completed", data);
-                              }}
-                              update={(client, data) =>
-                                console.log("update", data)
-                              }
+                              update={(client, data ) => this.updateCache(client,data)}
                             >
-                              {(addToShelf, { data }) => {
+                              {(addToShelf, _) => {
                                 return (
                                   <div
                                     className="shelf"

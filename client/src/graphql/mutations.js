@@ -39,6 +39,7 @@ export default {
       addShelfBook(shelfId: $shelfId, bookId: $bookId) {
         _id
         name
+        bookIds
       }
     }
   `
