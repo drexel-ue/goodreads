@@ -40,7 +40,7 @@ export default withRouter(
                 <MainCover src={book.coverPhoto} />
                 <ShelfButton _id={book._id} />
                 <div className="rate_text">Rate this book</div>
-                <StarRow _id={book._id} />
+                <StarRow bookId={book._id} />
                 <div className="preview">
                   <i className="fas fa-book-open"></i>
                   <div className="text">Preview</div>

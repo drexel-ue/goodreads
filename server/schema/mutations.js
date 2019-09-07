@@ -282,14 +282,15 @@ const mutation = new GraphQLObjectType({
       }
     },
 
-    addBookRating: {
+    leaveRating: {
       type: BookType,
       args: {
         bookId: { type: GraphQLID },
-        ratingId: { type: GraphQLID }
+        userId: { type: GraphQLID },
+        stars: { type: GraphQLInt }
       },
-      resolve(_, { bookId, ratingId }) {
-        return Book.addRating(bookId, ratingId);
+      async resolve(_, { bookId, stars, userId }) {
+        return await Book.leaveRating(bookId, userId, stars);
       }
     },
 

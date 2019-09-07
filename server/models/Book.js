@@ -13,7 +13,8 @@ const BookSchema = new Schema({
     }
   ],
   rating: {
-    type: Number
+    type: Number,
+    default: 0
   },
   coverPhoto: {
     type: String,
@@ -206,20 +207,19 @@ BookSchema.statics.removeAuthor = (bookId, authorId) => {
   });
 };
 
-BookSchema.statics.addRating = (bookId, ratingId) => {
+BookSchema.statics.leaveRating = async (bookId, user, stars) => {
   const Book = mongoose.model("books");
   const Rating = mongoose.model("ratings");
 
-  return Book.findById(bookId).then(book => {
-    return Rating.findById(ratingId).then(rating => {
-      book.ratings.push(rating);
-      rating.books.push(book);
+  const book = await Book.findById(bookId);
+  const rating = new Rating({ book, user, stars });
 
-      return Promise.all([book.save(), rating.save()]).then(
-        ([book, rating]) => book
-      );
-    });
-  });
+  book.ratings.push(rating);
+  book.rating = (book.rating + stars) / book.ratings.length;
+
+  await rating.save();
+
+  return await book.save();
 };
 
 BookSchema.statics.removeRating = (bookId, ratingId) => {
