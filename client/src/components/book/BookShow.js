@@ -7,6 +7,7 @@ import AuthorBookBlock from "./AuthorBookBlock";
 import MainCover from "./MainCover";
 import ShelfButton from "./ShelfButton";
 import StarRow from "./StarRow";
+import RatedRow from "./RatedRow";
 import "./BookShow.scss";
 
 const { BOOK_BY_ID } = Queries;
@@ -54,6 +55,7 @@ export default withRouter(
                 : { height: "168px" };
 
               const publishDate = new Date(book.publishDate);
+              const rating = Math.round(book.rating);
 
               return (
                 <div className="section_2">
@@ -88,16 +90,8 @@ export default withRouter(
                     </div>
                   </div>
                   <div className="rating_row">
-                    <div className="stars">
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                    </div>
-                    <div className="rating">
-                      {book.rating.toString().slice(0, 3)}
-                    </div>
+                    <RatedRow rating={rating} />
+                    <div className="rating">{rating}</div>
                     <i className="fas fa-circle"></i>
                     <div className="details_button">
                       <i className="far fa-chart-bar"></i>
