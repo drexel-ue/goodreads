@@ -271,6 +271,26 @@
           line-height: 1;
           margin-right: 8px;
           margin-top: 8px;
+          position: relative;
+          .stores {
+            position: absolute;
+            top: 34px;
+            left: 0;
+            z-index: 1;
+            background: white;
+            border: solid 1px #333333;
+            padding: 10px;
+            color: #00635d;
+            font-size: 13px;
+            width: 125px;
+            .store {
+              padding: 5px 0;
+            }
+            .store:hover {
+              text-decoration: underline;
+              cursor: pointer;
+            }
+          }
         }
         .option:hover {
           background-color: #ece8e1;

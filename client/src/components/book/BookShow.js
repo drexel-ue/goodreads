@@ -9,6 +9,7 @@ import ShelfButton from "./ShelfButton";
 import StarRow from "./StarRow";
 import RatedRow from "./RatedRow";
 import MainDescription from "./MainDescription";
+import StoresDropdown from "./StoresDropdown";
 import "./BookShow.scss";
 
 const { BOOK_BY_ID } = Queries;
@@ -104,9 +105,7 @@ export default withRouter(
                     <div className="purchase_options">
                       <div className="option">Amazon $9.99</div>
                       <div className="option">Kindle</div>
-                      <div className="option dropdown">
-                        Stores <i className="fas fa-caret-down"></i>
-                      </div>
+                      <StoresDropdown />
                       <div className="option">Libraries</div>
                     </div>
                   </div>
