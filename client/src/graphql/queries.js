@@ -73,6 +73,7 @@ export default {
         isbn
         genres
         rating
+        ratingIds
         series
         authors {
           name

@@ -104,7 +104,7 @@ export default withRouter(
                       <div className="button_text">Rating details</div>
                     </div>
                     <i className="fas fa-circle"></i>
-                    <div className="rating_count">280,209 ratings</div>
+                    <div className="rating_count">{`${book.ratingIds.length} ratings`}</div>
                     <i className="fas fa-circle"></i>
                     <div className="review_count">209,280 reviews</div>
                   </div>

@@ -58,6 +58,7 @@ export default {
           _id
         }
         description
+        ratingIds
         ratings {
           stars
           user {
