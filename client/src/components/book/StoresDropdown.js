@@ -50,12 +50,24 @@ export default class StoresDropdown extends Component {
       "AbeBooks"
     ];
 
+    const classList = this.state.showing ? "stores" : "hide";
+
     return (
-      <div className="option dropdown">
+      <div
+        className="option dropdown"
+        onMouseEnter={this.show}
+        onMouseLeave={this.timerHide}
+      >
         Stores <i className="fas fa-caret-down"></i>
-        <div className="stores">
+        <div
+          className={classList}
+          onMouseEnter={this.show}
+          onMouseLeave={this.timerHide}
+        >
           {stores.map(store => (
-            <div key={store} className='store'>{store}</div>
+            <div key={store} className="store">
+              {store}
+            </div>
           ))}
         </div>
       </div>
