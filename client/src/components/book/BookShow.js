@@ -95,7 +95,9 @@ export default withRouter(
                       <i className="fas fa-star"></i>
                       <i className="fas fa-star"></i>
                     </div>
-                    <div className="rating">{book.rating}</div>
+                    <div className="rating">
+                      {book.rating.toString().slice(0, 3)}
+                    </div>
                     <i className="fas fa-circle"></i>
                     <div className="details_button">
                       <i className="far fa-chart-bar"></i>
