@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./BookShow";
+import "./BookShow.scss";
 
 export default class RatedRow extends Component {
   render() {

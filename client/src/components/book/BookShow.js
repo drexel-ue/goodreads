@@ -8,6 +8,7 @@ import MainCover from "./MainCover";
 import ShelfButton from "./ShelfButton";
 import StarRow from "./StarRow";
 import RatedRow from "./RatedRow";
+import MainDescription from "./MainDescription";
 import "./BookShow.scss";
 
 const { BOOK_BY_ID } = Queries;
@@ -18,7 +19,6 @@ export default withRouter(
       super(props);
 
       this.state = {
-        descriptionExpanded: false,
         detailsExpanded: false
       };
     }
@@ -50,10 +50,6 @@ export default withRouter(
             );
 
             const section2 = () => {
-              const expanderStyle = this.state.descriptionExpanded
-                ? {}
-                : { height: "168px" };
-
               const publishDate = new Date(book.publishDate);
               const rating = Math.round(book.rating);
 
@@ -102,12 +98,7 @@ export default withRouter(
                     <i className="fas fa-circle"></i>
                     <div className="review_count">209,280 reviews</div>
                   </div>
-                  <div className="description" style={expanderStyle}>
-                    {book.description}{" "}
-                  </div>
-                  <div className="description_expander">
-                    {this.state.descriptionExpanded ? "(less)" : "...more"}
-                  </div>
+                  <MainDescription description={book.description} />
                   <div className="purchase_block">
                     <div className="get_a_copy">Get a copy</div>
                     <div className="purchase_options">
