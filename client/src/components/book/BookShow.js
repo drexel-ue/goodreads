@@ -10,6 +10,7 @@ import StarRow from "./StarRow";
 import RatedRow from "./RatedRow";
 import MainDescription from "./MainDescription";
 import StoresDropdown from "./StoresDropdown";
+import FullBookDetail from "./FullBookDetail";
 import "./BookShow.scss";
 
 const { BOOK_BY_ID } = Queries;
@@ -116,11 +117,7 @@ export default withRouter(
                       book.publisher
                     }`}
                   </div>
-                  <div className="details_expander">
-                    {this.state.detailsExpanded
-                      ? "...Less Detail"
-                      : "More Details..."}
-                  </div>
+                  <FullBookDetail book={book} />
                 </div>
               );
             };

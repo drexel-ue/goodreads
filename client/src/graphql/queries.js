@@ -72,6 +72,7 @@ export default {
         pages
         isbn
         genres
+        settings
         rating
         ratingIds
         series
@@ -82,6 +83,9 @@ export default {
           bookIds
           profilePhoto
           bio
+        }
+        characters {
+          name
         }
       }
     }
