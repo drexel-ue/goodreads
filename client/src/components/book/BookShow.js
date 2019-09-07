@@ -32,7 +32,6 @@ export default withRouter(
               console.log(error);
               return <div>error...</div>;
             }
-            console.log("data", data);
             const { book } = data;
 
             const section1 = (

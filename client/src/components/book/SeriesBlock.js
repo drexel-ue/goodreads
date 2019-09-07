@@ -22,7 +22,6 @@ export default class SeriesBlock extends Component {
             console.log(error);
             return <div>error...</div>;
           }
-          console.log(this.series, data);
           const others = data.booksBySeries.filter(
             book => book._id !== this.showing
           );

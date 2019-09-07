@@ -48,11 +48,11 @@ export default class ShelfButton extends Component {
 
   updateCache(client, { data }) {
     // here we can write directly to our cache with our returned mutation data
-      console.log(data)
-      const shelf = data.addShelfBook;
+    console.log(data);
+    const shelf = data.addShelfBook;
     client.writeData({
-        data: {
-          [shelf._id]:shelf
+      data: {
+        [shelf._id]: shelf
       }
     });
   }
@@ -78,7 +78,6 @@ export default class ShelfButton extends Component {
                   return <p>Error</p>;
                 }
 
-                console.log("pizza", data);
                 const shelves = data.shelvesByUser;
                 const show = this.state.showing ? "shelves" : "hide";
                 const containingShelf = shelves.find(shelf =>
@@ -108,7 +107,9 @@ export default class ShelfButton extends Component {
                           <div key={shelf._id}>
                             <Mutation
                               mutation={ADD_TO_SHELF}
-                              update={(client, data ) => this.updateCache(client,data)}
+                              update={(client, data) =>
+                                this.updateCache(client, data)
+                              }
                             >
                               {(addToShelf, _) => {
                                 return (
