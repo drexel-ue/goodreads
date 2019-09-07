@@ -80,6 +80,16 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        .shelved {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .fa-check {
+            margin-right: 8px;
+            color: darkorange;
+            font-size: 14px;
+          }
+        }
       }
       .dropdown_button {
         position: relative;

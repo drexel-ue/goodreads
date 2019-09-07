@@ -83,13 +83,29 @@ export default class ShelfButton extends Component {
                 const containingShelf = shelves.find(shelf =>
                   shelf.bookIds.includes(this.props._id)
                 );
+                const shelvedStyle = containingShelf
+                  ? {
+                      background: "#f2f2f2",
+                      color: "#181818",
+                      borderTop: "solid 1px #181818",
+                      borderLeft: "solid 1px #181818",
+                      borderBottom: "solid 1px #181818",
+                      borderRadius: "3px",
+                      lineHeight: "100%"
+                    }
+                  : {};
 
                 return (
                   <div className="shelf_button">
-                    <div className="want_to_read">
-                      {containingShelf
-                        ? `${containingShelf.name}`
-                        : "Want to read"}
+                    <div className="want_to_read" style={shelvedStyle}>
+                      {containingShelf ? (
+                        <div className="shelved">
+                          <i className="fas fa-check"></i>
+                          <div>{`${containingShelf.name}`}</div>
+                        </div>
+                      ) : (
+                        "Want to read"
+                      )}
                     </div>
                     <div className="dropdown_button">
                       <i
