@@ -42,5 +42,29 @@ export default {
         bookIds
       }
     }
+  `,
+  LEAVE_RATING: gql`
+    mutation LeaveRating($bookId: ID!, $userId: ID!, $stars: Int!) {
+      leaveRating(bookId: $bookId, userId: $userId, stars: $stars) {
+        _id
+        rating
+        isbn
+        title
+        edition
+        series
+        settings
+        genres
+        authors {
+          _id
+        }
+        description
+        ratings {
+          stars
+          user {
+            _id
+          }
+        }
+      }
+    }
   `
 };

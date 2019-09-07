@@ -1,7 +1,10 @@
 import React, { Component } from "react";
-import { Mutation } from "react-apollo";
+import gql from "graphql-tag";
+import { Mutation, ApolloConsumer } from "react-apollo";
 import Mutations from "../../graphql/mutations";
 import "./BookShow.scss";
+
+const { LEAVE_RATING } = Mutations;
 
 export default class StarRow extends Component {
   constructor(props) {
@@ -29,43 +32,105 @@ export default class StarRow extends Component {
     this.setState({ index: -1 });
   }
 
+  updateCache(client, { data }) {
+    const book = data.leaveRating;
+    client.writeQuery({
+      data: {
+        [book._id]: book
+      }
+    });
+  }
+
   render() {
     const highlit = index =>
       this.state.index >= index ? { color: "darkorange" } : {};
 
     return (
-      <div className="stars">
-        <i
-          className="fas fa-star"
-          style={highlit(1)}
-          onMouseEnter={this.highlight(1)}
-          onMouseLeave={this.unhighlight}
-        ></i>
-        <i
-          className="fas fa-star"
-          style={highlit(2)}
-          onMouseEnter={this.highlight(2)}
-          onMouseLeave={this.unhighlight}
-        ></i>
-        <i
-          className="fas fa-star"
-          style={highlit(3)}
-          onMouseEnter={this.highlight(3)}
-          onMouseLeave={this.unhighlight}
-        ></i>
-        <i
-          className="fas fa-star"
-          style={highlit(4)}
-          onMouseEnter={this.highlight(4)}
-          onMouseLeave={this.unhighlight}
-        ></i>
-        <i
-          className="fas fa-star"
-          style={highlit(5)}
-          onMouseEnter={this.highlight(5)}
-          onMouseLeave={this.unhighlight}
-        ></i>
-      </div>
+      <ApolloConsumer>
+        {client => {
+          const { _id } = client.readQuery({
+            query: gql`
+              query CachedUser {
+                _id
+              }
+            `
+          });
+
+          return (
+            <Mutation
+              mutation={LEAVE_RATING}
+              variables={{
+                bookId: this.props.bookId,
+                userId: _id,
+                stars: this.state.index
+              }}
+              update={(client, data) => {
+                this.updateCache(client, data);
+              }}
+            >
+              {(leaveRating, { data }) => (
+                <div className="stars">
+                  <i
+                    className="fas fa-star"
+                    style={highlit(1)}
+                    onClick={event => {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      leaveRating();
+                    }}
+                    onMouseEnter={this.highlight(1)}
+                    onMouseLeave={this.unhighlight}
+                  ></i>
+                  <i
+                    className="fas fa-star"
+                    style={highlit(2)}
+                    onClick={event => {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      leaveRating();
+                    }}
+                    onMouseEnter={this.highlight(2)}
+                    onMouseLeave={this.unhighlight}
+                  ></i>
+                  <i
+                    className="fas fa-star"
+                    style={highlit(3)}
+                    onClick={event => {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      leaveRating();
+                    }}
+                    onMouseEnter={this.highlight(3)}
+                    onMouseLeave={this.unhighlight}
+                  ></i>
+                  <i
+                    className="fas fa-star"
+                    style={highlit(4)}
+                    onClick={event => {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      leaveRating();
+                    }}
+                    onMouseEnter={this.highlight(4)}
+                    onMouseLeave={this.unhighlight}
+                  ></i>
+                  <i
+                    className="fas fa-star"
+                    style={highlit(5)}
+                    onClick={event => {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      leaveRating();
+                    }}
+                    onMouseEnter={this.highlight(5)}
+                    onMouseLeave={this.unhighlight}
+                  ></i>
+                </div>
+              )}
+            </Mutation>
+          );
+        }}
+      </ApolloConsumer>
     );
   }
 }

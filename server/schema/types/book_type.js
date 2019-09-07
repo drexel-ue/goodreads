@@ -7,7 +7,8 @@ const {
   GraphQLInt,
   GraphQLObjectType,
   GraphQLString,
-  GraphQLID
+  GraphQLID,
+  GraphQLFloat
 } = graphql;
 const RatingType = require("./rating_type");
 const Book = mongoose.model("books");
@@ -24,7 +25,7 @@ const BookType = new GraphQLObjectType({
         return book.authors;
       }
     },
-    rating: { type: GraphQLInt },
+    rating: { type: GraphQLFloat },
     coverPhoto: { type: GraphQLString },
     coverType: { type: GraphQLString },
     description: { type: GraphQLString },
