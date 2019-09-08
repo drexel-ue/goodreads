@@ -13,7 +13,6 @@ import Discussion from './links/discussions/Discussion';
 import Quotes from './links/quotes/Quote';
 import People from './links/people/People';
 import Inbox from './links/message/Inbox';
-import EditGenres from './links/genres/EditGenres';
 import FriendRecommendations from './links/recommendations/FriendRecommendations';
 import {
   // Route,
@@ -64,6 +63,12 @@ const App = () => {
           exact
           path="/book/:bookId"
           component={BookShow}
+          routeType="protected"
+        />
+        <AuthRoute
+          exact
+          path="/book/:bookId/create_review"
+          component={CreateReview}
           routeType="protected"
         />
         <AuthRoute
@@ -128,12 +133,6 @@ const App = () => {
         />
         <AuthRoute
           exact
-          path="/edit_fav_genres"
-          component={EditGenres}
-          routeType="protected"
-        />
-        <AuthRoute
-          exact
           path="/genres"
           component={IndexGenre}
           routeType="protected"
@@ -148,12 +147,6 @@ const App = () => {
           exact
           path="/friend_recommendations"
           component={FriendRecommendations}
-          routeType="protected"
-        />
-        <AuthRoute
-          exact
-          path="/reviews"
-          component={CreateReview}
           routeType="protected"
         />
       </Switch>

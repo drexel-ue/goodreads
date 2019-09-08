@@ -142,10 +142,14 @@ class Explore extends React.Component {
                                                                 return (
                                                                     <div className='new-book'>
                                                                         <div className='new-book-cover'>
-                                                                            <Link to='/'><img src={book.coverPhoto} /></Link>
+                                                                            <Link to='/'><img alt="" src={book.coverPhoto} /></Link>
                                                                         </div>
                                                                     </div>
                                                                 );
+                                                            } else {
+                                                                return (
+                                                                <div></div>
+                                                                )
                                                             }
                                                         });
                                                     }

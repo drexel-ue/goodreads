@@ -9,19 +9,19 @@ const ReviewType = new GraphQLObjectType({
   name: "ReviewType",
   fields: () => ({
     _id: { type: GraphQLID },
-    user: { type: UserType },
-    book: { type: BookType },
+    user: { type: GraphQLID },
+    book: { type: GraphQLID },
     content: { type: GraphQLString },
     hidden: { type: GraphQLBoolean },
-    dateStarted: { type: GraphQLDateTime },
-    dateFinished: { type: GraphQLDateTime },
+    // dateStarted: { type: GraphQLDateTime },
+    // dateFinished: { type: GraphQLDateTime },
     recommendTo: { type: GraphQLString },
-    recommendBy: { type: UserType },
+    // recommendBy: { type: GraphQLID },
     privateNotes: { type: GraphQLString },
     owned: { type: GraphQLBoolean },
     postToBlog: { type: GraphQLBoolean },
     addToFeed: { type: GraphQLBoolean },
-    date: { type: GraphQLDateTime }
+    // date: { type: GraphQLDateTime }
   })
 });
 

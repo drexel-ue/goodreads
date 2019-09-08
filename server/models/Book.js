@@ -157,11 +157,33 @@ BookSchema.statics.addGenre = async (bookId, genre) => {
   return await book.save();
 };
 
-BookSchema.statics.removeGenre = async (bookId, genre) => {
+BookSchema.statics.removeGenre = async (bookId, genreId) => {
   const Book = mongoose.model("books");
 
   const book = await Book.findById(bookId);
   book.genres = book.genres.filter(gen => gen !== genre);
+
+  return await Book.save();
+};
+
+BookSchema.statics.addReview = async (bookId, reviewId) => {
+  const Book = mongoose.model("books");
+  const Review = mongoose.model("reviews")
+
+  return await Book.findById(bookId).then(book => {
+    return Review.findById(reviewId).then(review => {
+      book.reviews.push(review)
+      return book.save();
+    })
+  })
+
+};
+
+BookSchema.statics.removeReview = async (bookId, review) => {
+  const Book = mongoose.model("books");
+
+  const book = await Book.findById(bookId);
+  book.reviews = book.reviews.filter(gen => gen !== review);
 
   return await Book.save();
 };

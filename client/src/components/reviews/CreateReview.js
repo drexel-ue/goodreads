@@ -1,6 +1,6 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
-import { Query, Mutation, ApolloConsumer } from "react-apollo";
+import { withRouter } from "react-router-dom";
+import { Mutation, ApolloConsumer } from "react-apollo";
 import Queries from "../../graphql/queries";
 import Mutations from "../../graphql/mutations"
 import gql from "graphql-tag";
@@ -15,14 +15,15 @@ class CreateReview extends React.Component {
         this.state = {
             content: "",
             hidden: true,
-            dateStarted: "",
-            dateFinished: "",
+            // dateStarted: "",
+            // dateFinished: "",
             recommendTo: "",
             privateNotes: "",
             owned: false,
             postToBlog: false,
             addToFeed: false,
-            user: ""
+            user: "",
+            book: ""
         };   
         this.handleSubmit.bind(this)   
         this.updateCache.bind(this)   
@@ -67,6 +68,7 @@ class CreateReview extends React.Component {
                 addToFeed: this.state.addToFeed
             }
         });
+        console.log("whatever")
     }
 
     render() {
@@ -78,23 +80,42 @@ class CreateReview extends React.Component {
                         _id
                     }
                     `})
-                    this.state.user = user._id
+                    // this.setState({ user: user._id })
+                    // this.setState({ book: this.props.match.params.bookId })
                 return (
                         <Mutation
                         mutation={CREATE_REVIEW}
+                        variables={
+                            {
+                content: this.state.content,
+                hidden: this.state.hidden,
+                // dateStarted: this.state.dateStarted,
+                // dateFinished: this.state.dateFinished,
+                recommendTo: this.state.recommendTo,
+                privateNotes: this.state.privateNotes, 
+                owned: this.state.owned,
+                postToBlog: this.state.postToBlog,
+                addToFeed: this.state.addToFeed
+            }
+                        }
                         onError={err => this.setState({ message: err.message })}
                         // we need to make sure we update our cache once our new product is created
                         update={(cache, data) => this.updateCache(cache, data)}
                         // when our query is complete we'll display a success message
                         onCompleted={data => 
                             this.setState({
+                                user: user._id,
+                                book: this.props.match.params.bookId,
                                 message: `New review created successfully`
                             })
                         }
                     >
                         {(newReview, { data } ) =>
                             (< div >
-                                <form onSubmit={e => this.handleSubmit(e, newReview)}>
+                                <form onSubmit={e => {
+                                    e.preventDefault()
+                                    newReview()
+                                    }}>
                                     <textarea
                                         onChange={this.update("content")}
                                         value={this.state.content}
