@@ -86,6 +86,7 @@ export default {
         }
         characters {
           name
+          _id
         }
       }
     }

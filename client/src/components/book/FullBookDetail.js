@@ -17,11 +17,11 @@ export default class FullBookDetail extends Component {
   toggle(event) {
     event.preventDefault();
     event.stopPropagation();
-    this.setState({ showing: !this.props.showing });
+    this.setState({ showing: !this.state.showing });
   }
 
   render() {
-    const display = this.state.showing ? "hide" : "details";
+    const display = !this.state.showing ? "hide" : "details";
 
     return (
       <div>
@@ -45,23 +45,27 @@ export default class FullBookDetail extends Component {
             </div>
             <div className="line">
               <div className="label">Characters</div>
-              <div className="link">
+              <div>
                 {this.book.characters.map(char => (
-                  <div className="link">{char.name}</div>
+                  <div key={char._id} className="link">
+                    {char.name}
+                  </div>
                 ))}
               </div>
             </div>
             <div className="line">
               <div className="label">Settings</div>
-              <div className="link">
-                {this.book.settings.map(setting => (
-                  <div className="link">{setting}</div>
+              <div>
+                {this.book.settings.map((setting, index) => (
+                  <div key={index} className="link">
+                    {setting}
+                  </div>
                 ))}
               </div>
             </div>
           </div>
         </div>
-        <div className="details_expander">
+        <div className="details_expander" onClick={this.toggle}>
           {this.state.showing ? "...Less Detail" : "More Details..."}
         </div>
       </div>

@@ -3,6 +3,7 @@ const User = require("../server/models/User");
 const Author = require("../server/models/Author");
 const Book = require("../server/models/Book");
 const Shelf = require("../server/models/Shelf");
+const Character = require("../server/models/Character");
 const publishers = require("./publishers");
 const genres = require("./genres");
 const settings = require("./settings");
@@ -218,6 +219,34 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
     return pickedIds;
   };
 
+  let characters = [];
+  const genCharacters = async () => {
+    for (let index = 0; index < 100; index++) {
+      const selected = [];
+      for (
+        let index = 0;
+        index < faker.random.number({ min: 10, max: 20 });
+        index++
+      ) {
+        const option =
+          books[faker.random.number({ min: 0, max: books.length - 1 })];
+        if (!selected.includes(option)) selected.push(option);
+      }
+      const character = new Character({
+        name: faker.name.firstName() + " " + faker.name.lastName(),
+        description: faker.lorem.paragraph(),
+        books: selected
+      });
+      for (let index = 0; index < selected.length; index++) {
+        selected[index].characters.push(character);
+      }
+      console.log(`Character ${character.name} spawned`);
+      characters.push(character);
+    }
+  };
+
+  await genCharacters();
+
   let shelves = [];
   const genShelves = user => {
     const mustHaves = ["Currently Reading", "Want to read", "Read"];
@@ -272,6 +301,10 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
   console.log("Commencing Shelf inserts");
   await Shelf.collection.insertMany(shelves);
   console.log("Shelves seeded");
+
+  console.log("Commencing Character inserts");
+  await Character.collection.insertMany(characters);
+  console.log("Characters seeded");
 
   await mongoose.connection.close();
 });
