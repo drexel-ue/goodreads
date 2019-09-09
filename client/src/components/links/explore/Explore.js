@@ -142,7 +142,7 @@ class Explore extends React.Component {
                                                                 return (
                                                                     <div className='new-book'>
                                                                         <div className='new-book-cover'>
-                                                                            <Link to='/'><img src={book.coverPhoto} /></Link>
+                                                                            <Link to={`/book/${book._id}`}><img src={book.coverPhoto} /></Link>
                                                                         </div>
                                                                     </div>
                                                                 );
@@ -177,7 +177,7 @@ class Explore extends React.Component {
                                                                 return (
                                                                     <div className='new-book'>
                                                                         <div className='new-book-cover'>
-                                                                            <Link to='/'><img src={book.coverPhoto} /></Link>
+                                                                            <Link to={`/book/${book._id}`}><img src={book.coverPhoto} /></Link>
                                                                         </div>
                                                                         <div className='clear'></div>
                                                                     </div>
@@ -213,7 +213,7 @@ class Explore extends React.Component {
                                                                 return (
                                                                     <div className='new-book'>
                                                                         <div className='new-book-cover'>
-                                                                            <Link to='/'><img src={book.coverPhoto} /></Link>
+                                                                            <Link to={`/book/${book._id}`}><img src={book.coverPhoto} /></Link>
                                                                         </div>
                                                                         <div className='clear'></div>
                                                                     </div>

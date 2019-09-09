@@ -12,9 +12,7 @@ export default {
             authors {
               name
             }
-            rating {
-              stars
-            }
+            rating
           }
         }
       }
@@ -126,7 +124,7 @@ export default {
   `,
   FETCH_REVIEWS: gql`
     query FetchReviews {
-      reviews{
+      reviews {
         user
         book
         content

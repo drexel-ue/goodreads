@@ -79,7 +79,7 @@ const BooksList = () => {
                                                                 <td className='table-cover'>
                                                                     <label>cover</label>
                                                                     <div className='cover-container'>
-                                                                        <Link to='/' className='cover-link'>
+                                                                        <Link to={`/book/${_id}`} className='cover-link'>
                                                                             <img src={coverPhoto} alt='cover' />
                                                                         </Link>
                                                                     </div>
