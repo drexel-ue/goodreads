@@ -30,7 +30,10 @@ class CreateReview extends React.Component {
     }
 
     update(field) {
-        return e => this.setState({ [field]: e.target.value });
+        return e => {
+            const that=this
+            this.setState({ [field]: e.target.value },()=>console.log(that.state));
+        }
     }
 
     updateCache(cache, { data }) {
@@ -80,6 +83,7 @@ class CreateReview extends React.Component {
                         _id
                     }
                     `})
+                console.log(user)
                     // this.setState({ user: user._id })
                     // this.setState({ book: this.props.match.params.bookId })
                 return (
@@ -95,7 +99,8 @@ class CreateReview extends React.Component {
                 privateNotes: this.state.privateNotes, 
                 owned: this.state.owned,
                 postToBlog: this.state.postToBlog,
-                addToFeed: this.state.addToFeed
+                                addToFeed: this.state.addToFeed,
+                user:user._id
             }
                         }
                         onError={err => this.setState({ message: err.message })}
