@@ -11,9 +11,12 @@ const {
 const UserType = require("./user_type");
 const BookType = require("./book_type");
 const ShelfType = require("./shelf_type");
+const ReviewType = require("./review_type");
+
 
 const User = mongoose.model("users");
 const Book = mongoose.model("books");
+const Review = mongoose.model("reviews");
 const Author = mongoose.model("authors");
 const Shelf = mongoose.model("shelves");
 
@@ -92,6 +95,12 @@ const RootQueryType = new GraphQLObjectType({
       args: { _id: { type: GraphQLID } },
       async resolve(_, { _id }) {
         return await Shelf.find({ user: _id });
+      }
+    },
+    reviews: {
+      type: new GraphQLList(ReviewType),
+      resolve(parentValue) {
+        return Review.find({})
       }
     }
   })

@@ -25,6 +25,7 @@ import Friends from "./friend/friends";
 import IndexGenre from "./genres/IndexGenre";
 import BookShow from "./book/BookShow";
 import ShowGenre from "./genres/ShowGenre"
+import CreateReview from "./reviews/CreateReview"
 
 
 const App = () => {
@@ -147,6 +148,12 @@ const App = () => {
           exact
           path="/friend_recommendations"
           component={FriendRecommendations}
+          routeType="protected"
+        />
+        <AuthRoute
+          exact
+          path="/reviews"
+          component={CreateReview}
           routeType="protected"
         />
       </Switch>

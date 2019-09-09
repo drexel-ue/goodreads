@@ -64,7 +64,51 @@ export default {
           user {
             _id
           }
-        }
+        },
+  CREATE_REVIEW: gql`
+    mutation CreateReview(
+      $user: ID,
+      $book: ID,
+      $content: String,
+      $hidden: Boolean,
+      $dateStarted: String,
+      $dateFinished: String,
+      $recommendTo: String,
+      $recommendBy: ID,
+      $privateNotes: String,
+      $owned: Boolean,
+      $postToBlog: Boolean,
+      $addToFeed: Boolean,
+      $date: Date
+    ){
+      createReview(
+      user: $user,
+      book: $book,
+      content: $content,
+      hidden: $hidden,
+      dateStarted: $dateStarted,
+      dateFinished: $dateFinished,
+      recommendTo: $recommendTo,
+      recommendBy: $recommendBy,
+      privateNotes: $privateNotes,
+      owned: $owned,
+      postToBlog: $postToBlog,
+      addToFeed: $addToFeed,
+      date: $date
+      ){
+        user
+        book
+        content
+        hidden
+        dateStarted
+        dateFinished
+        recommendTo
+        recommendBy
+        privateNotes
+        owned
+        postToBlog
+        addToFeed
+        date
       }
     }
   `

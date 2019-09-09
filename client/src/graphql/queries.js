@@ -124,6 +124,25 @@ export default {
       }
     }
   `,
+  FETCH_REVIEWS: gql`
+    query FetchReviews {
+      reviews{
+        user
+        book
+        content
+        hidden
+        dateStarted
+        dateFinished
+        recommendTo
+        recommendBy
+        privateNotes
+        owned
+        postToBlog
+        addToFeed
+        date
+      }
+    }
+  `,
   BOOKS_BY_SERIES: gql`
     query BooksBySeries($series: String!) {
       booksBySeries(series: $series) {
