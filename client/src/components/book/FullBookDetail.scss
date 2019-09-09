@@ -1,0 +1,28 @@
+.full_book_detail {
+  .details {
+    padding: 10px;
+    .line {
+      margin: 5px 0;
+      display: flex;
+      .label {
+        color: #382110;
+        font-weight: bold;
+        font-size: 12px;
+        width: 105px;
+        margin-right: 10px;
+      }
+      .reg {
+        font-size: 12px;
+        color: #333;
+      }
+      .link {
+        font-size: 12px;
+        color: #38883d;
+      }
+      .link:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+  }
+}

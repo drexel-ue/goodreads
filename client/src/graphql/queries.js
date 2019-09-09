@@ -72,7 +72,9 @@ export default {
         pages
         isbn
         genres
+        settings
         rating
+        ratingIds
         series
         authors {
           name
@@ -81,6 +83,10 @@ export default {
           bookIds
           profilePhoto
           bio
+        }
+        characters {
+          name
+          _id
         }
       }
     }
@@ -103,7 +109,7 @@ export default {
     }
   `,
   BOOKS_BY_GENRE_SHOW: gql`
-      query BooksByGenreSHOW($genreString: String) {
+    query BooksByGenreSHOW($genreString: String) {
       booksByGenreShow(genreString: $genreString) {
         _id
         title
@@ -161,6 +167,15 @@ export default {
         coverPhoto
         series
         rating
+      }
+    }
+  `,
+  SHELVES_BY_USER: gql`
+    query ShelvesByUser($_id: ID!) {
+      shelvesByUser(_id: $_id) {
+        _id
+        name
+        bookIds
       }
     }
   `

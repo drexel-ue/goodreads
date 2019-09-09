@@ -22,7 +22,6 @@ export default class AuthorBookBlock extends Component {
             console.log(error);
             return <div>error...</div>;
           }
-          console.log(this.author.name, data);
           const others = data.booksByAuthor.filter(
             book => book._id !== this.showing
           );

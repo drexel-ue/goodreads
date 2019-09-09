@@ -4,6 +4,13 @@ import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
 import SeriesBlock from "./SeriesBlock";
 import AuthorBookBlock from "./AuthorBookBlock";
+import MainCover from "./MainCover";
+import ShelfButton from "./ShelfButton";
+import StarRow from "./StarRow";
+import RatedRow from "./RatedRow";
+import MainDescription from "./MainDescription";
+import StoresDropdown from "./StoresDropdown";
+import FullBookDetail from "./FullBookDetail";
 import "./BookShow.scss";
 
 const { BOOK_BY_ID } = Queries;
@@ -14,7 +21,6 @@ export default withRouter(
       super(props);
 
       this.state = {
-        descriptionExpanded: false,
         detailsExpanded: false
       };
     }
@@ -30,30 +36,14 @@ export default withRouter(
               console.log(error);
               return <div>error...</div>;
             }
-            console.log("data", data);
             const { book } = data;
 
             const section1 = (
               <div className="section_1">
-                <img
-                  className="main_cover"
-                  src={book.coverPhoto}
-                  alt="book cover"
-                />
-                <div className="shelf_button">
-                  <div className="want_to_read">Want To Read</div>
-                  <div className="dropdown_button">
-                    <i className="fas fa-caret-down"></i>
-                  </div>
-                </div>
+                <MainCover src={book.coverPhoto} />
+                <ShelfButton _id={book._id} />
                 <div className="rate_text">Rate this book</div>
-                <div className="stars">
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                </div>
+                <StarRow bookId={book._id} />
                 <div className="preview">
                   <i className="fas fa-book-open"></i>
                   <div className="text">Preview</div>
@@ -62,11 +52,8 @@ export default withRouter(
             );
 
             const section2 = () => {
-              const expanderStyle = this.state.descriptionExpanded
-                ? {}
-                : { height: "168px" };
-
               const publishDate = new Date(book.publishDate);
+              const rating = Math.round(book.rating);
 
               return (
                 <div className="section_2">
@@ -101,38 +88,25 @@ export default withRouter(
                     </div>
                   </div>
                   <div className="rating_row">
-                    <div className="stars">
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                    </div>
-                    <div className="rating">{book.rating}</div>
+                    <RatedRow rating={rating} />
+                    <div className="rating">{rating}</div>
                     <i className="fas fa-circle"></i>
                     <div className="details_button">
                       <i className="far fa-chart-bar"></i>
                       <div className="button_text">Rating details</div>
                     </div>
                     <i className="fas fa-circle"></i>
-                    <div className="rating_count">280,209 ratings</div>
+                    <div className="rating_count">{`${book.ratingIds.length} ratings`}</div>
                     <i className="fas fa-circle"></i>
                     <div className="review_count">209,280 reviews</div>
                   </div>
-                  <div className="description" style={expanderStyle}>
-                    {book.description}{" "}
-                  </div>
-                  <div className="description_expander">
-                    {this.state.descriptionExpanded ? "(less)" : "...more"}
-                  </div>
+                  <MainDescription description={book.description} />
                   <div className="purchase_block">
                     <div className="get_a_copy">Get a copy</div>
                     <div className="purchase_options">
                       <div className="option">Amazon $9.99</div>
                       <div className="option">Kindle</div>
-                      <div className="option dropdown">
-                        Stores <i className="fas fa-caret-down"></i>
-                      </div>
+                      <StoresDropdown />
                       <div className="option">Libraries</div>
                     </div>
                   </div>
@@ -143,11 +117,7 @@ export default withRouter(
                       book.publisher
                     }`}
                   </div>
-                  <div className="details_expander">
-                    {this.state.detailsExpanded
-                      ? "...Less Detail"
-                      : "More Details..."}
-                  </div>
+                  <FullBookDetail book={book} />
                 </div>
               );
             };
