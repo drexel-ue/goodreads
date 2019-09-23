@@ -22,18 +22,22 @@ class Nav extends React.Component {
     this.hideDropdown = this.hideDropdown.bind(this);
   }
 
-  showDropdown(event) {
-    event.preventDefault();
-    clearTimeout(this.timer);
-    this.setState({ showBrowseDropdown: true });
+  showDropdown(field) {
+    return event => {
+      event.preventDefault();
+      clearTimeout(this.timer);
+      this.setState({ [field]: true });
+    };
   }
 
-  hideDropdown(event) {
-    event.preventDefault();
-    this.timer = setTimeout(
-      () => this.setState({ showBrowseDropdown: false }),
-      1
-    );
+  hideDropdown(field) {
+    return event => {
+      event.preventDefault();
+      this.timer = setTimeout(
+        () => this.setState({ [field]: false }),
+        field === "userClicked" ? 100 : 1
+      );
+    };
   }
 
   render() {
@@ -68,14 +72,22 @@ class Nav extends React.Component {
                             <div className="dropdown">
                               <button
                                 className="dropbtn"
-                                onMouseEnter={this.showDropdown}
-                                onMouseLeave={this.hideDropdown}
+                                onMouseEnter={this.showDropdown(
+                                  "showBrowseDropdown"
+                                )}
+                                onMouseLeave={this.hideDropdown(
+                                  "showBrowseDropdown"
+                                )}
                               >
                                 Browse
                               </button>
                               <div
-                                onMouseEnter={this.showDropdown}
-                                onMouseLeave={this.hideDropdown}
+                                onMouseEnter={this.showDropdown(
+                                  "showBrowseDropdown"
+                                )}
+                                onMouseLeave={this.hideDropdown(
+                                  "showBrowseDropdown"
+                                )}
                                 className={`dropdown-content ${
                                   this.state.showBrowseDropdown
                                     ? "reveal"
@@ -172,25 +184,14 @@ class Nav extends React.Component {
                             <div className="profile-dropdown">
                               <button
                                 className="profile-dropbtn"
-                                onClick={e => {
-                                  e.preventDefault();
-
-                                  if (!this.state.userClicked) {
-                                    this.setState({
-                                      userClicked: true,
-                                      browseClicked: false,
-                                      commClicked: false
-                                    });
-                                  } else {
-                                    this.setState({
-                                      userClicked: false
-                                    });
-                                  }
-                                }}
+                                onMouseEnter={this.showDropdown("userClicked")}
+                                onMouseLeave={this.hideDropdown("userClicked")}
                               >
                                 <i className="fa fa-user-circle-o"></i>
                               </button>
                               <div
+                                onMouseEnter={this.showDropdown("userClicked")}
+                                onMouseLeave={this.hideDropdown("userClicked")}
                                 className={`profile-dropdown-content ${
                                   this.state.userClicked ? "reveal" : "hide"
                                 }`}
