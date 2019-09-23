@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: drexelue/badreads
+    volumes:
+      - ".:/usr/src/app"
+      - ".:/usr/src/app/node_modules"
+    ports:
+      - "3000:3000"
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
