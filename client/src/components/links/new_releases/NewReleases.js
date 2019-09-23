@@ -311,9 +311,9 @@ const NewReleases = (props) => (
                                                     if (count < 15 && year >= bookYear && (month + 1) >= bookMonth) {
                                                         count += 1;
                                                         return (
-                                                            <Link to='/'><img src={book.coverPhoto}/></Link>
+                                                            <Link to='/'><img src={book.coverPhoto} alt='book cover'/></Link>
                                                         );
-                                                    }
+                                                    } return <div></div>
                                                 });
                                             }
                                         }}
