@@ -151,11 +151,11 @@ class Explore extends React.Component {
                                                                 return (
                                                                     <div key={index} className='new-book'>
                                                                         <div className='new-book-cover'>
-                                                                            <Link to={`/book/${book._id}`}><img src={book.coverPhoto} /></Link>
+                                                                            <Link to={`/book/${book._id}`}><img src={book.coverPhoto} alt='book cover' /></Link>
                                                                         </div>
                                                                     </div>
                                                                 );
-                                                            }
+                                                            } return <div></div>
                                                         });
                                                     }
                                                 }}
@@ -193,12 +193,12 @@ class Explore extends React.Component {
                                                                 return (
                                                                     <div key={index} className='new-book'>
                                                                         <div className='new-book-cover'>
-                                                                            <Link to={`/book/${book._id}`}><img src={book.coverPhoto} /></Link>
+                                                                            <Link to={`/book/${book._id}`}><img src={book.coverPhoto} alt='book cover'/></Link>
                                                                         </div>
                                                                         <div className='clear'></div>
                                                                     </div>
                                                                 );
-                                                            }
+                                                            } return <div></div>
                                                         });
                                                     }
                                                 }}
@@ -229,12 +229,12 @@ class Explore extends React.Component {
                                                                 return (
                                                                     <div key={index} className='new-book'>
                                                                         <div className='new-book-cover'>
-                                                                            <Link to={`/book/${book._id}`}><img src={book.coverPhoto} /></Link>
+                                                                            <Link to={`/book/${book._id}`}><img src={book.coverPhoto} alt='book cover'/></Link>
                                                                         </div>
                                                                         <div className='clear'></div>
                                                                     </div>
                                                                 );
-                                                            }
+                                                            } return <div></div>
                                                         });
                                                     }
                                                 }}
