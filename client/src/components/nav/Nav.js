@@ -3,7 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { Query, ApolloConsumer } from "react-apollo";
 import Queries from "../../graphql/queries";
 import Login from "../session/Login";
-import './Nav.css';
+import "./Nav.css";
 const { IS_LOGGED_IN } = Queries;
 
 class Nav extends React.Component {
@@ -11,13 +11,36 @@ class Nav extends React.Component {
     super(props);
 
     this.state = {
-      browseClicked: false,
+      showBrowseDropdown: false,
       commClicked: false,
       userClicked: false
     };
+
+    this.timer = undefined;
+
+    this.showDropdown = this.showDropdown.bind(this);
+    this.hideDropdown = this.hideDropdown.bind(this);
   }
 
-  render () {
+  showDropdown(field) {
+    return event => {
+      event.preventDefault();
+      clearTimeout(this.timer);
+      this.setState({ [field]: true });
+    };
+  }
+
+  hideDropdown(field) {
+    return event => {
+      event.preventDefault();
+      this.timer = setTimeout(
+        () => this.setState({ [field]: false }),
+        field === "userClicked" ? 100 : 1
+      );
+    };
+  }
+
+  render() {
     return (
       <ApolloConsumer>
         {client => (
@@ -35,31 +58,36 @@ class Nav extends React.Component {
                           <li className='nav-list-item'>
                             <Link to='/' className='nav-link'>Home</Link>
                           </li>
-                          <li className='nav-list-item'>
-                            <Link to='/bookshelf/all' className='nav-link'>My Books</Link>
+                          <li className="nav-list-item">
+                            <Link to="/bookshelf/all" className="nav-link">
+                              My Books
+                            </Link>
                           </li>
-                          <li className='nav-list-item'>
+                          <li className="nav-list-item">
                             <div className="dropdown">
-                              <button className="dropbtn"
-                                onClick={e => {
-                                  e.preventDefault();
-
-                                  if (!this.state.browseClicked) {
-                                    this.setState({
-                                      browseClicked: true,
-                                      commClicked: false,
-                                      userClicked: false
-                                    });
-                                  } else {
-                                    this.setState({
-                                      browseClicked: false
-                                    });
-                                  }
-                                }}>Browse</button>
+                              <button
+                                className="dropbtn"
+                                onMouseEnter={this.showDropdown(
+                                  "showBrowseDropdown"
+                                )}
+                                onMouseLeave={this.hideDropdown(
+                                  "showBrowseDropdown"
+                                )}
+                              >
+                                Browse
+                              </button>
                               <div
+                                onMouseEnter={this.showDropdown(
+                                  "showBrowseDropdown"
+                                )}
+                                onMouseLeave={this.hideDropdown(
+                                  "showBrowseDropdown"
+                                )}
                                 className={`dropdown-content ${
-                                  this.state.browseClicked ? "reveal" : "hide"
-                                  }`}
+                                  this.state.showBrowseDropdown
+                                    ? "reveal"
+                                    : "hide"
+                                }`}
                               >
                                 <div className="dropdown-item">
                                   <Link to='/new_releases'>New Releases</Link>
@@ -73,8 +101,8 @@ class Nav extends React.Component {
                         </ul>
                       </nav>
 
-                      <form className='search'>
-                        <input type="text" placeholder="Search books"/>
+                      <form className="search">
+                        <input type="text" placeholder="Search books" />
                         <button type="submit">
                           <i className="fa fa-search"></i>
                         </button>
@@ -85,41 +113,36 @@ class Nav extends React.Component {
                           <li className='personal-nav-list-item'>
                             <Link to='/friend' className='personal-link'><i className='fas fa-user-friends'></i></Link>
                           </li>
-                          <li className='personal-nav-list-item'>
+                          <li className="personal-nav-list-item">
                             <div className="profile-dropdown">
-                              <button className="profile-dropbtn"
-                                onClick={e => {
-                                  e.preventDefault();
-
-                                  if (!this.state.userClicked) {
-                                    this.setState({
-                                      userClicked: true,
-                                      browseClicked: false,
-                                      commClicked: false
-                                    });
-                                  } else {
-                                    this.setState({
-                                      userClicked: false
-                                    });
-                                  }
-                                }}><i className="fa fa-user-circle-o"></i></button>
+                              <button
+                                className="profile-dropbtn"
+                                onMouseEnter={this.showDropdown("userClicked")}
+                                onMouseLeave={this.hideDropdown("userClicked")}
+                              >
+                                <i className="fa fa-user-circle-o"></i>
+                              </button>
                               <div
+                                onMouseEnter={this.showDropdown("userClicked")}
+                                onMouseLeave={this.hideDropdown("userClicked")}
                                 className={`profile-dropdown-content ${
                                   this.state.userClicked ? "reveal" : "hide"
-                                  }`}
+                                }`}
                               >
                                 <div className="profile-dropdown-item">
-                                  <Link to='/'>Profile</Link>
+                                  <Link to="/">Profile</Link>
                                 </div>
                                 <div className="profile-dropdown-item">
-                                  <Link to='/friend'>Friends</Link>
+                                  <Link to="/friend">Friends</Link>
                                 </div>
                                 <button
                                   className="profile-dropdown-button"
                                   onClick={e => {
                                     e.preventDefault();
                                     localStorage.removeItem("auth-token");
-                                    client.writeData({ data: { isLoggedIn: false } });
+                                    client.writeData({
+                                      data: { isLoggedIn: false }
+                                    });
                                     this.setState({
                                       browseClicked: false,
                                       commClicked: false,
@@ -127,7 +150,9 @@ class Nav extends React.Component {
                                     });
                                     this.props.history.push("/register");
                                   }}
-                                >Sign out</button>
+                                >
+                                  Sign out
+                                </button>
                               </div>
                             </div>
                           </li>
@@ -138,8 +163,13 @@ class Nav extends React.Component {
                 );
               } else {
                 return (
-                  <div className='navbar'>
-                    <Link to='/' className='out-logo'>bad</Link><Link to='/' className='out-logo2'>reads</Link>
+                  <div className="navbar">
+                    <Link to="/" className="out-logo">
+                      bad
+                    </Link>
+                    <Link to="/" className="out-logo2">
+                      reads
+                    </Link>
                     <Login />
                   </div>
                 );
@@ -150,6 +180,6 @@ class Nav extends React.Component {
       </ApolloConsumer>
     );
   }
-};
+}
 
 export default withRouter(Nav);
