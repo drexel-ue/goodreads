@@ -7,13 +7,12 @@ const BookItem = props => {
       return (
         <div className="new-books-container">
           {props.data.booksByGenre.map((book, idx) => {
-            // const today = new Date();
-            // const year = today.getFullYear();
-            // const month = today.getMonth();
-            // const bookYear = book.publishDate.slice(0, 4);
-            // const bookMonth = book.publishDate.slice(6, 7
-            // idx < 5 && year == bookYear && (month + 1) == bookMon
-            if (idx < 5) {
+            const bookYear = book.publishDate.slice(0, 4);
+            const bookMonth = book.publishDate.slice(6, 7);
+            let count = 0;
+            
+            if (count < 5 && props.year >= bookYear && (props.month + 1) >= bookMonth) {
+              count += 1;
               return (
                 <div className="new-book">
                   <div className="new-book-cover">
