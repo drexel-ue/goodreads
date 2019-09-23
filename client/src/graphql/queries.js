@@ -40,6 +40,7 @@ export default {
     query FetchBooks {
       books {
         coverPhoto
+        publishDate
       }
     }
   `,
