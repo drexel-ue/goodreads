@@ -30,7 +30,7 @@ button, input, a {
     font-size: 35px;
     text-decoration: none;
     color: rgb(128, 92, 68);
-    margin-left: 2%;
+    margin-left: 7%;
     display: inline-block;
     order: initial;
     box-sizing: inherit;
@@ -45,6 +45,10 @@ button, input, a {
     display: inline-block;
     order: initial;
     box-sizing: inherit;
+}
+
+.logo {
+    display: contents;
 }
 
 a {
@@ -290,6 +294,7 @@ header {
     color: rgb(202, 183, 169);
     text-align: center;
     font-size: 28px;
+    margin-left: 20%
 }
 
 .personal-link i {
@@ -317,6 +322,10 @@ header {
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
+}
+
+.profile-dropdown {
+    margin-left: 20%;
 }
 
 .profile-dropdown-item a {
