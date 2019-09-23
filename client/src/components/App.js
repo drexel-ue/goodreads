@@ -152,7 +152,7 @@ const App = () => {
         />
         <AuthRoute
           exact
-          path="/reviews"
+          path="/reviews/:bookId"
           component={CreateReview}
           routeType="protected"
         />

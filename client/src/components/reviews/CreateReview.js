@@ -15,15 +15,16 @@ class CreateReview extends React.Component {
         this.state = {
             content: "",
             hidden: true,
-            dateStarted: "",
-            dateFinished: "",
+            // dateStarted: "",
+            // dateFinished: "",
             recommendTo: "",
             privateNotes: "",
             owned: false,
             postToBlog: false,
             addToFeed: false,
-            user: ""
-        };   
+            user: "",
+            book: this.props.match.params.bookId
+        };
         this.handleSubmit.bind(this)   
         this.updateCache.bind(this)   
     }
@@ -54,12 +55,13 @@ class CreateReview extends React.Component {
 
     handleSubmit(e, newReview) {
         e.preventDefault();
+        console.log(this.state)
         newReview({
             variables: {
                 content: this.state.content,
                 hidden: this.state.hidden,
-                dateStarted: this.state.dateStarted,
-                dateFinished: this.state.dateFinished,
+                // dateStarted: this.state.dateStarted,
+                // dateFinished: this.state.dateFinished,
                 recommendTo: this.state.recommendTo,
                 privateNotes: this.state.privateNotes, 
                 owned: this.state.owned,
@@ -67,6 +69,7 @@ class CreateReview extends React.Component {
                 addToFeed: this.state.addToFeed
             }
         });
+        // debugger
     }
 
     render() {
@@ -104,7 +107,7 @@ class CreateReview extends React.Component {
                                         <option value="true">True</option>
                                         <option value="false">False</option>
                                     </select>
-                                    <input
+                                    {/* <input
                                         type="date"
                                         onChange={this.update("dateStarted")}
                                         value={this.state.dateStarted}
@@ -115,7 +118,7 @@ class CreateReview extends React.Component {
                                         onChange={this.update("dateFinished")}
                                         value={this.state.dateFinished}
                                         placeholder="Date Finished"
-                                    />
+                                    /> */}
                                     <input
                                         onChange={this.update("recommendTo")}
                                         value={this.state.recommendTo}

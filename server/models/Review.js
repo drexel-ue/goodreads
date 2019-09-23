@@ -18,18 +18,20 @@ const ReviewSchema = new Schema({
     default: false
   },
   dateStarted: {
-    type: Date
+    type: Date,
+    required: false
   },
   dateFinished: {
-    type: Date
+    type: Date,
+    required: false
   },
   recommendTo: {
     type: String
   },
-  recommendedBy: {
-    type: Schema.Types.ObjectId,
-    ref: "users"
-  },
+  // recommendedBy: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "users"
+  // },
   privateNotes: {
     type: String
   },

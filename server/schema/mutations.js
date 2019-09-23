@@ -871,53 +871,54 @@ const mutation = new GraphQLObjectType({
     createReview: {
       type: ReviewType,
       args: {
-        user: { type: GraphQLID },
-        book: { type: GraphQLID },
-        content: { type: new GraphQLNonNull(GraphQLString) },
-        hidden: { type: new GraphQLNonNull(GraphQLBoolean) },
-        dateStarted: { type: new GraphQLNonNull(GraphQLDateTime) },
-        dateFinished: { type: new GraphQLNonNull(GraphQLDateTime) },
-        recommendTo: { type: new GraphQLNonNull(GraphQLString) },
-        recommendBy: { type: GraphQLID },
-        privateNotes: { type: new GraphQLNonNull(GraphQLString) },
-        owned: { type: new GraphQLNonNull(GraphQLBoolean) },
-        postToBlog: { type: new GraphQLNonNull(GraphQLBoolean) },
-        addToFeed: { type: new GraphQLNonNull(GraphQLBoolean) },
-        date: { type: new GraphQLNonNull(GraphQLDateTime) }
+        user: { type: new GraphQLNonNull(GraphQLID) },
+        book: { type: new GraphQLNonNull(GraphQLID) },
+        content: { type: (GraphQLString) },
+        hidden: { type: (GraphQLBoolean) },
+        // dateStarted: { type: (GraphQLDateTime) },
+        // dateFinished: { type: (GraphQLDateTime) },
+        recommendTo: { type: (GraphQLString) },
+        // recommendBy: { type: GraphQLID },
+        privateNotes: { type: (GraphQLString) },
+        owned: { type: (GraphQLBoolean) },
+        postToBlog: { type: (GraphQLBoolean) },
+        addToFeed: { type: (GraphQLBoolean) },
+        // date: { type: (GraphQLDateTime) }
       },
-      resolve(
+      async resolve(
         _,
         {
           user,
           book,
           content,
           hidden,
-          dateStarted,
-          dateFinished,
+          // dateStarted,
+          // dateFinished,
           recommendTo,
-          recommendBy,
+          // recommendBy,
           privateNotes,
           owned,
           postToBlog,
           addToFeed,
-          date
+          // date
         }
       ) {
-        return new Review({
-          user,
-          book,
-          content,
-          hidden,
-          dateStarted,
-          dateFinished,
-          recommendTo,
-          recommendBy,
-          privateNotes,
-          owned,
-          postToBlog,
-          addToFeed,
-          date
-        }).save();
+        console.log("arguments")
+        // return await new Review({
+        //   user,
+        //   book,
+        //   content,
+        //   hidden,
+        //   dateStarted,
+        //   dateFinished,
+        //   recommendTo,
+        //   // recommendBy,
+        //   privateNotes,
+        //   owned,
+        //   postToBlog,
+        //   addToFeed,
+        //   // date
+        // }).save();
       }
     },
 
@@ -938,7 +939,7 @@ const mutation = new GraphQLObjectType({
         dateStarted: { type: GraphQLDateTime },
         dateFinished: { type: GraphQLDateTime },
         recommendTo: { type: GraphQLString },
-        recommendBy: { type: GraphQLID },
+        // recommendBy: { type: GraphQLID },
         privateNotes: { type: GraphQLString },
         owned: { type: GraphQLBoolean },
         postToBlog: { type: GraphQLBoolean },
@@ -954,7 +955,7 @@ const mutation = new GraphQLObjectType({
           dateStarted,
           dateFinished,
           recommendTo,
-          recommendBy,
+          // recommendBy,
           privateNotes,
           owned,
           postToBlog,
@@ -969,7 +970,7 @@ const mutation = new GraphQLObjectType({
         if (dateStarted) updateReviewField.dateStarted = dateStarted;
         if (dateFinished) updateReviewField.dateFinished = dateFinished;
         if (recommendTo) updateReviewField.recommendTo = recommendTo;
-        if (recommendBy) updateReviewField.recommendBy = recommendBy;
+        // if (recommendBy) updateReviewField.recommendBy = recommendBy;
         if (privateNotes) updateReviewField.privateNotes = privateNotes;
         if (owned) updateReviewField.owned = owned;
         if (postToBlog) updateReviewField.postToBlog = postToBlog;

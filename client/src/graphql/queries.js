@@ -132,7 +132,7 @@ export default {
         dateStarted
         dateFinished
         recommendTo
-        recommendBy
+        # recommendBy
         privateNotes
         owned
         postToBlog
