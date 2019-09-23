@@ -15,23 +15,6 @@ const mongoose = require("mongoose");
 mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
   console.log("Connected to MongoDB successfully");
 
-  const demoUserData = {
-    email: "12@34.com",
-    password: "test123",
-    name: "DemoUser"
-  };
-
-  const demoUser = await User.findOne({ email: "12@34.com" });
-
-  if (!demoUser) {
-    const hashedPassword = await bcrypt.hash(demoUserData.password, 10);
-    demoUserData.password = hashedPassword;
-    await new User(demoUserData).save();
-    console.log("Demo User Saved");
-  } else {
-    console.log("No Demo User Needed");
-  }
-
   let authors = [];
 
   // Return random Genre ids
@@ -271,6 +254,33 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
     }
     return shelves;
   };
+
+  const demoUserData = {
+    email: "12@34.com",
+    password: "test123",
+    name: "DemoUser"
+  };
+
+  let demoUser = await User.findOne({ email: "12@34.com" });
+
+  if (!demoUser) {
+    const hashedPassword = await bcrypt.hash(demoUserData.password, 10);
+    demoUserData.password = hashedPassword;
+    demoUser = new User(demoUserData);
+    const book = books[faker.random.number({ min: 0, max: books.length - 1 })];
+    const currentPage = faker.random.number({ min: 1, max: book.pages });
+
+    demoUser.friends = pickFriends(demoUser);
+    demoUser.shelves = genShelves(demoUser);
+    demoUser.followedAuthors = pickAuthorsToFollow(demoUser);
+    demoUser.currentlyReading = book;
+    demoUser.currentPage = currentPage;
+
+    await demoUser.save();
+    console.log("Demo User Saved");
+  } else {
+    console.log("No Demo User Needed");
+  }
 
   for (let index = 0; index < users.length; index++) {
     const user = users[index];
