@@ -137,8 +137,17 @@ class Explore extends React.Component {
                                                     if (error) return <p>Error</p>;
 
                                                     if (data) {
+                                                        const today = new Date();
+                                                        const year = today.getFullYear();
+                                                        const month = today.getMonth();
+                                                        let count = 0;
+
                                                         return data.books.map((book, idx) => {
-                                                            if (idx < 5) {
+                                                            const bookYear = book.publishDate.slice(0, 4);
+                                                            const bookMonth = book.publishDate.slice(6, 7);
+
+                                                            if (count < 5 && year >= bookYear && (month + 1) == bookMonth) {
+                                                                count += 1;
                                                                 return (
                                                                     <div className='new-book'>
                                                                         <div className='new-book-cover'>
@@ -172,8 +181,15 @@ class Explore extends React.Component {
                                                     if (error) return <p>Error</p>;
 
                                                     if (data) {
+                                                        const today = new Date();
+                                                        const year = today.getFullYear();
+                                                        let count = 0;
+
                                                         return data.books.map((book, idx) => {
-                                                            if (idx < 5) {
+                                                            const bookYear = book.publishDate.slice(0, 4);
+
+                                                            if (count < 5 && year >= bookYear) {
+                                                                count += 1;
                                                                 return (
                                                                     <div className='new-book'>
                                                                         <div className='new-book-cover'>
