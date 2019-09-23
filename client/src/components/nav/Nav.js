@@ -27,7 +27,9 @@ class Nav extends React.Component {
                 return (
                   <div className='navbar'>
                     <div className='navbar-contents'>
-                      <Link to='/' className='in-logo'>bad</Link><Link to='/' className='in-logo2'>reads</Link>
+                      <div className='logo'>
+                        <Link to='/' className='in-logo'>bad</Link><Link to='/' className='in-logo2'>reads</Link>
+                      </div>
                       <nav className='main-nav'>
                         <ul className='nav-list'>
                           <li className='nav-list-item'>
@@ -60,54 +62,10 @@ class Nav extends React.Component {
                                   }`}
                               >
                                 <div className="dropdown-item">
-                                  <Link to='/recommendations'>Recommendations</Link>
-                                </div>
-                                <div className="dropdown-item">
                                   <Link to='/new_releases'>New Releases</Link>
                                 </div>
                                 <div className="dropdown-item">
-                                  <Link to='/list'>Lists</Link>
-                                </div>
-                                <div className="dropdown-item">
                                   <Link to='/book'>Explore</Link>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                          <li className='nav-list-item'>
-                            <div className="dropdown">
-                              <button className="dropbtn"
-                                onClick={e => {
-                                  e.preventDefault();
-
-                                  if (!this.state.commClicked) {
-                                    this.setState({
-                                      commClicked: true,
-                                      browseClicked: false,
-                                      userClicked: false
-                                    });
-                                  } else {
-                                    this.setState({
-                                      commClicked: false
-                                    });
-                                  }
-                                }}>Community</button>
-                              <div
-                                className={`dropdown-content ${
-                                  this.state.commClicked ? "reveal" : "hide"
-                                  }`}
-                              >
-                                <div className="dropdown-item">
-                                  <Link to='/group'>Groups</Link>
-                                </div>
-                                <div className="dropdown-item">
-                                  <Link to='/topic'>Discussions</Link>
-                                </div>
-                                <div className="dropdown-item">
-                                  <Link to='/quotes'>Quotes</Link>
-                                </div>
-                                <div className="dropdown-item">
-                                  <Link to='/best_reviewers'>People</Link>
                                 </div>
                               </div>
                             </div>
@@ -124,12 +82,6 @@ class Nav extends React.Component {
 
                       <div className='personal-nav'>
                         <ul className='personal-nav-list'>
-                          <li className='personal-nav-list-item'>
-                            <Link to='/group' className='personal-link'><i className='far fa-comments'></i></Link>
-                          </li>
-                          <li className='personal-nav-list-item'>
-                            <Link to='/inbox' className='personal-link'><i className="fa fa-envelope-o"></i></Link>
-                          </li>
                           <li className='personal-nav-list-item'>
                             <Link to='/friend' className='personal-link'><i className='fas fa-user-friends'></i></Link>
                           </li>
@@ -161,24 +113,6 @@ class Nav extends React.Component {
                                 </div>
                                 <div className="profile-dropdown-item">
                                   <Link to='/friend'>Friends</Link>
-                                </div>
-                                <div className="profile-dropdown-item">
-                                  <Link to='/group'>Groups</Link>
-                                </div>
-                                <div className="profile-dropdown-item">
-                                  <Link to='/topic'>Discussions</Link>
-                                </div>
-                                <div className="profile-dropdown-item">
-                                  <Link to='/'>Comments</Link>
-                                </div>
-                                <div className="profile-dropdown-item">
-                                  <Link to='/quotes'>Quotes</Link>
-                                </div>
-                                <div className="profile-dropdown-item">
-                                  <Link to='/edit_fav_genres'>Favorite genres</Link>
-                                </div>
-                                <div className="profile-dropdown-item">
-                                  <Link to='/friend_recommendations'>Friends' recommendations</Link>
                                 </div>
                                 <button
                                   className="profile-dropdown-button"
