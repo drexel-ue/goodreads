@@ -10,8 +10,12 @@ const BookItem = props => {
             const bookYear = book.publishDate.slice(0, 4);
             const bookMonth = book.publishDate.slice(6, 7);
             let count = 0;
-            
-            if (count < 5 && props.year >= bookYear && (props.month + 1) >= bookMonth) {
+
+            if (
+              count < 5 &&
+              props.year >= bookYear &&
+              props.month + 1 >= bookMonth
+            ) {
               count += 1;
               return (
                 <div className="new-book">
@@ -24,6 +28,7 @@ const BookItem = props => {
                 </div>
               );
             }
+            return <div></div>;
           })}
         </div>
       );
