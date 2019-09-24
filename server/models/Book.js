@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const BookSchema = new Schema({
   title: {
     type: String,
-    required: true
+    required: true,
+    index: true
   },
   authors: [
     {
@@ -53,7 +54,7 @@ const BookSchema = new Schema({
     }
   ],
   series: {
-    type: String
+    type: String,index: true
   },
   questions: [
     {
@@ -77,7 +78,7 @@ const BookSchema = new Schema({
   },
   isbn: {
     type: String,
-    required: true
+    required: true,index: true
   },
   settings: [
     {
