@@ -13,7 +13,6 @@ const BookType = require("./book_type");
 const ShelfType = require("./shelf_type");
 const ReviewType = require("./review_type");
 
-
 const User = mongoose.model("users");
 const Book = mongoose.model("books");
 const Review = mongoose.model("reviews");
@@ -99,8 +98,26 @@ const RootQueryType = new GraphQLObjectType({
     },
     reviews: {
       type: new GraphQLList(ReviewType),
-      resolve(parentValue) {
-        return Review.find({})
+      resolve(_) {
+        return Review.find({});
+      }
+    },
+    bookSearchBar: {
+      type: new GraphQLList(BookType),
+      args: { queryString: { type: GraphQLString } },
+      async resolve(_, { queryString }) {
+        const pattern = new RegExp(queryString, "i");
+        let books = await Book.find({
+          $or: [
+            {
+              title: pattern,
+              series: pattern
+            }
+          ]
+        });
+        let authors = await Author.find({ name: pattern }).populate("books");
+
+        return { books, authors };
       }
     }
   })
