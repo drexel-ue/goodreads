@@ -177,5 +177,9 @@ export default {
         bookIds
       }
     }
-  `
+  `,
+  BOOK_SEARCH: gql`
+  query BookSearch($queryString:String!){
+    
+  }`
 };
