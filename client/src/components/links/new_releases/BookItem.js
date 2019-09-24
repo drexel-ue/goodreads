@@ -18,7 +18,7 @@ const BookItem = props => {
             ) {
               count += 1;
               return (
-                <div className="new-book">
+                <div key={idx} className="new-book">
                   <div className="new-book-cover">
                     <Link to={`/book/${book._id}`}>
                       <img src={book.coverPhoto} alt="cover" />
