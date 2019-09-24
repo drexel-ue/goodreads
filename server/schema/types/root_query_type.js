@@ -111,7 +111,8 @@ const RootQueryType = new GraphQLObjectType({
           $or: [
             {
               title: pattern,
-              series: pattern
+              series: pattern,
+              isbn: pattern
             }
           ]
         });
