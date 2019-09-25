@@ -4,7 +4,7 @@ import { Query, ApolloConsumer } from "react-apollo";
 import Queries from "../../graphql/queries";
 import Login from "../session/Login";
 import "./Nav.css";
-const { IS_LOGGED_IN } = Queries;
+const { IS_LOGGED_IN, BOOK_SEARCH } = Queries;
 
 class Nav extends React.Component {
   constructor(props) {
@@ -13,13 +13,15 @@ class Nav extends React.Component {
     this.state = {
       showBrowseDropdown: false,
       commClicked: false,
-      userClicked: false
+      userClicked: false,
+      queryString: ""
     };
 
     this.timer = undefined;
 
     this.showDropdown = this.showDropdown.bind(this);
     this.hideDropdown = this.hideDropdown.bind(this);
+    this.handleInput = this.handleInput.bind(this);
   }
 
   showDropdown(field) {
@@ -40,6 +42,11 @@ class Nav extends React.Component {
     };
   }
 
+  handleInput(event) {
+    event.preventDefault();
+    this.setState({ queryString: event.currentTarget.value });
+  }
+
   render() {
     return (
       <ApolloConsumer>
@@ -48,15 +55,22 @@ class Nav extends React.Component {
             {({ data }) => {
               if (data.isLoggedIn) {
                 return (
-                  <div className='navbar'>
-                    <div className='navbar-contents'>
-                      <div className='logo'>
-                        <Link to='/' className='in-logo'>bad</Link><Link to='/' className='in-logo2'>reads</Link>
+                  <div className="navbar">
+                    <div className="navbar-contents">
+                      <div className="logo">
+                        <Link to="/" className="in-logo">
+                          bad
+                        </Link>
+                        <Link to="/" className="in-logo2">
+                          reads
+                        </Link>
                       </div>
-                      <nav className='main-nav'>
-                        <ul className='nav-list'>
-                          <li className='nav-list-item'>
-                            <Link to='/' className='nav-link'>Home</Link>
+                      <nav className="main-nav">
+                        <ul className="nav-list">
+                          <li className="nav-list-item">
+                            <Link to="/" className="nav-link">
+                              Home
+                            </Link>
                           </li>
                           <li className="nav-list-item">
                             <Link to="/bookshelf/all" className="nav-link">
@@ -90,10 +104,10 @@ class Nav extends React.Component {
                                 }`}
                               >
                                 <div className="dropdown-item">
-                                  <Link to='/new_releases'>New Releases</Link>
+                                  <Link to="/new_releases">New Releases</Link>
                                 </div>
                                 <div className="dropdown-item">
-                                  <Link to='/book'>Explore</Link>
+                                  <Link to="/book">Explore</Link>
                                 </div>
                               </div>
                             </div>
@@ -101,17 +115,51 @@ class Nav extends React.Component {
                         </ul>
                       </nav>
 
-                      <form className="search">
-                        <input type="text" placeholder="Search books" />
-                        <button type="submit">
-                          <i className="fa fa-search"></i>
-                        </button>
-                      </form>
+                      <Query
+                        query={BOOK_SEARCH}
+                        variables={{ queryString: this.state.queryString }}
+                      >
+                        {({ loading, error, data }) => {
+                          let results = [];
+                          if (data) {
+                            results = data.bookSearch;
+                            console.log(results);
+                          }
+                          return (
+                            <form className="search">
+                              <input
+                                onChange={this.handleInput}
+                                type="text"
+                                placeholder="Search books"
+                              />
+                              <button type="submit">
+                                <i className="fa fa-search"></i>
+                              </button>
+                              <div
+                                className={`search_bar_results ${
+                                  results.length > 0 ? "" : "hide"
+                                }`}
+                              >
+                                {results.map((book, index) => (
+                                  <div
+                                    key={index}
+                                    className="search_bar_result"
+                                  >
+                                    {book.title}
+                                  </div>
+                                ))}
+                              </div>
+                            </form>
+                          );
+                        }}
+                      </Query>
 
-                      <div className='personal-nav'>
-                        <ul className='personal-nav-list'>
-                          <li className='personal-nav-list-item'>
-                            <Link to='/friend' className='personal-link'><i className='fas fa-user-friends'></i></Link>
+                      <div className="personal-nav">
+                        <ul className="personal-nav-list">
+                          <li className="personal-nav-list-item">
+                            <Link to="/friend" className="personal-link">
+                              <i className="fas fa-user-friends"></i>
+                            </Link>
                           </li>
                           <li className="personal-nav-list-item">
                             <div className="profile-dropdown">
