@@ -179,7 +179,14 @@ export default {
     }
   `,
   BOOK_SEARCH: gql`
-  query BookSearch($queryString:String!){
-    
-  }`
+    query BookSearch($queryString: String!) {
+      bookSearch(queryString: $queryString) {
+        _id
+        title
+        coverPhoto
+        rating
+        ratingIds
+      }
+    }
+  `
 };
