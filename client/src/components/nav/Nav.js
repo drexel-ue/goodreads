@@ -146,6 +146,7 @@ class Nav extends React.Component {
                             <form className="search">
                               <input
                                 onChange={this.handleInput}
+                                onClick={this.handleInput}
                                 type="text"
                                 placeholder="Search books"
                               />
