@@ -4,6 +4,7 @@ import { Query, ApolloConsumer } from "react-apollo";
 import Queries from "../../graphql/queries";
 import Login from "../session/Login";
 import "./Nav.css";
+import "./search_bar.css";
 const { IS_LOGGED_IN, BOOK_SEARCH } = Queries;
 
 class Nav extends React.Component {

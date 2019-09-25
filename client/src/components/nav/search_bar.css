@@ -1,0 +1,11 @@
+.search_bar_results {
+  top: 30px;
+  color: #333333;
+  background: white;
+  position: absolute;
+  width: 100%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  z-index: 70;
+  height: 320px;
+  overflow: auto;
+}
