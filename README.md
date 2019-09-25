@@ -4,7 +4,7 @@
 
 [Badreads](https://quiet-shore-31528.herokuapp.com/#/) is a clone of [Goodreads](https://goodreads.com) world’s largest site for readers and book recommendations. Our mission is to help people find and share books they love. Badreads launched in AppAcademy Online Cohort 04/22.
 
-## Technologies and Technical Challenges
+## Technologies
 
 - User Auth
 
