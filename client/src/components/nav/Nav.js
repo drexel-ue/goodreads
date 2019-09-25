@@ -18,17 +18,20 @@ class Nav extends React.Component {
       queryString: ""
     };
 
-    this.timer = undefined;
+    this.dropdownTimer = undefined;
+    this.searchTimer = undefined;
 
     this.showDropdown = this.showDropdown.bind(this);
     this.hideDropdown = this.hideDropdown.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.clearSearch = this.clearSearch.bind(this);
+    this.cancelClear = this.cancelClear.bind(this);
   }
 
   showDropdown(field) {
     return event => {
       event.preventDefault();
-      clearTimeout(this.timer);
+      clearTimeout(this.dropdownTimer);
       this.setState({ [field]: true });
     };
   }
@@ -36,7 +39,7 @@ class Nav extends React.Component {
   hideDropdown(field) {
     return event => {
       event.preventDefault();
-      this.timer = setTimeout(
+      this.dropdownTimer = setTimeout(
         () => this.setState({ [field]: false }),
         field === "userClicked" ? 100 : 1
       );
@@ -46,6 +49,19 @@ class Nav extends React.Component {
   handleInput(event) {
     event.preventDefault();
     this.setState({ queryString: event.currentTarget.value });
+  }
+
+  clearSearch(event) {
+    event.preventDefault();
+    this.searchTimer = setTimeout(
+      () => this.setState({ queryString: "" }),
+      2000
+    );
+  }
+
+  cancelClear(event) {
+    event.preventDefault();
+    clearTimeout(this.searchTimer);
   }
 
   render() {
@@ -141,6 +157,8 @@ class Nav extends React.Component {
                                 )}
                               </button>
                               <div
+                                onMouseEnter={this.cancelClear}
+                                onMouseLeave={this.clearSearch}
                                 className={`search_bar_results ${
                                   results.length > 0 ? "" : "hide"
                                 }`}
