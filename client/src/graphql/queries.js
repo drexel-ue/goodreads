@@ -39,6 +39,7 @@ export default {
   FETCH_BOOKS: gql`
     query FetchBooks {
       books {
+        _id
         coverPhoto
         publishDate
       }
