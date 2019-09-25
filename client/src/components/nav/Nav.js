@@ -172,7 +172,7 @@ class Nav extends React.Component {
                                     {book.title}
                                   </div>
                                 ))}
-                                <div className="see_all_results">Covfefe</div>
+                                <div className="see_all_results">{`See all results for "${this.state.queryString}"`}</div>
                               </div>
                             </form>
                           );
