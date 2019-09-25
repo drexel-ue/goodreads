@@ -45,7 +45,7 @@ class Explore extends React.Component {
                             <div className='explore-box'>
                                 <div className='explore-box-header-container'>
                                     <h2>
-                                        <Link to='/'>NEW RELEASES IN FANTASY</Link>
+                                        <Link to='/new_releases'>NEW RELEASES IN FANTASY</Link>
                                     </h2>
                                 </div>
                                 <div className='explore-box-body'>
@@ -65,7 +65,7 @@ class Explore extends React.Component {
                             <div className='explore-box'>
                                 <div className='explore-box-header-container'>
                                     <h2>
-                                        <Link to='/'>NEW RELEASES IN HORROR</Link>
+                                        <Link to='/new_releases'>NEW RELEASES IN HORROR</Link>
                                     </h2>
                                 </div>
                                 <div className='explore-box-body'>
@@ -85,7 +85,7 @@ class Explore extends React.Component {
                             <div className='explore-box'>
                                 <div className='explore-box-header-container'>
                                     <h2>
-                                        <Link to='/'>NEW RELEASES IN HISTORICAL FICTION</Link>
+                                        <Link to='/new_releases'>NEW RELEASES IN HISTORICAL FICTION</Link>
                                     </h2>
                                 </div>
                                 <div className='explore-box-body'>
@@ -105,7 +105,7 @@ class Explore extends React.Component {
                             <div className='explore-box'>
                                 <div className='explore-box-header-container'>
                                     <h2>
-                                        <Link to='/'>NEW RELEASES IN YOUNG ADULT</Link>
+                                        <Link to='/new_releases'>NEW RELEASES IN YOUNG ADULT</Link>
                                     </h2>
                                 </div>
                                 <div className='explore-box-body'>
@@ -125,7 +125,7 @@ class Explore extends React.Component {
                             <div className='explore-box'>
                                 <div className='explore-box-header-container'>
                                     <h2>
-                                        <Link to='/'>NEW RELEASES THIS MONTH</Link>
+                                        <Link to='/new_releases'>NEW RELEASES THIS MONTH</Link>
                                     </h2>
                                 </div>
                                 <div className='explore-box-body'>
@@ -169,7 +169,7 @@ class Explore extends React.Component {
                             <div className='explore-box'>
                                 <div className='explore-box-header-container'>
                                     <h2>
-                                        <Link to='/'>NEW RELEASES THIS YEAR</Link>
+                                        <Link to='/new_releases'>NEW RELEASES THIS YEAR</Link>
                                     </h2>
                                 </div>
                                 <div className='explore-box-body'>
@@ -212,7 +212,7 @@ class Explore extends React.Component {
                             <div className='explore-box'>
                                 <div className='explore-box-header-container'>
                                     <h2>
-                                        <Link to='/'>POPULAR THIS WEEK</Link>
+                                        <Link to='/new_releases'>POPULAR THIS WEEK</Link>
                                     </h2>
                                 </div>
                                 <div className='explore-box-body'>
@@ -256,90 +256,96 @@ class Explore extends React.Component {
                                 <div className='explore-box-body'>
                                     <div className='explore-box-content'>
                                         <div className='explore-genres'>
-                                            <Link to='/'>Alternate History</Link>
+                                            <Link to='/genres/Alternate-history'>Alternate History</Link>
                                             <br></br>
-                                            <Link to='/'>Art</Link>
+                                            <Link to='/genres/Anthology'>Anthology</Link>
                                             <br></br>
-                                            <Link to='/'>Autobiography</Link>
+                                            <Link to='/genres/Art'>Art</Link>
                                             <br></br>
-                                            <Link to='/'>Comic Book</Link>
+                                            <Link to='/genres/Autobiography'>Autobiography</Link>
                                             <br></br>
-                                            <Link to='/'>Coming of Age</Link>
+                                            <Link to='/genres/Biography'>Biography</Link>
                                             <br></br>
-                                            <Link to='/'>Crime</Link>
+                                            <Link to='/genres/Chick-lit'>Chick Lit</Link>
                                             <br></br>
-                                            <Link to='/'>Diary</Link>
+                                            <Link to="/genres/Children's">Children's</Link>
                                             <br></br>
-                                            <Link to='/'>Dictionary</Link>
+                                            <Link to='/genres/Comic-book'>Comic Book</Link>
                                             <br></br>
-                                            <Link to='/'>Drama</Link>
+                                            <Link to='/genres/Coming-of-age'>Coming of Age</Link>
                                             <br></br>
-                                            <Link to='/'>Encyclopedia</Link>
+                                            <Link to='/genres/Cookbook'>Cookbook</Link>
                                             <br></br>
-                                            <Link to='/'>Fairytale</Link>
+                                            <Link to='/genres/Crime'>Crime</Link>
                                             <br></br>
-                                            <Link to='/'>Fantasy</Link>
+                                            <Link to='/genres/Diary'>Diary</Link>
                                             <br></br>
-                                            <Link to='/'>Graphic Novel</Link>
+                                            <Link to='/genres/Dictionary'>Dictionary</Link>
                                             <br></br>
-                                            <Link to='/'>Guide</Link>
+                                            <Link to='/genres/Drama'>Drama</Link>
                                             <br></br>
-                                            <Link to='/'>Health</Link>
+                                            <Link to='/genres/Encyclopedia'>Encyclopedia</Link>
                                             <br></br>
-                                            <Link to='/'>Historical Fiction</Link>
+                                            <Link to='/genres/Fairytale'>Fairytale</Link>
                                             <br></br>
-                                            <Link to='/'>History</Link>
+                                            <Link to='/genres/Fantasy'>Fantasy</Link>
                                             <br></br>
-                                            <Link to='/'>Horror</Link>
+                                            <Link to='/genres/Graphic-novel'>Graphic Novel</Link>
                                             <br></br>
-                                            <Link to='/'>Journal</Link>
+                                            <Link to='/genres/Guide'>Guide</Link>
                                             <br></br>
-                                            <Link to='/'>Math</Link>
+                                            <Link to='/genres/Health'>Health</Link>
+                                            <br></br>
+                                            <Link to='/Historical-fiction'>Historical Fiction</Link>
+                                            <br></br>
+                                            <Link to='/genres/History'>History</Link>
                                         </div>
                                         <div className='explore-genres'>
-                                            <Link to='/'>Memoir</Link>
+                                            <Link to='/genres/Horror'>Horror</Link>
                                             <br></br>
-                                            <Link to='/'>Mystery</Link>
+                                            <Link to='/genres/Journal'>Journal</Link>
                                             <br></br>
-                                            <Link to='/'>Paranormal Romance</Link>
+                                            <Link to='/genres/Math'>Math</Link>
                                             <br></br>
-                                            <Link to='/'>Picture Book</Link>
+                                            <Link to='/genres/Memoir'>Memoir</Link>
                                             <br></br>
-                                            <Link to='/'>Poetry</Link>
+                                            <Link to='/genres/Mystery'>Mystery</Link>
                                             <br></br>
-                                            <Link to='/'>Political Thriller</Link>
+                                            <Link to='/genres/Paranormal-romance'>Paranormal Romance</Link>
                                             <br></br>
-                                            <Link to='/'>Prayer</Link>
+                                            <Link to='/genres/Picture-book'>Picture Book</Link>
                                             <br></br>
-                                            <Link to='/'>Review</Link>
+                                            <Link to='/genres/Poetry'>Poetry</Link>
                                             <br></br>
-                                            <Link to='/'>Romance</Link>
+                                            <Link to='/genres/Political-thriller'>Political Thriller</Link>
                                             <br></br>
-                                            <Link to='/'>Satire</Link>
+                                            <Link to='/genres/Prayer'>Prayer</Link>
                                             <br></br>
-                                            <Link to='/'>Science</Link>
+                                            <Link to='/genres/Review'>Review</Link>
                                             <br></br>
-                                            <Link to='/'>Science Fiction</Link>
+                                            <Link to='/genres/Romance'>Romance</Link>
                                             <br></br>
-                                            <Link to='/'>Self Help</Link>
+                                            <Link to='/genres/Satire'>Satire</Link>
                                             <br></br>
-                                            <Link to='/'>Short Story</Link>
+                                            <Link to='/genres/Science'>Science</Link>
                                             <br></br>
-                                            <Link to='/'>Suspense</Link>
+                                            <Link to='/genres/Science-fiction'>Science Fiction</Link>
                                             <br></br>
-                                            <Link to='/'>Textbook</Link>
+                                            <Link to='/genres/Self-help'>Self Help</Link>
                                             <br></br>
-                                            <Link to='/'>Thriller</Link>
+                                            <Link to='/genres/Short-story'>Short Story</Link>
                                             <br></br>
-                                            <Link to='/'>Travel</Link>
+                                            <Link to='/genres/Suspense'>Suspense</Link>
                                             <br></br>
-                                            <Link to='/'>True Crime</Link>
+                                            <Link to='/genres/Textbook'>Textbook</Link>
                                             <br></br>
-                                            <Link to='/'>Young Adult</Link>
-                                        </div>
-                                        <div className='clear'></div>
-                                        <div className='explore-more-genres'>
-                                            <Link to='/'>More genres...</Link>
+                                            <Link to='/genres/Thriller'>Thriller</Link>
+                                            <br></br>
+                                            <Link to='/genres/Travel'>Travel</Link>
+                                            <br></br>
+                                            <Link to='/genres/True-crime'>True Crime</Link>
+                                            <br></br>
+                                            <Link to='/genres/Young-adult'>Young Adult</Link>
                                         </div>
                                         <div className='clear'></div>
                                     </div>
