@@ -59,7 +59,7 @@ class Nav extends React.Component {
                             <Link to='/' className='nav-link'>Home</Link>
                           </li>
                           <li className="nav-list-item">
-                            <Link to="/bookshelf/all" className="nav-link">
+                            <Link to="/bookshelf/read" className="nav-link">
                               My Books
                             </Link>
                           </li>
