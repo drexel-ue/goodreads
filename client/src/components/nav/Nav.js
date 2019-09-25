@@ -134,7 +134,11 @@ class Nav extends React.Component {
                                 placeholder="Search books"
                               />
                               <button type="submit">
-                                <i className="fa fa-search"></i>
+                                {loading ? (
+                                  <i class="fas fa-spinner fa-pulse"></i>
+                                ) : (
+                                  <i className="fa fa-search"></i>
+                                )}
                               </button>
                               <div
                                 className={`search_bar_results ${
