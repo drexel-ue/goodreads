@@ -6,7 +6,7 @@ import Mutations from "../../graphql/mutations"
 import gql from "graphql-tag";
 
 const { CREATE_REVIEW } = Mutations
-const { FETCH_REVIEWS } = Queries
+const { FETCH_REVIEWS, BOOK_BY_ID } = Queries
 
 class CreateReview extends React.Component {
     constructor(props) {
@@ -58,6 +58,8 @@ class CreateReview extends React.Component {
         console.log(this.state)
         newReview({
             variables: {
+                user: this.state.user,
+                book: this.state.book,
                 content: this.state.content,
                 hidden: this.state.hidden,
                 // dateStarted: this.state.dateStarted,
@@ -69,7 +71,7 @@ class CreateReview extends React.Component {
                 addToFeed: this.state.addToFeed
             }
         });
-        // debugger
+
     }
 
     render() {
@@ -77,24 +79,44 @@ class CreateReview extends React.Component {
         <ApolloConsumer>{client => {
                 const user = client.readQuery({
                     query: gql`
-                    query CachedUser{
-                        _id
-                    }
-                    `})
-                    this.state.user = user._id
-                return (
-                        <Mutation
-                        mutation={CREATE_REVIEW}
-                        onError={err => this.setState({ message: err.message })}
-                        // we need to make sure we update our cache once our new product is created
-                        update={(cache, data) => this.updateCache(cache, data)}
-                        // when our query is complete we'll display a success message
-                        onCompleted={data => 
-                            this.setState({
-                                message: `New review created successfully`
-                            })
+                        query CachedUser{
+                            _id
                         }
-                    >
+                    `
+                    })
+                    this.state.user = user._id
+                    return (
+                        <div>
+                        <Query query={BOOK_BY_ID} 
+                            variables={{ _id: this.state.book }}>
+                            {({ loading, error, data }) => {
+                                if (loading) return <p>Loading...</p>;
+                                if (error) {
+                                    return <p>Error</p>;
+                                }
+                                const { book } = data
+                                return (
+                                    <div>
+                                        <img src={book.coverPhoto}></img> 
+                                        <div>{book.title}</div>
+                                        {book.authors.map(author => (
+                                            <div>{author.name}</div>
+                                        ))
+                                        }
+                                    </div>
+                                )
+                                }}
+                        </Query>
+                        <Mutation
+                            mutation={CREATE_REVIEW}
+                            onError={err => this.setState({ message: err.message })}
+                            update={(cache, data) => this.updateCache(cache, data)}
+                            onCompleted={data => 
+                                this.setState({
+                                    message: `New review created successfully`
+                                })
+                            }
+                        >
                         {(newReview, { data } ) =>
                             (< div >
                                 <form onSubmit={e => this.handleSubmit(e, newReview)}>
@@ -144,11 +166,11 @@ class CreateReview extends React.Component {
                                     <button type="submit">Post Review</button>
                                 </form>
                                 <p>{this.state.message}</p>
-                            </div >)
-                             } 
+                            </div >
+                            )} 
                     </Mutation>
-                )
-            }}</ApolloConsumer>
+                    </div>
+            )}}</ApolloConsumer>
         )
     }
 

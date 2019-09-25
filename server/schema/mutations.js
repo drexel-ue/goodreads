@@ -903,22 +903,22 @@ const mutation = new GraphQLObjectType({
           // date
         }
       ) {
-        console.log("arguments")
-        // return await new Review({
-        //   user,
-        //   book,
-        //   content,
-        //   hidden,
-        //   dateStarted,
-        //   dateFinished,
-        //   recommendTo,
-        //   // recommendBy,
-        //   privateNotes,
-        //   owned,
-        //   postToBlog,
-        //   addToFeed,
-        //   // date
-        // }).save();
+        // console.log("arguments")
+        return await new Review({
+          user,
+          book,
+          content,
+          hidden,
+          // dateStarted,
+          // dateFinished,
+          recommendTo,
+          // recommendBy,
+          privateNotes,
+          owned,
+          postToBlog,
+          addToFeed,
+          // date
+        }).save();
       }
     },
 
