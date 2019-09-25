@@ -150,7 +150,7 @@ class Nav extends React.Component {
                                 type="text"
                                 placeholder="Search books"
                               />
-                              <button type="submit">
+                              <button class='needless_button' type="none">
                                 {loading ? (
                                   <i class="fas fa-spinner fa-pulse"></i>
                                 ) : (
