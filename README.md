@@ -4,31 +4,6 @@
 
 [Badreads](https://quiet-shore-31528.herokuapp.com/#/) is a clone of [Goodreads](https://goodreads.com) world’s largest site for readers and book recommendations. Our mission is to help people find and share books they love. Badreads launched in AppAcademy Online Cohort 04/22.
 
-## Functionality & MVP
-
-- Books
-
-  - Main site model.
-
-- Bookshelves
-
-  - List of books user would like to read or has read (book index).
-
-- Reviews
-
-  - Users may leave sentiments and star based ratings about the books they read.
-
-- Read Status (will read, have read, etc.)
-
-  - User can select their read status for any book (will read, have read, currently reading).
-
-- Bonus: Search across multiple models
-
-  - Users may search for 'Fic' and find books that contain 'fic', books authored by authors whos names contain 'fic', and books whos genres contain 'fic'
-
-- Bonus: Tags
-  - Users may browse our vast collection of tomes by associated tags.
-
 ## Technologies and Technical Challenges
 
 - User Auth
@@ -67,40 +42,4 @@
 
   - Heroku is a cloud platform as a service supporting several programming languages. Badreads will be deployed to Heroku for production in the form of a Docker image.
 
-## Things Accomplished Over Weekend
 
-Yet to be filled out.
-
-## Group Members and Work Breakdown
-
-- [Ikesh](https://github.com/drexel-ue)
-
-  - Day 1:
-  - Day 2:
-  - Day 3:
-  - Day 4:
-  - Day 5:
-
-- [Eugene](https://github.com/jbirondo)
-
-  - Day 1:
-  - Day 2:
-  - Day 3:
-  - Day 4:
-  - Day 5:
-
-- [Savannah](https://github.com/savmus)
-
-  - Day 1:
-  - Day 2:
-  - Day 3:
-  - Day 4:
-  - Day 5:
-
-### Backup Project Ideas
-
-- Brainscape
-
-- Eventbrite
-
-- Instructables
