@@ -17,7 +17,7 @@ export default withRouter(
 
     render() {
       return (
-        <div className="search">
+        <div className="search_component">
           <div className="main">main</div>
           <div className="side">side</div>
         </div>

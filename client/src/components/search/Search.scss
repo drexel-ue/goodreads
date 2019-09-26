@@ -1,0 +1,12 @@
+.search_component {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  .main {
+    width: 643px;
+  }
+  .side {
+    width: 300px;
+    margin-left: 8px;
+  }
+}
