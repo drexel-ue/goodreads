@@ -6,7 +6,7 @@ import Queries from "../../../graphql/queries";
 import './Bookshelf.css';
 const { FETCH_USER, CACHED_USER, IS_LOGGED_IN } = Queries;
 
-const BooksList = () => {
+const BooksList = props => {
     return (
         <div className='bookshelf'>
             <div className='bookshelf-header'>
@@ -25,10 +25,9 @@ const BooksList = () => {
 
             <div className='shelves'>
                 <div className='shelves-header'>Bookshelves</div>
-                <Link to='/bookshelf/all' className='shelf'>All</Link>
-                <Link to='/' className='shelf'>Read</Link>
-                <Link to='/' className='shelf'>Currently Reading</Link>
-                <Link to='/' className='shelf'>Want to Read</Link>
+                <Link to='/bookshelf/read' className='shelf'>Read</Link>
+                <Link to='/bookshelf/reading' className='shelf'>Currently Reading</Link>
+                <Link to='/bookshelf/want' className='shelf'>Want to Read</Link>
             </div>
 
             <ApolloConsumer>{client => (
@@ -62,19 +61,16 @@ const BooksList = () => {
                                                 <table className='bookshelf-content'>
                                                     <thead className='table-content'>
                                                         <tr className='table-cols'>
-                                                            <th className='table-col cover-col'><Link to='/'>cover</Link></th>
-                                                            <th className='table-col title-col'><Link to='/'>title</Link></th>
-                                                            <th className='table-col author-col'><Link to='/'>author</Link></th>
-                                                            <th className='table-col rating-col'><Link to='/'>avg rating</Link></th>
-                                                            <th className='table-col rate-col'><Link to='/'>rating</Link></th>
-                                                            <th className='table-col shelves-col'><Link to='/'>shelves</Link></th>
-                                                            <th className='table-col read-col'><Link to='/'>date read</Link></th>
-                                                            <th className='table-col added-col'><Link to='/'>date added</Link></th>
+                                                            <th className='table-col cover-col'>cover</th>
+                                                            <th className='table-col title-col'>title</th>
+                                                            <th className='table-col author-col'>author</th>
+                                                            <th className='table-col rating-col'>avg rating</th>
+                                                            <th className='table-col shelves-col'>shelves</th>
                                                         </tr>
                                                     </thead>
 
                                                     <tbody className='table-rows'>
-                                                        {data.user.shelves[0].books.map(({ _id, coverPhoto, title, authors, rating }, idx) => (
+                                                        {data.user.shelves[props.idx].books.map(({ _id, coverPhoto, title, authors, rating }, idx) => (
                                                             <tr key={_id} className='table-row'>
                                                                 <td className='table-cover'>
                                                                     <label>cover</label>
@@ -87,7 +83,7 @@ const BooksList = () => {
                                                                 <td className='table-title'>
                                                                     <label>title</label>
                                                                     <div className='title-container'>
-                                                                        <Link to='/'>{title}</Link>
+                                                                        <Link to={`/book/${_id}`}>{title}</Link>
                                                                     </div>
                                                                 </td>
                                                                 <td className='table-author'>
@@ -95,38 +91,22 @@ const BooksList = () => {
                                                                     <div className='author-container'>
                                                                         {authors.map((author, idx) => {
                                                                             if (idx === 0) {
-                                                                                return (
-                                                                                    <Link to='/' key={idx}>{author.name}</Link>
-                                                                                )
+                                                                                return author.name;
                                                                             } else {
-                                                                                return (
-                                                                                    <Link to='/' key={idx}>, {author.name}</Link>
-                                                                                )
+                                                                                return ", " + author.name;
                                                                             }
                                                                         })}
                                                                     </div>
                                                                 </td>
                                                                 <td className='table-rating'>
                                                                     <label>avg rating</label>
-                                                                    <div>Rating</div>
-                                                                </td>
-                                                                <td className='table-rate'>
-                                                                    <label>rating</label>
-                                                                    <div>Rate here!</div>
+                                                                    <div>{rating}</div>
                                                                 </td>
                                                                 <td className='table-shelves'>
                                                                     <label>shelves</label>
                                                                     <div className='shelves-container'>
-                                                                        <Link to='/bookshelf/all'>all</Link>
+                                                                        <Link to={`/bookshelf/${props.type}`}>{props.type}</Link>
                                                                     </div>
-                                                                </td>
-                                                                <td className='table-read'>
-                                                                    <label>date read</label>
-                                                                    <div>{Date.now()}</div>
-                                                                </td>
-                                                                <td className='table-added'>
-                                                                    <label>date added</label>
-                                                                    <div>{Date.now()}</div>
                                                                 </td>
                                                             </tr>
                                                         ))}

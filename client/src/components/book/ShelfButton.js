@@ -47,8 +47,6 @@ export default class ShelfButton extends Component {
   }
 
   updateCache(client, { data }) {
-    // here we can write directly to our cache with our returned mutation data
-    console.log(data);
     const shelf = data.addShelfBook;
     client.writeData({
       data: {

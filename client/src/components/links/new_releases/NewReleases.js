@@ -26,7 +26,13 @@ const NewReleases = (props) => (
                                             {({ loading, error, data }) => {
                                                 if (loading) return <p>Loading...</p>;
                                                 if (error) return <p>Error</p>
-                                                if (data) return <BookItem data={data} />;
+                                                if (data) {
+                                                    const today = new Date();
+                                                    const year = today.getFullYear();
+                                                    const month = today.getMonth();
+
+                                                    return <BookItem data={data} year={year} month={month} />;
+                                                }
                                             }}
                                         </Query>
                                     </td>
@@ -42,7 +48,13 @@ const NewReleases = (props) => (
                                             {({ loading, error, data }) => {
                                                 if (loading) return <p>Loading...</p>;
                                                 if (error) return <p>Error</p>
-                                                if (data) return <BookItem data={data} />;
+                                                if (data) {
+                                                    const today = new Date();
+                                                    const year = today.getFullYear();
+                                                    const month = today.getMonth();
+
+                                                    return <BookItem data={data} year={year} month={month} />;
+                                                }
                                             }}
                                         </Query>
                                     </td>
@@ -59,7 +71,13 @@ const NewReleases = (props) => (
                                                 if (loading) return <p>Loading...</p>;
                                                 if (error) return <p>Error</p>;
 
-                                                if (data) return <BookItem data={data} />;
+                                                if (data) {
+                                                    const today = new Date();
+                                                    const year = today.getFullYear();
+                                                    const month = today.getMonth();
+
+                                                    return <BookItem data={data} year={year} month={month} />;
+                                                }
                                             }}
                                         </Query>
                                     </td>
@@ -75,7 +93,13 @@ const NewReleases = (props) => (
                                             {({ loading, error, data }) => {
                                                 if (loading) return <p>Loading...</p>;
                                                 if (error) return <p>Error</p>
-                                                if (data) return <BookItem data={data} />;
+                                                if (data) {
+                                                    const today = new Date();
+                                                    const year = today.getFullYear();
+                                                    const month = today.getMonth();
+
+                                                    return <BookItem data={data} year={year} month={month} />;
+                                                }
                                             }}
                                         </Query>
                                     </td>
@@ -91,7 +115,13 @@ const NewReleases = (props) => (
                                             {({ loading, error, data }) => {
                                                 if (loading) return <p>Loading...</p>;
                                                 if (error) return <p>Error</p>
-                                                if (data) return <BookItem data={data} />;
+                                                if (data) {
+                                                    const today = new Date();
+                                                    const year = today.getFullYear();
+                                                    const month = today.getMonth();
+
+                                                    return <BookItem data={data} year={year} month={month} />;
+                                                }
                                             }}
                                         </Query>
                                     </td>
@@ -107,7 +137,13 @@ const NewReleases = (props) => (
                                             {({ loading, error, data }) => {
                                                 if (loading) return <p>Loading...</p>;
                                                 if (error) return <p>Error</p>
-                                                if (data) return <BookItem data={data} />;
+                                                if (data) {
+                                                    const today = new Date();
+                                                    const year = today.getFullYear();
+                                                    const month = today.getMonth();
+
+                                                    return <BookItem data={data} year={year} month={month} />;
+                                                }
                                             }}
                                         </Query>
                                     </td>
@@ -123,7 +159,13 @@ const NewReleases = (props) => (
                                             {({ loading, error, data }) => {
                                                 if (loading) return <p>Loading...</p>;
                                                 if (error) return <p>Error</p>
-                                                if (data) return <BookItem data={data} />;
+                                                if (data) {
+                                                    const today = new Date();
+                                                    const year = today.getFullYear();
+                                                    const month = today.getMonth();
+
+                                                    return <BookItem data={data} year={year} month={month} />;
+                                                }
                                             }}
                                         </Query>
                                     </td>
@@ -139,7 +181,13 @@ const NewReleases = (props) => (
                                             {({ loading, error, data }) => {
                                                 if (loading) return <p>Loading...</p>;
                                                 if (error) return <p>Error</p>
-                                                if (data) return <BookItem data={data} />;
+                                                if (data) {
+                                                    const today = new Date();
+                                                    const year = today.getFullYear();
+                                                    const month = today.getMonth();
+
+                                                    return <BookItem data={data} year={year} month={month} />;
+                                                }
                                             }}
                                         </Query>
                                     </td>
@@ -155,7 +203,13 @@ const NewReleases = (props) => (
                                             {({ loading, error, data }) => {
                                                 if (loading) return <p>Loading...</p>;
                                                 if (error) return <p>Error</p>
-                                                if (data) return <BookItem data={data} />;
+                                                if (data) {
+                                                    const today = new Date();
+                                                    const year = today.getFullYear();
+                                                    const month = today.getMonth();
+
+                                                    return <BookItem data={data} year={year} month={month} />;
+                                                }
                                             }}
                                         </Query>
                                     </td>
@@ -171,7 +225,13 @@ const NewReleases = (props) => (
                                             {({ loading, error, data }) => {
                                                 if (loading) return <p>Loading...</p>;
                                                 if (error) return <p>Error</p>
-                                                if (data) return <BookItem data={data} />;
+                                                if (data) {
+                                                    const today = new Date();
+                                                    const year = today.getFullYear();
+                                                    const month = today.getMonth();
+
+                                                    return <BookItem data={data} year={year} month={month} />;
+                                                }
                                             }}
                                         </Query>
                                     </td>
@@ -187,7 +247,13 @@ const NewReleases = (props) => (
                                             {({ loading, error, data }) => {
                                                 if (loading) return <p>Loading...</p>;
                                                 if (error) return <p>Error</p>
-                                                if (data) return <BookItem data={data} />;
+                                                if (data) {
+                                                    const today = new Date();
+                                                    const year = today.getFullYear();
+                                                    const month = today.getMonth();
+
+                                                    return <BookItem data={data} year={year} month={month} />;
+                                                }
                                             }}
                                         </Query>
                                     </td>
@@ -204,7 +270,13 @@ const NewReleases = (props) => (
                                                 if (loading) return <p>Loading...</p>;
                                                 if (error) return <p>Error</p>
                                                 
-                                                if (data) return <BookItem data={data} />;
+                                                if (data) {
+                                                    const today = new Date();
+                                                    const year = today.getFullYear();
+                                                    const month = today.getMonth();
+
+                                                    return <BookItem data={data} year={year} month={month} />;
+                                                }
                                             }}
                                         </Query>
                                     </td>
@@ -227,10 +299,19 @@ const NewReleases = (props) => (
                                             if (error) return <p>Error</p>;
 
                                             if (data) {
+                                                const today = new Date();
+                                                const year = today.getFullYear();
+                                                const month = today.getMonth();
+                                                let count = 0;
+
                                                 return data.books.map((book, idx) => {
-                                                    if (idx < 15) {
+                                                    const bookYear = book.publishDate.slice(0, 4);
+                                                    const bookMonth = book.publishDate.slice(6, 7);
+
+                                                    if (count < 15 && year >= bookYear && (month + 1) >= bookMonth) {
+                                                        count += 1;
                                                         return (
-                                                            <Link to='/'><img src={book.coverPhoto}/></Link>
+                                                            <Link to={`/book/${book._id}`}><img src={book.coverPhoto}/></Link>
                                                         );
                                                     }
                                                 });
