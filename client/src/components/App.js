@@ -2,7 +2,6 @@ import React from "react";
 import AuthRoute from "./session/AuthRoute";
 import Nav from "./nav/Nav";
 import AuthHome from './links/home/AuthHome';
-import ProtectedHome from './links/home/ProtectedHome';
 import Bookshelf from './links/bookshelf/Bookshelf';
 import NewReleases from './links/new_releases/NewReleases';
 import Explore from './links/explore/Explore';
@@ -39,13 +38,6 @@ const App = () => {
           routeType="auth"
         />
         <AuthRoute
-
-          exact
-          path="/"
-          component={ProtectedHome}
-          routeType="protected"
-        />
-        <AuthRoute
           exact
           path="/bookshelf/:shelf"
           component={Bookshelf}
@@ -59,7 +51,7 @@ const App = () => {
         />
         <AuthRoute
           exact
-          path="/new_releases"
+          path="/"
           component={NewReleases}
           routeType="protected"
         />
