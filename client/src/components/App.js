@@ -93,7 +93,7 @@ const App = () => {
           routeType="protected"
         />
         <AuthRoute
-          exact
+          exact={false}
           path="/search"
           component={Search}
           routeType="protected"

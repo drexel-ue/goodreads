@@ -11,8 +11,12 @@ export default withRouter(
       super(props);
 
       this.state = {
-        queryString: props.queryString || ""
+        queryString: this.props.location.state
+          ? this.props.location.state.queryString
+          : ""
       };
+
+      console.log("string", this.state.queryString);
     }
 
     render() {

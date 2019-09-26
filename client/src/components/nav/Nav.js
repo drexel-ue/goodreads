@@ -162,9 +162,10 @@ class Nav extends React.Component {
                                 }`}
                               >
                                 {results.map((book, index) => (
-                                  <Link to={`/book/${book._id}`}>
+                                  <Link 
+                                  key={index}
+                                  to={`/book/${book._id}`}>
                                     <div
-                                      key={index}
                                       className="search_bar_result"
                                     >
                                       <img
@@ -183,7 +184,16 @@ class Nav extends React.Component {
                                     </div>
                                   </Link>
                                 ))}
-                                <div className="see_all_results">{`See all results for "${this.state.queryString}"`}</div>
+                                <Link to={{
+                                  pathname: '/search',
+                                  state: {
+                                    queryString:this.state.queryString
+                                  }
+                                }}>
+                                <div className="see_all_results">
+                                  {`See all results for "${this.state.queryString}"`}
+                                </div>
+                                </Link>
                               </div>
                             </form>
                           );
