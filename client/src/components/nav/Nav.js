@@ -53,10 +53,10 @@ class Nav extends React.Component {
 
   clearSearch(event) {
     event.preventDefault();
-    // this.searchTimer = setTimeout(
-    //   () => this.setState({ queryString: "" }),
-    //   2000
-    // );
+    this.searchTimer = setTimeout(
+      () => this.setState({ queryString: "" }),
+      250
+    );
   }
 
   cancelClear(event) {
@@ -165,22 +165,26 @@ class Nav extends React.Component {
                                 }`}
                               >
                                 {results.map((book, index) => (
-                                  <div
-                                    key={index}
-                                    className="search_bar_result"
-                                  >
-                                    <img
-                                      className="cover"
-                                      alt="cover"
-                                      src={book.coverPhoto}
-                                    />
-                                    <div className="info">
-                                      <div className="title">{book.title}</div>
-                                      <div className="author">
-                                        {`by ${book.authors[0].name}`}
+                                  <Link to={`/book/${book._id}`}>
+                                    <div
+                                      key={index}
+                                      className="search_bar_result"
+                                    >
+                                      <img
+                                        className="cover"
+                                        alt="cover"
+                                        src={book.coverPhoto}
+                                      />
+                                      <div className="info">
+                                        <div className="title">
+                                          {book.title}
+                                        </div>
+                                        <div className="author">
+                                          {`by ${book.authors[0].name}`}
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
+                                  </Link>
                                 ))}
                                 <div className="see_all_results">{`See all results for "${this.state.queryString}"`}</div>
                               </div>
