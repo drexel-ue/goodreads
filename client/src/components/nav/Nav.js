@@ -90,7 +90,7 @@ class Nav extends React.Component {
                                 }`}
                               >
                                 <div className="dropdown-item">
-                                  <Link to='/new_releases'>New Releases</Link>
+                                  <Link to='/'>New Releases</Link>
                                 </div>
                                 <div className="dropdown-item">
                                   <Link to='/book'>Explore</Link>

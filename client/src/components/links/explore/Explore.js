@@ -45,7 +45,7 @@ class Explore extends React.Component {
                             <div className='explore-box'>
                                 <div className='explore-box-header-container'>
                                     <h2>
-                                        <Link to='/new_releases'>NEW RELEASES IN FANTASY</Link>
+                                        <Link to='/'>NEW RELEASES IN FANTASY</Link>
                                     </h2>
                                 </div>
                                 <div className='explore-box-body'>
@@ -65,7 +65,7 @@ class Explore extends React.Component {
                             <div className='explore-box'>
                                 <div className='explore-box-header-container'>
                                     <h2>
-                                        <Link to='/new_releases'>NEW RELEASES IN HORROR</Link>
+                                        <Link to='/'>NEW RELEASES IN HORROR</Link>
                                     </h2>
                                 </div>
                                 <div className='explore-box-body'>
@@ -85,7 +85,7 @@ class Explore extends React.Component {
                             <div className='explore-box'>
                                 <div className='explore-box-header-container'>
                                     <h2>
-                                        <Link to='/new_releases'>NEW RELEASES IN HISTORICAL FICTION</Link>
+                                        <Link to='/'>NEW RELEASES IN HISTORICAL FICTION</Link>
                                     </h2>
                                 </div>
                                 <div className='explore-box-body'>
@@ -105,7 +105,7 @@ class Explore extends React.Component {
                             <div className='explore-box'>
                                 <div className='explore-box-header-container'>
                                     <h2>
-                                        <Link to='/new_releases'>NEW RELEASES IN YOUNG ADULT</Link>
+                                        <Link to='/'>NEW RELEASES IN YOUNG ADULT</Link>
                                     </h2>
                                 </div>
                                 <div className='explore-box-body'>
@@ -125,7 +125,7 @@ class Explore extends React.Component {
                             <div className='explore-box'>
                                 <div className='explore-box-header-container'>
                                     <h2>
-                                        <Link to='/new_releases'>NEW RELEASES THIS MONTH</Link>
+                                        <Link to='/'>NEW RELEASES THIS MONTH</Link>
                                     </h2>
                                 </div>
                                 <div className='explore-box-body'>
@@ -169,7 +169,7 @@ class Explore extends React.Component {
                             <div className='explore-box'>
                                 <div className='explore-box-header-container'>
                                     <h2>
-                                        <Link to='/new_releases'>NEW RELEASES THIS YEAR</Link>
+                                        <Link to='/'>NEW RELEASES THIS YEAR</Link>
                                     </h2>
                                 </div>
                                 <div className='explore-box-body'>
@@ -212,7 +212,7 @@ class Explore extends React.Component {
                             <div className='explore-box'>
                                 <div className='explore-box-header-container'>
                                     <h2>
-                                        <Link to='/new_releases'>POPULAR THIS WEEK</Link>
+                                        <Link to='/'>POPULAR THIS WEEK</Link>
                                     </h2>
                                 </div>
                                 <div className='explore-box-body'>
