@@ -20,6 +20,16 @@ export default withRouter(
         <div className="search_component">
           <div className="main">
             <div className="title">Search</div>
+            <div className="search_block">
+              <div className="input_row">
+                <input
+                  type="text"
+                  className="search_bar"
+                  placeholder="Search by Book Title, Author, or ISBN"
+                />
+                <div className="search_button">Search</div>
+              </div>
+            </div>
           </div>
           <div className="side"></div>
         </div>
