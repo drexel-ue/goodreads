@@ -138,10 +138,7 @@ class Nav extends React.Component {
                       >
                         {({ loading, error, data }) => {
                           let results = [];
-                          if (data) {
-                            results = data.bookSearch;
-                            console.log(results);
-                          }
+                          if (data) results = data.bookSearch;
                           return (
                             <form className="search">
                               <input
