@@ -1,9 +1,19 @@
 .search_component {
-  margin: 0 auto;
+  margin: 10px auto;
+
   display: flex;
   justify-content: center;
   .main {
     width: 643px;
+    .title {
+      padding: 0px 0px 2px 0px;
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #382110;
+      line-height: 24px;
+    }
   }
   .side {
     width: 300px;

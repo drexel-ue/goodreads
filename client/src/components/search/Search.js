@@ -18,8 +18,10 @@ export default withRouter(
     render() {
       return (
         <div className="search_component">
-          <div className="main">main</div>
-          <div className="side">side</div>
+          <div className="main">
+            <div className="title">Search</div>
+          </div>
+          <div className="side"></div>
         </div>
       );
     }
