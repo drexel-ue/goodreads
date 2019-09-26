@@ -20,7 +20,7 @@
       background-color: #eeeeee;
       color: rgb(24, 24, 24);
       font-size: 12px;
-      height: 105px;
+      height: 65px;
       width: 625px;
       .input_row {
         display: flex;
@@ -67,6 +67,14 @@
           margin-right: 3px;
         }
       }
+    }
+    .page {
+      padding: 2px 0px 3px 0px;
+      border-bottom: 2px solid #d7d7d7;
+      color: #382110;
+      background-color: transparent;
+      margin: 4px 0px 4px 0px;
+      font-weight: normal;
     }
   }
   .side {

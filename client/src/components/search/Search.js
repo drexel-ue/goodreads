@@ -48,6 +48,7 @@ export default withRouter(
                 </div>
               </div>
             </div>
+            <div className="page">Page yadda yadda of yadda yadda</div>
           </div>
           <div className="side"></div>
         </div>
