@@ -29,6 +29,24 @@ export default withRouter(
                 />
                 <div className="search_button">Search</div>
               </div>
+              <div className="radio_row">
+                <div className="duo">
+                  <input type="radio" />
+                  <div className="label">all</div>
+                </div>
+                <div className="duo">
+                  <input type="radio" />
+                  <div className="label">title</div>
+                </div>
+                <div className="duo">
+                  <input type="radio" />
+                  <div className="label">author</div>
+                </div>
+                <div className="duo">
+                  <input type="radio" />
+                  <div className="label">genre</div>
+                </div>
+              </div>
             </div>
           </div>
           <div className="side"></div>

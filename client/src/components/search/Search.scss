@@ -56,6 +56,17 @@
           margin-left: 5px;
         }
       }
+      .radio_row {
+        display: flex;
+        align-items: center;
+        margin: 5px 0;
+        .duo {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-right: 3px;
+        }
+      }
     }
   }
   .side {
