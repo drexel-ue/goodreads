@@ -35,7 +35,7 @@ class Nav extends React.Component {
       event.preventDefault();
       this.timer = setTimeout(
         () => this.setState({ [field]: false }),
-        field === "userClicked" ? 100 : 1
+        field === "userClicked" ? 500 : 1
       );
     };
   }
