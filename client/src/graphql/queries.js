@@ -186,6 +186,9 @@ export default {
         coverPhoto
         rating
         ratingIds
+        authors {
+          name
+        }
       }
     }
   `

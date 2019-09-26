@@ -111,7 +111,7 @@ const RootQueryType = new GraphQLObjectType({
         if (queryString.length > 0)
           books = await Book.find({
             $or: [{ title: pattern }, { series: pattern }, { isbn: pattern }]
-          });
+          }).populate("authors");
         // let authors = await Author.find({ name: pattern })
         //   .populate("books")
         //   .limit(5);

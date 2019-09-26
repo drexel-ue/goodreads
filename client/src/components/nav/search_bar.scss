@@ -15,8 +15,21 @@
   border-bottom: 1px solid #d8d8d8;
   width: auto;
   background: white;
-  height: 40px;
   padding: 5px;
+  display: flex;
+  .cover {
+    height: 50px;
+    width: 35px;
+    margin: 5px;
+  }
+  .info {
+    .title {
+      margin-bottom: 3px;
+    }
+    .author {
+      font-size: 14px;
+    }
+  }
 }
 .see_all_results {
   position: sticky;

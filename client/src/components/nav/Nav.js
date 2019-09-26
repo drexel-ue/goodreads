@@ -4,7 +4,7 @@ import { Query, ApolloConsumer } from "react-apollo";
 import Queries from "../../graphql/queries";
 import Login from "../session/Login";
 import "./Nav.css";
-import "./search_bar.css";
+import "./search_bar.scss";
 const { IS_LOGGED_IN, BOOK_SEARCH } = Queries;
 
 class Nav extends React.Component {
@@ -53,10 +53,10 @@ class Nav extends React.Component {
 
   clearSearch(event) {
     event.preventDefault();
-    this.searchTimer = setTimeout(
-      () => this.setState({ queryString: "" }),
-      2000
-    );
+    // this.searchTimer = setTimeout(
+    //   () => this.setState({ queryString: "" }),
+    //   2000
+    // );
   }
 
   cancelClear(event) {
@@ -150,9 +150,9 @@ class Nav extends React.Component {
                                 type="text"
                                 placeholder="Search books"
                               />
-                              <button class='needless_button' type="none">
+                              <button className="needless_button" type="none">
                                 {loading ? (
-                                  <i class="fas fa-spinner fa-pulse"></i>
+                                  <i className="fas fa-spinner fa-pulse"></i>
                                 ) : (
                                   <i className="fa fa-search"></i>
                                 )}
@@ -169,7 +169,17 @@ class Nav extends React.Component {
                                     key={index}
                                     className="search_bar_result"
                                   >
-                                    {book.title}
+                                    <img
+                                      className="cover"
+                                      alt="cover"
+                                      src={book.coverPhoto}
+                                    />
+                                    <div className="info">
+                                      <div className="title">{book.title}</div>
+                                      <div className="author">
+                                        {`by ${book.authors[0].name}`}
+                                      </div>
+                                    </div>
                                   </div>
                                 ))}
                                 <div className="see_all_results">{`See all results for "${this.state.queryString}"`}</div>
