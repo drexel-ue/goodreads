@@ -162,12 +162,8 @@ class Nav extends React.Component {
                                 }`}
                               >
                                 {results.map((book, index) => (
-                                  <Link 
-                                  key={index}
-                                  to={`/book/${book._id}`}>
-                                    <div
-                                      className="search_bar_result"
-                                    >
+                                  <Link key={index} to={`/book/${book._id}`}>
+                                    <div className="search_bar_result">
                                       <img
                                         className="cover"
                                         alt="cover"
@@ -184,15 +180,17 @@ class Nav extends React.Component {
                                     </div>
                                   </Link>
                                 ))}
-                                <Link to={{
-                                  pathname: '/search',
-                                  state: {
-                                    queryString:this.state.queryString
-                                  }
-                                }}>
-                                <div className="see_all_results">
-                                  {`See all results for "${this.state.queryString}"`}
-                                </div>
+                                <Link
+                                  to={{
+                                    pathname: "/search",
+                                    state: {
+                                      queryString: this.state.queryString
+                                    }
+                                  }}
+                                >
+                                  <div className="see_all_results">
+                                    {`See all results for "${this.state.queryString}"`}
+                                  </div>
                                 </Link>
                               </div>
                             </form>

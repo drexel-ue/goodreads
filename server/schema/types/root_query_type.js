@@ -5,7 +5,8 @@ const {
   GraphQLList,
   GraphQLID,
   GraphQLNonNull,
-  GraphQLString
+  GraphQLString,
+  GraphQLInt
 } = graphql;
 
 const UserType = require("./user_type");
@@ -104,8 +105,11 @@ const RootQueryType = new GraphQLObjectType({
     },
     bookSearch: {
       type: new GraphQLList(BookType),
-      args: { queryString: { type: GraphQLString } },
-      async resolve(_, { queryString }) {
+      args: {
+        queryString: { type: GraphQLString },
+        offset: { type: GraphQLInt }
+      },
+      async resolve(_, { queryString, offset }) {
         const pattern = new RegExp("^" + queryString, "i");
         let books = [];
         if (queryString.length > 0)
@@ -113,6 +117,7 @@ const RootQueryType = new GraphQLObjectType({
             $or: [{ title: pattern }, { series: pattern }, { isbn: pattern }]
           })
             .populate("authors")
+            .skip(offset)
             .limit(10);
         // let authors = await Author.find({ name: pattern })
         //   .populate("books")

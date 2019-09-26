@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Query } from "react-apollo";
 import { withRouter } from "react-router-dom";
 import Queries from "../../graphql/queries";
+import InfiniteScroll from "./InfiniteScroll";
 import "./Search.scss";
 const { BOOK_SEARCH } = Queries;
 
@@ -15,8 +16,6 @@ export default withRouter(
           ? this.props.location.state.queryString
           : ""
       };
-
-      console.log("string", this.state.queryString);
     }
 
     render() {
@@ -52,7 +51,41 @@ export default withRouter(
                 </div>
               </div>
             </div>
-            <div className="page">Page yadda yadda of yadda yadda</div>
+            <Query
+              query={BOOK_SEARCH}
+              variables={{
+                queryString: this.state.queryString,
+                offset: 0
+              }}
+            >
+              {({ loading, error, data, fetchMore }) => {
+                if (loading || error)
+                  return <i className="fas fa-spinner fa-pulse"></i>;
+                const { bookSearch } = data;
+                return (
+                  <InfiniteScroll
+                    items={bookSearch}
+                    onLoadMore={() =>
+                      fetchMore({
+                        variables: {
+                          queryString: this.state.queryString,
+                          offset: bookSearch.length
+                        },
+                        updateQuery: (prev, { fetchMoreResult }) => {
+                          console.log("prev", prev);
+                          console.log("fetchMoreResult", fetchMoreResult);
+                          return [1, 2, 3];
+                          // if (!fetchMoreResult) return prev;
+                          // return Object.assign({}, prev, {
+                          //   feed: [...prev.feed, ...fetchMoreResult.feed]
+                          // });
+                        }
+                      })
+                    }
+                  ></InfiniteScroll>
+                );
+              }}
+            </Query>
           </div>
           <div className="side"></div>
         </div>
