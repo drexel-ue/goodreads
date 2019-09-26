@@ -4,9 +4,10 @@ import { Query, Mutation, ApolloConsumer } from "react-apollo";
 import Queries from "../../graphql/queries";
 import Mutations from "../../graphql/mutations"
 import gql from "graphql-tag";
+import "./CreateReview.css"
 
 const { CREATE_REVIEW } = Mutations
-const { FETCH_REVIEWS } = Queries
+const { FETCH_REVIEWS, BOOK_BY_ID } = Queries
 
 class CreateReview extends React.Component {
     constructor(props) {
@@ -14,22 +15,31 @@ class CreateReview extends React.Component {
 
         this.state = {
             content: "",
-            hidden: true,
-            dateStarted: "",
-            dateFinished: "",
+            hidden: false,
+            // dateStarted: "",
+            // dateFinished: "",
             recommendTo: "",
             privateNotes: "",
             owned: false,
             postToBlog: false,
             addToFeed: false,
-            user: ""
-        };   
+            user: "",
+            book: this.props.match.params.bookId
+        };
         this.handleSubmit.bind(this)   
-        this.updateCache.bind(this)   
+        this.updateCache.bind(this)
+        this.updateBoxes.bind(this) 
     }
 
     update(field) {
         return e => this.setState({ [field]: e.target.value });
+    }
+
+    updateBoxes(field) {
+        return e => {
+            console.log(`before : `, this.state)
+            console.log(`before : `, this.state[field])
+            this.setState({ [field]: !this.state[field] }, () => console.log("after : ", this.state))}
     }
 
     updateCache(cache, { data }) {
@@ -54,19 +64,24 @@ class CreateReview extends React.Component {
 
     handleSubmit(e, newReview) {
         e.preventDefault();
-        newReview({
-            variables: {
-                content: this.state.content,
-                hidden: this.state.hidden,
-                dateStarted: this.state.dateStarted,
-                dateFinished: this.state.dateFinished,
-                recommendTo: this.state.recommendTo,
-                privateNotes: this.state.privateNotes, 
-                owned: this.state.owned,
-                postToBlog: this.state.postToBlog,
-                addToFeed: this.state.addToFeed
-            }
-        });
+        let redirectURL = `#/book/${this.state.book}`;
+        setTimeout(
+            newReview({
+                variables: {
+                    user: this.state.user,
+                    book: this.state.book,
+                    content: this.state.content,
+                    hidden: this.state.hidden,
+                    recommendTo: this.state.recommendTo,
+                    privateNotes: this.state.privateNotes, 
+                    owned: this.state.owned,
+                    postToBlog: this.state.postToBlog,
+                    addToFeed: this.state.addToFeed
+                }
+            }),
+            window.location.href = redirectURL
+
+        , 2000)
     }
 
     render() {
@@ -74,78 +89,134 @@ class CreateReview extends React.Component {
         <ApolloConsumer>{client => {
                 const user = client.readQuery({
                     query: gql`
-                    query CachedUser{
-                        _id
-                    }
-                    `})
-                    this.state.user = user._id
-                return (
-                        <Mutation
-                        mutation={CREATE_REVIEW}
-                        onError={err => this.setState({ message: err.message })}
-                        // we need to make sure we update our cache once our new product is created
-                        update={(cache, data) => this.updateCache(cache, data)}
-                        // when our query is complete we'll display a success message
-                        onCompleted={data => 
-                            this.setState({
-                                message: `New review created successfully`
-                            })
+                        query CachedUser{
+                            _id
                         }
-                    >
+                    `
+                    })
+                    this.state.user = user._id
+                    return (
+                        <div className="review-container">
+                        <Query query={BOOK_BY_ID} 
+                            variables={{ _id: this.state.book }}>
+                            {({ loading, error, data }) => {
+                                if (loading) return <p>Loading...</p>;
+                                if (error) {
+                                    return <p>Error</p>;
+                                }
+                                const { book } = data
+                                let authors = []
+                                book.authors.map(author => 
+                                    authors.push(author.name)
+                                )
+                                return (
+                                    <div className="review-book-container">
+                                        <img className="review-book-img" src={book.coverPhoto}></img> 
+                                        <div className="review-book-details-container">
+                                            <Link to={`/book/${this.state.book}`} className="review-book-title">{book.title}</Link>
+                                            <div>by {authors.join(", ")}</div>
+                                        </div> 
+                                    </div>
+                                )
+                                }}
+                        </Query>
+                        <Mutation
+                            mutation={CREATE_REVIEW}
+                            onError={err => this.setState({ message: err.message })}
+                            update={(cache, data) => this.updateCache(cache, data)}
+                            onCompleted={data => 
+                                this.setState({
+                                    message: `New review created successfully`
+                                })
+                            }
+                        >
                         {(newReview, { data } ) =>
-                            (< div >
+                            (<div className="review-form-container">
                                 <form onSubmit={e => this.handleSubmit(e, newReview)}>
+                                    <div className="review-form-content-container">What did you think?
                                     <textarea
+                                        className="review-form-content"
                                         onChange={this.update("content")}
                                         value={this.state.content}
-                                        placeholder="content"
-                                    />
-                                    <select value={this.state.hidden} onChange={this.update("hidden")}>
-                                        <option value="true">True</option>
-                                        <option value="false">False</option>
-                                    </select>
-                                    <input
-                                        type="date"
-                                        onChange={this.update("dateStarted")}
-                                        value={this.state.dateStarted}
-                                        placeholder="Date Started"
-                                    />
-                                    <input
-                                        type="date"
-                                        onChange={this.update("dateFinished")}
-                                        value={this.state.dateFinished}
-                                        placeholder="Date Finished"
-                                    />
-                                    <input
-                                        onChange={this.update("recommendTo")}
-                                        value={this.state.recommendTo}
-                                        placeholder="Recommend to"
-                                    />
-                                    <textarea
-                                        onChange={this.update("privateNotes")}
-                                        value={this.state.privateNotes}
-                                        placeholder="privateNotes"
-                                    />
-                                    <select value={this.state.owned} onChange={this.update("owned")}>
-                                        <option value="true">True</option>
-                                        <option value="false">False</option>
-                                    </select>
-                                    <select value={this.state.postToBlog} onChange={this.update("postToBlog")}>
-                                        <option value="true">True</option>
-                                        <option value="false">False</option>
-                                    </select>
-                                    <select value={this.state.addToFeed} onChange={this.update("addToFeed")}>
-                                        <option value="true">True</option>
-                                        <option value="false">False</option>
-                                    </select>
-                                    <button type="submit">Post Review</button>
-                                </form>
+                                        placeholder="Enter your review(optional)"
+                                        />
+                                    </div>
+                                    <div className="review-form-hidden-container">
+                                        <input value={this.state.hidden} 
+                                            onChange={this.updateBoxes("hidden")}
+                                            className="review-form-hidden"
+                                            type="checkbox">
+                                        </input>
+                                        <label htmlFor="review-form-hidden">{`   Hide entire review because of spoilers`}</label>
+                                    </div>
+                                    <div className="review-form-recommend-to-container">
+                                        <label
+                                            htmlFor="review-form-recommend-to">
+                                                {`I would like to recommend to: `}
+                                        </label>
+                                        <input
+                                            className="review-form-recommend-to"
+                                            onChange={this.update("recommendTo")}
+                                            value={this.state.recommendTo}
+                                        />
+                                    </div>
+                                    <div className="review-form-private-notes-container">
+                                        Private notes, shown only to you:
+                                        <textarea
+                                            className="review-form-private-notes"
+                                            onChange={this.update("privateNotes")}
+                                            value={this.state.privateNotes}
+                                        />
+                                    </div>
+                                    <div className="review-form-owned-container">
+                                        <input value={this.state.owned}
+                                            onChange={this.updateBoxes("owned")}
+                                            className="review-form-owned"
+                                            type="checkbox">
+                                        </input>
+                                        <label
+                                            htmlFor="review-form-owned ">
+                                            {`  I own a copy of this book`}
+                                        </label>
+                                    </div>
+                                    <div className="review-form-submit-container">
+                                        <button
+                                            className="review-form-submit"
+                                            type="submit">
+                                            Save
+                                        </button>
+                                        <div className="review-form-bottom-right">
+                                            <div className="review-form-postToBlog-container">
+                                                <input value={this.state.postToBlog}
+                                                    onChange={this.updateBoxes("postToBlog")}
+                                                    className="review-form-postToBlog"
+                                                    type="checkbox">
+                                                </input>
+                                                <label
+                                                    htmlFor="review-form-postToBlog ">
+                                                    {`   Post to blog`}
+                                                </label>
+                                            </div>
+                                            <div className="review-form-addToFeed-container">
+                                                <input value={this.state.addToFeed}
+                                                    onChange={this.updateBoxes("addToFeed")}
+                                                    className="review-form-addToFeed"
+                                                    type="checkbox">
+                                                </input>
+                                                <label
+                                                    htmlFor="review-form-addToFeed ">
+                                                    {`   Add to my update feed`}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <p>{this.state.message}</p>
-                            </div >)
-                             } 
+                                </form>
+                            </div >
+                            )} 
                     </Mutation>
-                )
-            }}</ApolloConsumer>
+                    </div>
+            )}}</ApolloConsumer>
         )
     }
 
