@@ -8,8 +8,6 @@ export default class InfiniteScroll extends Component {
 
     this.timeout = undefined;
     this.debounce();
-
-    this.onLoadMore = this.onLoadMore.bind(this);
   }
 
   debounce() {
@@ -26,11 +24,6 @@ export default class InfiniteScroll extends Component {
         }, 2000);
       }
     });
-  }
-
-  onLoadMore(event) {
-    event.preventDefault();
-    this.props.onLoadMore();
   }
 
   render() {
@@ -51,6 +44,7 @@ export default class InfiniteScroll extends Component {
             </div>
           );
         })}
+        <i className="fas fa-spinner fa-pulse"></i>
       </div>
     );
   }
