@@ -37,7 +37,7 @@ export default withRouter(
       return (
         <div className="search_component">
           <div className="main">
-            <div className="title">Search</div>
+            <div className="header">Search</div>
             <div className="search_block">
               <form className="input_row" onSubmit={this.commenceSearch}>
                 <input

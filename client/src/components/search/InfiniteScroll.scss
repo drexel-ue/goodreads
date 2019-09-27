@@ -1,4 +1,34 @@
 .infinite_scroll {
+  .search_bar_result {
+    .cover {
+      height: 75px;
+      width: 45px;
+      margin: 5px;
+    }
+    .info {
+      .title {
+        color: #333333;
+        font-size: 120%;
+        font-weight: bold;
+      }
+      .title:hover {
+        text-decoration: underline;
+      }
+      .author_row {
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        .by {
+          margin-right: 3px;
+        }
+      }
+      .author_row:hover {
+        .author {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
   .fa-spinner {
     text-align: center;
   }

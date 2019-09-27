@@ -36,7 +36,10 @@ export default class InfiniteScroll extends Component {
                   <img className="cover" alt="cover" src={book.coverPhoto} />
                   <div className="info">
                     <div className="title">{book.title}</div>
-                    <div className="author">{`by ${book.authors[0].name}`}</div>
+                    <div className="author_row">
+                      <div className="by">by</div>
+                      <div className="author">{`${book.authors[0].name}`}</div>
+                    </div>
                   </div>
                 </div>
               </Link>
