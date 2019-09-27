@@ -38,7 +38,27 @@ export default class InfiniteScroll extends Component {
                     <div className="title">{book.title}</div>
                     <div className="author_row">
                       <div className="by">by</div>
-                      <div className="author">{`${book.authors[0].name}`}</div>
+                      <div className="authors">
+                        {book.authors.map((author, index) => {
+                          if (
+                            book.authors.length > 1 &&
+                            index === book.authors.length - 1
+                          ) {
+                            return (
+                              <div key={index} className="author">
+                                {author.name}
+                              </div>
+                            );
+                          } else {
+                            return (
+                              <div key={index} className="with_comma">
+                                <div className="author">{author.name}</div>
+                                <div>,</div>
+                              </div>
+                            );
+                          }
+                        })}
+                      </div>
                     </div>
                   </div>
                 </div>

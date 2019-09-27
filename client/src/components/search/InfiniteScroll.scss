@@ -20,13 +20,21 @@
         width: fit-content;
         font-size: 12px;
         color: #333;
-        .by {
-          margin-right: 3px;
-        }
-      }
-      .author_row:hover {
-        .author {
-          text-decoration: underline;
+        .authors {
+          display: flex;
+          .author {
+            margin-left: 3px;
+          }
+          .author:hover {
+            text-decoration: underline;
+          }
+          .with_comma {
+            display: flex;
+            margin-left: 3px;
+          }
+          .with_comma:hover {
+            text-decoration: underline;
+          }
         }
       }
     }
