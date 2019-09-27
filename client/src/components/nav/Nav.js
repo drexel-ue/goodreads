@@ -11,8 +11,6 @@ class Nav extends React.Component {
     super(props);
 
     this.state = {
-      showBrowseDropdown: false,
-      commClicked: false,
       userClicked: false
     };
 
@@ -20,6 +18,7 @@ class Nav extends React.Component {
 
     this.showDropdown = this.showDropdown.bind(this);
     this.hideDropdown = this.hideDropdown.bind(this);
+    this.browse = this.browse.bind(this);
   }
 
   showDropdown(field) {
@@ -38,6 +37,12 @@ class Nav extends React.Component {
         field === "userClicked" ? 500 : 1
       );
     };
+  }
+
+  browse(e) {
+    e.preventDefault();
+
+    this.props.history.push("/book");
   }
 
   render() {
@@ -67,35 +72,10 @@ class Nav extends React.Component {
                             <div className="dropdown">
                               <button
                                 className="dropbtn"
-                                onMouseEnter={this.showDropdown(
-                                  "showBrowseDropdown"
-                                )}
-                                onMouseLeave={this.hideDropdown(
-                                  "showBrowseDropdown"
-                                )}
+                                onClick={this.browse}
                               >
                                 Browse
                               </button>
-                              <div
-                                onMouseEnter={this.showDropdown(
-                                  "showBrowseDropdown"
-                                )}
-                                onMouseLeave={this.hideDropdown(
-                                  "showBrowseDropdown"
-                                )}
-                                className={`dropdown-content ${
-                                  this.state.showBrowseDropdown
-                                    ? "reveal"
-                                    : "hide"
-                                }`}
-                              >
-                                <div className="dropdown-item">
-                                  <Link to='/'>New Releases</Link>
-                                </div>
-                                <div className="dropdown-item">
-                                  <Link to='/book'>Explore</Link>
-                                </div>
-                              </div>
                             </div>
                           </li>
                         </ul>
