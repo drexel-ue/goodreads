@@ -24,7 +24,6 @@ const httpLink = createHttpLink({
 
 const client = new ApolloClient({
   link: httpLink,
-  connectToDevTools: true,
   cache,
   onError: ({ networkError, graphQLErrors }) => {
     console.log("graphQLErrors", graphQLErrors);
