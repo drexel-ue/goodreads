@@ -70,7 +70,7 @@ export default withRouter(
               </div>
             </div>
             {this.state.queryString ? (
-              <div className="page">{`Results for "${this.state.queryString}`}</div>
+              <div className="page">{`Results for "${this.state.queryString}"`}</div>
             ) : (
               <div />
             )}

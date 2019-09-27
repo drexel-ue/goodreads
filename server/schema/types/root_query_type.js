@@ -108,9 +108,9 @@ const RootQueryType = new GraphQLObjectType({
       args: {
         queryString: { type: GraphQLString },
         offset: { type: GraphQLInt },
-        limit: { type: GraphQLInt },
+        limit: { type: GraphQLInt }
       },
-      async resolve(_, { queryString, offset,limit }) {
+      async resolve(_, { queryString, offset, limit }) {
         const pattern = new RegExp("^" + queryString, "i");
         let books = [];
         if (queryString.length > 0)
