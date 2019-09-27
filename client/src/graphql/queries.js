@@ -184,6 +184,7 @@ export default {
         _id
         title
         coverPhoto
+        publishDate
         rating
         ratingIds
         authors {

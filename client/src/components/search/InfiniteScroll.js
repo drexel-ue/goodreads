@@ -72,6 +72,9 @@ export default class InfiniteScroll extends Component {
                       <RatedRow rating={book.rating} />
                       <div className="rating">{`${book.rating} avg. rating - `}</div>
                       <div className="rating_count">{`${book.ratingIds.length} ratings - `}</div>
+                      <div className="publish_date">{`published ${new Date(
+                        book.publishDate
+                      ).getFullYear()} - `}</div>
                     </div>
                   </div>
                 </div>
