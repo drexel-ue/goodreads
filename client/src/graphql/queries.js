@@ -127,19 +127,46 @@ export default {
   FETCH_REVIEWS: gql`
     query FetchReviews {
       reviews {
-        user
-        book
+        user {
+          name
+        }
+        book {
+          title
+        }
         content
         hidden
-        dateStarted
-        dateFinished
+        # dateStarted
+        # dateFinished
         recommendTo
         # recommendBy
         privateNotes
         owned
         postToBlog
         addToFeed
-        date
+        # date
+      }
+    }
+  `,
+  FETCH_REVIEWS_BY_BOOK: gql`
+    query FetchReviewsByBookId($bookId: ID!) {
+      reviews {
+        user {
+          name
+        }
+        book {
+          title
+        }
+        content
+        hidden
+        # dateStarted
+        # dateFinished
+        recommendTo
+        # recommendBy
+        privateNotes
+        owned
+        postToBlog
+        addToFeed
+        # date
       }
     }
   `,

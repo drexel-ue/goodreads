@@ -875,15 +875,11 @@ const mutation = new GraphQLObjectType({
         book: { type: new GraphQLNonNull(GraphQLID) },
         content: { type: (GraphQLString) },
         hidden: { type: (GraphQLBoolean) },
-        // dateStarted: { type: (GraphQLDateTime) },
-        // dateFinished: { type: (GraphQLDateTime) },
         recommendTo: { type: (GraphQLString) },
-        // recommendBy: { type: GraphQLID },
         privateNotes: { type: (GraphQLString) },
         owned: { type: (GraphQLBoolean) },
         postToBlog: { type: (GraphQLBoolean) },
         addToFeed: { type: (GraphQLBoolean) },
-        // date: { type: (GraphQLDateTime) }
       },
       async resolve(
         _,
@@ -892,33 +888,37 @@ const mutation = new GraphQLObjectType({
           book,
           content,
           hidden,
-          // dateStarted,
-          // dateFinished,
           recommendTo,
-          // recommendBy,
           privateNotes,
           owned,
           postToBlog,
           addToFeed,
-          // date
         }
       ) {
-        // console.log("arguments")
-        return await new Review({
+
+        let review = new Review({
           user,
           book,
           content,
           hidden,
-          // dateStarted,
-          // dateFinished,
           recommendTo,
-          // recommendBy,
           privateNotes,
           owned,
           postToBlog,
           addToFeed,
-          // date
-        }).save();
+        });
+
+        const bookObj = await Book.findById(book)
+        const userObj = await User.findById(user)
+
+        bookObj.reviews.push(review)
+        userObj.reviews.push(review)
+        await Promise.all([bookObj.save(), userObj.save(), review.save()])
+
+        review.book = bookObj
+        review.user = userObj
+
+        return review
       }
     },
 
@@ -939,7 +939,6 @@ const mutation = new GraphQLObjectType({
         dateStarted: { type: GraphQLDateTime },
         dateFinished: { type: GraphQLDateTime },
         recommendTo: { type: GraphQLString },
-        // recommendBy: { type: GraphQLID },
         privateNotes: { type: GraphQLString },
         owned: { type: GraphQLBoolean },
         postToBlog: { type: GraphQLBoolean },
@@ -955,7 +954,6 @@ const mutation = new GraphQLObjectType({
           dateStarted,
           dateFinished,
           recommendTo,
-          // recommendBy,
           privateNotes,
           owned,
           postToBlog,
