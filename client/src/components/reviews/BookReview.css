@@ -18,3 +18,28 @@
     display:flex;
     flex-direction: column
 }
+.review-list-item-content {
+    font-family: "Merriweather", "Georgia", serif;
+    font-size: 14px;
+}
+
+.review-list-item-name-date-container{
+    display: flex;
+    width: 400px;
+    justify-content: space-between;
+}
+
+.review-content {
+    margin-top: 10px;
+    width: 400px;
+    overflow: hidden;
+    font-size: 14px;
+}
+.review-content-expander {
+    color: #00635d;
+    font-size: 14px;
+}
+.review-content-expander:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

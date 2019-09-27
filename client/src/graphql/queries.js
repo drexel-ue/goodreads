@@ -161,6 +161,7 @@ export default {
         owned
         postToBlog
         addToFeed
+        date
       }
     }
   `,

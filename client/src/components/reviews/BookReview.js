@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { Query, ApolloConsumer } from "react-apollo";
 import Queries from "../../graphql/queries";
 import gql from "graphql-tag";
+import BookReviewContent from "./BookReviewContent"
 import "./BookReview.css"
 
 const { FETCH_REVIEWS_BY_BOOK } = Queries
@@ -32,6 +33,7 @@ class BookReview extends React.Component{
                             username: review.user.name,
                             profilePhoto: review.user.profilePhoto,
                             content: review.content,
+                            date: new Date(review.date)
                         })
 
                     )
@@ -42,8 +44,14 @@ class BookReview extends React.Component{
                                 <li className="review-list-item-container"key={index}>
                                     <img className="review-list-item-photo" src={review.profilePhoto}/> 
                                     <div className="review-list-item-subcontainer">   
-                                        <div className="review-list-item-name">{review.username}</div>
-                                        <div className="review-list-item-content">"{review.content}"</div>
+                                        <div className="review-list-item-name-date-container">
+                                            <div className="review-list-item-name">{review.username}</div>
+                                            <div className="review-list-item-date">{review.date.toDateString()}</div>
+                                        </div>
+                                        <BookReviewContent 
+                                            className="review-list-item-content"
+                                            content={review.content}>
+                                        </BookReviewContent>
                                     </div>
                                 </li>
                             )}
