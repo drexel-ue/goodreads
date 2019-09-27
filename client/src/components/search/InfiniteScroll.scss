@@ -37,6 +37,11 @@
           }
         }
       }
+      .stats_row {
+        display: flex;
+        justify-content: space-between;
+        width: 125%;
+      }
     }
   }
   .fa-spinner {
