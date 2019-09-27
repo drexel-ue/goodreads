@@ -11,16 +11,15 @@ export default class InfiniteScroll extends Component {
   }
 
   debounce() {
-    const that = this;
     window.addEventListener("scroll", () => {
       if (
         window.innerHeight + window.pageYOffset >=
           document.body.offsetHeight * 0.6 &&
-        !that.timeout
+        !this.timeout
       ) {
-        that.timeout = setTimeout(() => {
+        this.timeout = setTimeout(() => {
           this.timeout = undefined;
-          that.props.onLoadMore();
+          this.props.onLoadMore();
         }, 2000);
       }
     });
