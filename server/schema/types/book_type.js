@@ -10,7 +10,6 @@ const {
   GraphQLID,
   GraphQLFloat
 } = graphql;
-const RatingType = require("./rating_type");
 const Book = mongoose.model("books");
 
 const BookType = new GraphQLObjectType({

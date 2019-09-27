@@ -48,16 +48,6 @@ export default {
       leaveRating(bookId: $bookId, userId: $userId, stars: $stars) {
         _id
         rating
-        isbn
-        title
-        edition
-        series
-        settings
-        genres
-        authors {
-          _id
-        }
-        description
         ratingIds
         ratings {
           stars
