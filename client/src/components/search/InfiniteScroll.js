@@ -43,7 +43,11 @@ export default class InfiniteScroll extends Component {
             </div>
           );
         })}
-        <i className="fas fa-spinner fa-pulse"></i>
+        {this.props.items.length > 0 ? (
+          <i className="fas fa-spinner fa-pulse"></i>
+        ) : (
+          <div />
+        )}
       </div>
     );
   }
