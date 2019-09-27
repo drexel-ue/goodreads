@@ -7,7 +7,7 @@ import gql from "graphql-tag";
 import "./CreateReview.css"
 
 const { CREATE_REVIEW } = Mutations
-const { FETCH_REVIEWS, BOOK_BY_ID } = Queries
+const { FETCH_REVIEWS_BY_BOOK, BOOK_BY_ID } = Queries
 
 class CreateReview extends React.Component {
     constructor(props) {
@@ -26,9 +26,14 @@ class CreateReview extends React.Component {
             user: "",
             book: this.props.match.params.bookId
         };
+        this.timeout = undefined
         this.handleSubmit.bind(this)   
         this.updateCache.bind(this)
         this.updateBoxes.bind(this) 
+    }
+
+    componentWillUnmount(){
+        clearTimeout(this.timeout)
     }
 
     update(field) {
@@ -47,25 +52,27 @@ class CreateReview extends React.Component {
         try {
             // if we've already fetched the products then we can read the
             // query here
-            reviews = cache.readQuery({ query: FETCH_REVIEWS });
+            reviews = cache.readQuery({ query: FETCH_REVIEWS_BY_BOOK, variables: { bookId: this.state.book} });
         } catch (err) {
             return;
         }
         // if we had previously fetched products we'll add our new product to our cache
         if (reviews) {
-            let reviewsArray = reviews.reviews;
-            let newReview = data.newReview;
+            let reviewsArray = reviews.reviewByBookId;
+            let newReview = data.createReview;
+            let newArray = reviewsArray.concat(newReview)
             cache.writeQuery({
-                query: FETCH_REVIEWS,
-                data: { reviews: reviewsArray.concat(newReview) }
+                query: FETCH_REVIEWS_BY_BOOK,
+                variables: { bookId: this.state.book },
+                data: { reviewByBookId: newArray }
             });
         }
     }
 
     handleSubmit(e, newReview) {
         e.preventDefault();
-        let redirectURL = `#/book/${this.state.book}`;
-        setTimeout(
+        // let redirectURL = `#/book/${this.state.book}`;
+        // setTimeout(
             newReview({
                 variables: {
                     user: this.state.user,
@@ -78,10 +85,10 @@ class CreateReview extends React.Component {
                     postToBlog: this.state.postToBlog,
                     addToFeed: this.state.addToFeed
                 }
-            }),
-            window.location.href = redirectURL
+            })
+            // window.location.href = redirectURL
 
-        , 2000)
+        // , 2000)
     }
 
     render() {
@@ -124,10 +131,16 @@ class CreateReview extends React.Component {
                             mutation={CREATE_REVIEW}
                             onError={err => this.setState({ message: err.message })}
                             update={(cache, data) => this.updateCache(cache, data)}
-                            onCompleted={data => 
+                            onCompleted={data => {
+                                let redirectURL = `#/book/${this.state.book}`
                                 this.setState({
                                     message: `New review created successfully`
-                                })
+                                }, () => {
+                                    this.timeout = setTimeout( () => {
+                                        window.location.href = redirectURL
+                                    }, 2000)
+                                } ) 
+                                }
                             }
                         >
                         {(newReview, { data } ) =>

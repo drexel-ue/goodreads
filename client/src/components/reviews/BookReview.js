@@ -16,6 +16,7 @@ class BookReview extends React.Component{
 
     render() {
         return (
+            <ApolloConsumer>{client => (
             <Query
                 query={FETCH_REVIEWS_BY_BOOK}
                 variables={{ bookId: this.props.bookId }}
@@ -57,7 +58,8 @@ class BookReview extends React.Component{
                             )}
                         </ul>
                     )}}
-            </Query>
+            </Query>)}
+            </ApolloConsumer>
         )
     }
 
