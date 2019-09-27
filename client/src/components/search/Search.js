@@ -85,7 +85,7 @@ export default withRouter(
               {({ loading, error, data, fetchMore }) => {
                 if (loading || error)
                   return <i className="fas fa-spinner fa-pulse"></i>;
-                console.log("data", data);
+
                 const { bookSearch } = data;
                 return (
                   <InfiniteScroll

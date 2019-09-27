@@ -7,22 +7,29 @@ export default class InfiniteScroll extends Component {
     super(props);
 
     this.timeout = undefined;
-    this.debounce();
+    this.listen();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.debounce, false);
+  }
+
+  listen() {
+    window.addEventListener("scroll", this.debounce, false);
   }
 
   debounce() {
-    window.addEventListener("scroll", () => {
-      if (
-        window.innerHeight + window.pageYOffset >=
-          document.body.offsetHeight * 0.6 &&
-        !this.timeout
-      ) {
-        this.timeout = setTimeout(() => {
-          this.timeout = undefined;
-          this.props.onLoadMore();
-        }, 2000);
-      }
-    });
+    if (
+      window.innerHeight + window.pageYOffset >=
+        document.body.offsetHeight * 0.6 &&
+      !this.timeout
+    ) {
+      const that = this;
+      that.timeout = setTimeout(() => {
+        that.timeout = undefined;
+        that.props.onLoadMore();
+      }, 2000);
+    }
   }
 
   render() {
