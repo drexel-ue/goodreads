@@ -3,8 +3,8 @@ import { Mutation, Query, ApolloConsumer } from "react-apollo";
 import gql from "graphql-tag";
 import Queries from "../../graphql/queries";
 import Mutations from "../../graphql/mutations";
-// import {withRouter}from'react-router-dom'
 import "./BookShow.scss";
+import "./ShelfButton.scss";
 
 const { SHELVES_BY_USER } = Queries;
 const { ADD_TO_SHELF } = Mutations;
@@ -43,7 +43,7 @@ export default class ShelfButton extends Component {
     const that = this;
     this.timeOut = setTimeout(() => {
       that.setState({ showing: false });
-    }, 3000);
+    }, 500);
   }
 
   updateCache(client, { data }) {

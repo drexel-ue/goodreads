@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./InfiniteScroll.scss";
 import RatedRow from "../book/RatedRow";
+import ShelfButton from "../book/ShelfButton";
 
 export default class InfiniteScroll extends Component {
   constructor(props) {
@@ -75,6 +76,9 @@ export default class InfiniteScroll extends Component {
                       <div className="publish_date">{`published ${new Date(
                         book.publishDate
                       ).getFullYear()}`}</div>
+                    </div>
+                    <div className="button_row">
+                      <ShelfButton _id={book._id} />
                     </div>
                   </div>
                 </div>
