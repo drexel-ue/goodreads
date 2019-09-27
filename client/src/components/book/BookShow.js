@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
 import SeriesBlock from "./SeriesBlock";
@@ -11,7 +11,9 @@ import RatedRow from "./RatedRow";
 import MainDescription from "./MainDescription";
 import StoresDropdown from "./StoresDropdown";
 import FullBookDetail from "./FullBookDetail";
+import BookReviews from "../reviews/BookReview"
 import "./BookShow.scss";
+import BookReview from "../reviews/BookReview";
 
 const { BOOK_BY_ID } = Queries;
 
@@ -118,6 +120,8 @@ export default withRouter(
                     }`}
                   </div>
                   <FullBookDetail book={book} />
+                  <Link className="write-review-link" to={`/reviews/${book._id}`}>Write a review</Link>
+                  <BookReview bookId={book._id} />
                 </div>
               );
             };

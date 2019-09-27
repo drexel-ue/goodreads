@@ -135,38 +135,32 @@ export default {
         }
         content
         hidden
-        # dateStarted
-        # dateFinished
         recommendTo
-        # recommendBy
         privateNotes
         owned
         postToBlog
         addToFeed
-        # date
       }
     }
   `,
   FETCH_REVIEWS_BY_BOOK: gql`
     query FetchReviewsByBookId($bookId: ID!) {
-      reviews {
+      reviewByBookId(bookId: $bookId) {
         user {
+          _id
           name
+          profilePhoto
         }
         book {
           title
         }
         content
         hidden
-        # dateStarted
-        # dateFinished
         recommendTo
-        # recommendBy
         privateNotes
         owned
         postToBlog
         addToFeed
-        # date
       }
     }
   `,

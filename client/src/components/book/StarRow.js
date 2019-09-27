@@ -34,11 +34,12 @@ export default class StarRow extends Component {
 
   updateCache(client, { data }) {
     const book = data.leaveRating;
-    client.writeQuery({
-      data: {
-        [book._id]: book
-      }
-    });
+    // client.writeQuery({
+    //   data: {
+    //     [book._id]: book
+    //   }
+    // });
+    this.setState()
   }
 
   render() {

@@ -6,6 +6,7 @@ import gql from "graphql-tag";
 import "./BookReview.css"
 
 const { FETCH_REVIEWS_BY_BOOK } = Queries
+
 class BookReview extends React.Component{
     constructor(props){
         super(props)
@@ -23,17 +24,30 @@ class BookReview extends React.Component{
                     if (error) {
                         return <p>Error</p>;
                     }
-                    const { reviews } = data
+                    const { reviewByBookId } = data
                     let allReviews = []
-                    data.reviews.map(review =>
+                    reviewByBookId.map(review =>
                         allReviews.push({
-                            user: review.user,
+                            userId: review.user._id,
+                            username: review.user.name,
+                            profilePhoto: review.user.profilePhoto,
                             content: review.content,
                         })
+
                     )
-                    console.log(reviews)
+                    console.log(allReviews)
                     return (
-                        <div>555</div>
+                        <ul className="review-list-container">
+                            {allReviews.map((review, index) => 
+                                <li className="review-list-item-container"key={index}>
+                                    <img className="review-list-item-photo" src={review.profilePhoto}/> 
+                                    <div className="review-list-item-subcontainer">   
+                                        <div className="review-list-item-name">{review.username}</div>
+                                        <div className="review-list-item-content">"{review.content}"</div>
+                                    </div>
+                                </li>
+                            )}
+                        </ul>
                     )}}
             </Query>
         )
