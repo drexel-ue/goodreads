@@ -39,7 +39,7 @@ export default withRouter(
           <div className="main">
             <div className="title">Search</div>
             <div className="search_block">
-              <div className="input_row">
+              <form className="input_row" onSubmit={this.commenceSearch}>
                 <input
                   type="text"
                   className="search_bar"
@@ -49,7 +49,7 @@ export default withRouter(
                 <div className="search_button" onClick={this.commenceSearch}>
                   Search
                 </div>
-              </div>
+              </form>
               <div className="radio_row">
                 <div className="duo">
                   <input type="radio" />
