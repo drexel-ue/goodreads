@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./InfiniteScroll.scss";
 import RatedRow from "../book/RatedRow";
 import ShelfButton from "../book/ShelfButton";
+import StarRow from "../book/StarRow";
 
 export default class InfiniteScroll extends Component {
   constructor(props) {
@@ -80,6 +81,8 @@ export default class InfiniteScroll extends Component {
                     <div className="button_row">
                       <ShelfButton _id={book._id} />
                     </div>
+                    <div className="rate_text">Rate this book</div>
+                    <StarRow bookId={book._id} />
                   </div>
                 </div>
               </Link>
