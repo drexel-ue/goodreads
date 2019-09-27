@@ -74,6 +74,15 @@ export default withRouter(
                   placeholder="Password"
                 />
                 <button type="submit">Sign In</button>
+                <button className='demo-login' onClick={e => {
+                  e.preventDefault();
+                  loginUser({
+                    variables: {
+                      email: "12@34.com",
+                      password: "test123"
+                    }
+                  });
+                }}>Demo</button>
               </form>
             </div>
           )}
