@@ -134,7 +134,11 @@ class Nav extends React.Component {
 
                       <Query
                         query={BOOK_SEARCH}
-                        variables={{ queryString: this.state.queryString }}
+                        variables={{
+                          queryString: this.state.queryString,
+                          offset: 0,
+                          limit: 10
+                        }}
                       >
                         {({ loading, error, data }) => {
                           let results = [];

@@ -179,8 +179,8 @@ export default {
     }
   `,
   BOOK_SEARCH: gql`
-    query BookSearch($queryString: String!, $offset: Int!) {
-      bookSearch(queryString: $queryString, offset: $offset) {
+    query BookSearch($queryString: String!, $offset: Int!, $limit: Int!) {
+      bookSearch(queryString: $queryString, offset: $offset, limit: $limit) {
         _id
         title
         coverPhoto

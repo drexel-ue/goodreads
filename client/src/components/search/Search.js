@@ -16,6 +16,21 @@ export default withRouter(
           ? this.props.location.state.queryString
           : ""
       };
+
+      this.queryString = "";
+
+      this.holdQueryString = this.holdQueryString.bind(this);
+      this.commenceSearch = this.commenceSearch.bind(this);
+    }
+
+    holdQueryString(event) {
+      event.preventDefault();
+      this.queryString = event.currentTarget.value;
+    }
+
+    commenceSearch(event) {
+      event.preventDefault();
+      this.setState({ queryString: this.queryString });
     }
 
     render() {
@@ -29,8 +44,11 @@ export default withRouter(
                   type="text"
                   className="search_bar"
                   placeholder="Search by Book Title, Author, or ISBN"
+                  onChange={this.holdQueryString}
                 />
-                <div className="search_button">Search</div>
+                <div className="search_button" onClick={this.commenceSearch}>
+                  Search
+                </div>
               </div>
               <div className="radio_row">
                 <div className="duo">
@@ -51,16 +69,23 @@ export default withRouter(
                 </div>
               </div>
             </div>
+            {this.state.queryString ? (
+              <div className="page">{`Results for "${this.state.queryString}`}</div>
+            ) : (
+              <div />
+            )}
             <Query
               query={BOOK_SEARCH}
               variables={{
                 queryString: this.state.queryString,
-                offset: 0
+                offset: 0,
+                limit: 30
               }}
             >
               {({ loading, error, data, fetchMore }) => {
                 if (loading || error)
                   return <i className="fas fa-spinner fa-pulse"></i>;
+                console.log("data", data);
                 const { bookSearch } = data;
                 return (
                   <InfiniteScroll
@@ -69,16 +94,17 @@ export default withRouter(
                       fetchMore({
                         variables: {
                           queryString: this.state.queryString,
-                          offset: bookSearch.length
+                          offset: bookSearch.length,
+                          limit: 30
                         },
                         updateQuery: (prev, { fetchMoreResult }) => {
-                          console.log("prev", prev);
-                          console.log("fetchMoreResult", fetchMoreResult);
-                          return [1, 2, 3];
-                          // if (!fetchMoreResult) return prev;
-                          // return Object.assign({}, prev, {
-                          //   feed: [...prev.feed, ...fetchMoreResult.feed]
-                          // });
+                          if (!fetchMoreResult) return prev;
+                          return Object.assign({}, prev, {
+                            bookSearch: [
+                              ...prev.bookSearch,
+                              ...fetchMoreResult.bookSearch
+                            ]
+                          });
                         }
                       })
                     }

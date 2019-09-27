@@ -107,9 +107,10 @@ const RootQueryType = new GraphQLObjectType({
       type: new GraphQLList(BookType),
       args: {
         queryString: { type: GraphQLString },
-        offset: { type: GraphQLInt }
+        offset: { type: GraphQLInt },
+        limit: { type: GraphQLInt },
       },
-      async resolve(_, { queryString, offset }) {
+      async resolve(_, { queryString, offset,limit }) {
         const pattern = new RegExp("^" + queryString, "i");
         let books = [];
         if (queryString.length > 0)
@@ -118,7 +119,7 @@ const RootQueryType = new GraphQLObjectType({
           })
             .populate("authors")
             .skip(offset)
-            .limit(10);
+            .limit(limit);
         // let authors = await Author.find({ name: pattern })
         //   .populate("books")
         //   .limit(5);
