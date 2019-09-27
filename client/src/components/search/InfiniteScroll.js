@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./InfiniteScroll.scss";
+import RatedRow from "../book/RatedRow";
 
 export default class InfiniteScroll extends Component {
   constructor(props) {
     super(props);
 
     this.timeout = undefined;
+    this.debounce = this.debounce.bind(this);
     this.listen();
   }
 
@@ -24,10 +26,9 @@ export default class InfiniteScroll extends Component {
         document.body.offsetHeight * 0.6 &&
       !this.timeout
     ) {
-      const that = this;
-      that.timeout = setTimeout(() => {
-        that.timeout = undefined;
-        that.props.onLoadMore();
+      this.timeout = setTimeout(() => {
+        this.timeout = undefined;
+        this.props.onLoadMore();
       }, 2000);
     }
   }
@@ -66,6 +67,9 @@ export default class InfiniteScroll extends Component {
                           }
                         })}
                       </div>
+                    </div>
+                    <div className="stats_row">
+                      <RatedRow rating={book.rating} />
                     </div>
                   </div>
                 </div>
