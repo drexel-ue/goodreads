@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import Mutations from "../../graphql/mutations";
 import { withRouter } from "react-router-dom";
+import "./Session.css";
 
 export default withRouter(
   class Login extends Component {
@@ -48,7 +49,15 @@ export default withRouter(
                       email: this.state.email,
                       password: this.state.password
                     }
-                  });
+                  }).catch(e => {
+                    const register = document.getElementById("errors");
+                    register.innerHTML = "";
+                    
+                    const div = document.getElementById('login-errors');
+                    let m = e.message.toString().slice(15);
+
+                    div.innerHTML = `<p class='error'>${m}</p>`;
+                  })
                 }}
               >
                 <input
@@ -65,6 +74,15 @@ export default withRouter(
                   placeholder="Password"
                 />
                 <button type="submit">Sign In</button>
+                <button className='demo-login' onClick={e => {
+                  e.preventDefault();
+                  loginUser({
+                    variables: {
+                      email: "12@34.com",
+                      password: "test123"
+                    }
+                  });
+                }}>Demo</button>
               </form>
             </div>
           )}

@@ -79,12 +79,6 @@ const App = () => {
           component={ShowGenre}
           routeType="protected"
         />
-        {/* <AuthRoute
-          exact
-          path="/friend_recommendations"
-          component={FriendRecommendations}
-          routeType="protected"
-        /> */}
         <AuthRoute
           exact
           path="/reviews/:bookId"
