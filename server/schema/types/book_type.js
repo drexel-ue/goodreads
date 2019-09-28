@@ -31,21 +31,20 @@ const BookType = new GraphQLObjectType({
     publisher: { type: GraphQLString },
     genres: {
       type: new GraphQLList(GraphQLString),
-      async resolve(parentValue) {
+      resolve(parentValue) {
         return parentValue.genres;
       }
     },
     ratingIds: {
       type: new GraphQLList(GraphQLString),
-      async resolve(parentValue) {
+      resolve(parentValue) {
         return parentValue.ratings;
       }
     },
     ratings: {
       type: new GraphQLList(require("./rating_type")),
-      async resolve(parentValue) {
-        const book = await Book.findById(parentValue.id).populate("ratings");
-        return book.ratings;
+      resolve(parentValue) {
+        return parentValue.ratings;
       }
     },
     reviews: {
