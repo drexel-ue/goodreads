@@ -27,7 +27,15 @@ const RootQueryType = new GraphQLObjectType({
       type: UserType,
       args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
       async resolve(_, args) {
-        return await User.findById(args._id);
+        return await User.findById(args._id).populate({
+          path: "shelves",
+          populate: {
+            path: "books",
+            populate: {
+              path: "authors"
+            }
+          }
+        });
       }
     },
     users: {
@@ -134,8 +142,10 @@ const RootQueryType = new GraphQLObjectType({
       type: new GraphQLList(ReviewType),
       args: { bookId: { type: GraphQLID } },
       async resolve(parentValue, { bookId }) {
-         const reviews = await Review.find({ book: bookId }).populate("book").populate("user")
-         return reviews
+        const reviews = await Review.find({ book: bookId })
+          .populate("book")
+          .populate("user");
+        return reviews;
       }
     }
   })

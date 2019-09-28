@@ -19,9 +19,8 @@ const BookType = new GraphQLObjectType({
     title: { type: GraphQLString },
     authors: {
       type: new GraphQLList(require("./author_type")),
-      async resolve(parentValue) {
-        const book = await Book.findById(parentValue.id).populate("authors");
-        return book.authors;
+      resolve(parentValue) {
+        return parentValue.authors;
       }
     },
     rating: { type: GraphQLFloat },
