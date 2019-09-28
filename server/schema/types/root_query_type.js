@@ -98,7 +98,8 @@ const RootQueryType = new GraphQLObjectType({
       type: new GraphQLList(BookType),
       args: { series: { type: GraphQLString } },
       async resolve(_, { series }) {
-        return await Book.find({ series }).populate("authors");
+        const pattern = new RegExp(series, "i");
+        return await Book.find({ series: pattern }).populate("authors");
       }
     },
     booksByAuthor: {
