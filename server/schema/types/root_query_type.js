@@ -126,8 +126,8 @@ const RootQueryType = new GraphQLObjectType({
     },
     reviews: {
       type: new GraphQLList(ReviewType),
-      resolve(_) {
-        return Review.find({});
+      async resolve(_) {
+        return await Review.find({}).populate(["user", "book"]);
       }
     },
     bookSearch: {
