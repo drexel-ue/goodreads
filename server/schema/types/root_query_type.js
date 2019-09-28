@@ -129,6 +129,14 @@ const RootQueryType = new GraphQLObjectType({
 
         return books;
       }
+    },
+    reviewByBookId: {
+      type: new GraphQLList(ReviewType),
+      args: { bookId: { type: GraphQLID } },
+      async resolve(parentValue, { bookId }) {
+         const reviews = await Review.find({ book: bookId }).populate("book").populate("user")
+         return reviews
+      }
     }
   })
 });

@@ -33,14 +33,6 @@ export default class StarRow extends Component {
     this.setState({ index: -1 });
   }
 
-  updateCache(client, { data }) {
-    const book = data.leaveRating;
-    // client.writeQuery({
-    //   [book._id]: book
-    // });
-    // this.setState({ rated: true });
-  }
-
   render() {
     const highlit = index =>
       this.state.index >= index ? { color: "darkorange" } : {};

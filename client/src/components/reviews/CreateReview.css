@@ -1,0 +1,120 @@
+.review-book-img{
+    width: 50px;
+    height: 75px;
+    padding-right: 5px
+}
+
+.review-form-content {
+    width: 726px;
+    height: 258px;
+    border-radius: .2rem;
+    border: #DCD6CC 1px solid;
+}
+
+.review-form-recommend-to{
+    width: 250px;
+    height: 25px;
+    border-radius: .2rem;
+    border: #DCD6CC 1px solid;
+}
+
+.review-form-private-notes{
+    width: 726px;
+    height: 90px;
+    border-radius: .2rem;
+    border: #DCD6CC 1px solid;
+}
+.review-form-submit {
+    border-radius: 3px;
+    border: 1px solid #D6D0C4;
+    font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+    font-size: 14px;
+    -moz-appearance: none;
+    -o-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    color: #333333;
+    background-color: #F4F1EA;
+    line-height: 1;
+    padding: 8px 12px;
+}
+
+.review-book-container {
+    display: flex;
+    /* justify-content: center; */
+    margin-left: 20%
+}
+
+.review-container {
+    display: flex;
+    flex-direction: column;
+    font-family: "Merriweather", Georgia, "Times New Roman", serif;
+}
+
+.review-form-hidden {
+    font-size: 14px;
+}
+
+.review-form-hidden-container{
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+.review-form-content-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.review-form-recommend-to-container {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.review-form-private-notes-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.review-form-container {
+    display:flex;
+    /* justify-content: center; */
+    font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+    font-size: 14px;
+    margin-left: 20%;
+}
+
+.review-form-private-notes-container{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.review-form-owned-container{
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.review-form-submit-container{
+    padding-top:10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.review-form-bottom-right{
+    display: flex;
+}
+
+.review-form-postToBlog-container{
+    border-right: 2px solid #eee;
+    padding-right: 7px;
+    height: 15px;
+    margin-right: 5px;
+}
+
+textarea:focus, input:focus{
+    outline: 0;
+}

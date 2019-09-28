@@ -60,43 +60,47 @@ export default {
   `,
   CREATE_REVIEW: gql`
     mutation CreateReview(
-      $user: ID
-      $book: ID
+      $user: ID!
+      $book: ID!
       $content: String
       $hidden: Boolean
-      $dateStarted: String
-      $dateFinished: String
+      # $dateStarted: DateTime
+      # $dateFinished: DateTime
       $recommendTo: String
-      $recommendBy: ID
+      # $recommendBy: ID
       $privateNotes: String
       $owned: Boolean
       $postToBlog: Boolean
       $addToFeed: Boolean
-      $date: Date
+      # $date: DateTime!
     ) {
       createReview(
         user: $user
         book: $book
         content: $content
         hidden: $hidden
-        dateStarted: $dateStarted
-        dateFinished: $dateFinished
+        # dateStarted: $dateStarted
+        # dateFinished: $dateFinished
         recommendTo: $recommendTo
-        recommendBy: $recommendBy
+        # recommendBy: $recommendBy
         privateNotes: $privateNotes
         owned: $owned
         postToBlog: $postToBlog
         addToFeed: $addToFeed
-        date: $date
+        # date: $date
       ) {
-        user
-        book
+        user{
+          name
+        }
+        book{
+          title
+        }
         content
         hidden
-        dateStarted
-        dateFinished
+        # dateStarted
+        # dateFinished
         recommendTo
-        recommendBy
+        # recommendBy
         privateNotes
         owned
         postToBlog

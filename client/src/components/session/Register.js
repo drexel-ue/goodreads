@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import Mutations from "../../graphql/mutations";
+import "./Session.css";
 
 export default class Register extends Component {
   constructor(props) {
@@ -37,7 +38,9 @@ export default class Register extends Component {
       >
         {registerUser => (
           <div className='register-form'>
+            <div id='login-errors'></div>
             <p>New here? Create a free account!</p>
+            <div id='errors'></div>
             <form
               onSubmit={e => {
                 e.preventDefault();
@@ -47,7 +50,15 @@ export default class Register extends Component {
                     password: this.state.password,
                     name: this.state.name
                   }
-                });
+                }).catch(e => {
+                  const login = document.getElementById("login-errors");
+                  login.innerHTML = "";
+
+                  const div = document.getElementById('errors');
+                  let m = e.message.toString().slice(15);
+
+                  div.innerHTML = `<p class='error'>${m}</p>`;
+                })
               }}
             >
               <input

@@ -239,7 +239,7 @@ BookSchema.statics.removeRating = (bookId, ratingId) => {
   });
 };
 
-BookSchema.statics.addQuestion = (bookId, ratingId) => {
+BookSchema.statics.addQuestion = (bookId, questionId) => {
   const Book = mongoose.model("books");
   const Question = mongoose.model("questions");
 
@@ -255,7 +255,7 @@ BookSchema.statics.addQuestion = (bookId, ratingId) => {
   });
 };
 
-BookSchema.statics.removeQuestion = (bookId, questionId) => {
+BookSchema.statics.removeReview = (bookId, reviewId) => {
   const Book = mongoose.model("books");
   const Question = mongoose.model("questions");
 
@@ -266,6 +266,36 @@ BookSchema.statics.removeQuestion = (bookId, questionId) => {
 
       return Promise.all([book.save(), question.save()]).then(
         ([book, question]) => book
+      );
+    });
+  });
+};
+BookSchema.statics.addQuestion = (bookId, questionId) => {
+  const Book = mongoose.model("books");
+  const Question = mongoose.model("questions");
+
+  return Book.findById(bookId).then(book => {
+    return Question.findById(questionId).then(question => {
+      book.questions.push(question);
+      question.books.push(book);
+
+      return Promise.all([book.save(), question.save()]).then(
+        ([book, question]) => book
+      );
+    });
+  });
+};
+
+BookSchema.statics.removeQuestion = (bookId, reviewId) => {
+  const Book = mongoose.model("books");
+  const Review = mongoose.model("reviews");
+
+  return Book.findById(bookId).then(book => {
+    return Review.findById(reviewId).then(review => {
+      book.reviews.pull(review);
+
+      return Promise.all([book.save(), review.save()]).then(
+        ([book, review]) => book
       );
     });
   });

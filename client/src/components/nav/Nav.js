@@ -12,10 +12,8 @@ class Nav extends React.Component {
     super(props);
 
     this.state = {
-      showBrowseDropdown: false,
-      commClicked: false,
-      userClicked: false,
-      queryString: ""
+      queryString: "",
+      userClicked: false
     };
 
     this.dropdownTimer = undefined;
@@ -26,6 +24,7 @@ class Nav extends React.Component {
     this.handleInput = this.handleInput.bind(this);
     this.clearSearch = this.clearSearch.bind(this);
     this.cancelClear = this.cancelClear.bind(this);
+    this.browse = this.browse.bind(this);
   }
 
   showDropdown(field) {
@@ -41,10 +40,11 @@ class Nav extends React.Component {
       event.preventDefault();
       this.dropdownTimer = setTimeout(
         () => this.setState({ [field]: false }),
-        field === "userClicked" ? 100 : 1
+        field === "userClicked" ? 500 : 1
       );
     };
   }
+
 
   handleInput(event) {
     event.preventDefault();
@@ -62,6 +62,13 @@ class Nav extends React.Component {
   cancelClear(event) {
     event.preventDefault();
     clearTimeout(this.searchTimer);
+  }
+
+  browse(e) {
+    e.preventDefault();
+
+    this.props.history.push("/book");
+
   }
 
   render() {
@@ -90,7 +97,7 @@ class Nav extends React.Component {
                             </Link>
                           </li>
                           <li className="nav-list-item">
-                            <Link to="/bookshelf/all" className="nav-link">
+                            <Link to="/bookshelf/read" className="nav-link">
                               My Books
                             </Link>
                           </li>
@@ -98,12 +105,7 @@ class Nav extends React.Component {
                             <div className="dropdown">
                               <button
                                 className="dropbtn"
-                                onMouseEnter={this.showDropdown(
-                                  "showBrowseDropdown"
-                                )}
-                                onMouseLeave={this.hideDropdown(
-                                  "showBrowseDropdown"
-                                )}
+                                onClick={this.browse}
                               >
                                 Browse
                               </button>
@@ -127,6 +129,7 @@ class Nav extends React.Component {
                                   <Link to="/book">Explore</Link>
                                 </div>
                               </div>
+
                             </div>
                           </li>
                         </ul>

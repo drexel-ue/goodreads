@@ -33,16 +33,7 @@ const BookItem = props => {
         </div>
       );
     } else {
-      return (
-        <div className="new-books-container">
-          <div className="new-book">
-            <div className="new-book-cover">
-              <p>No new releases for this month.</p>
-            </div>
-            <div className="clear"></div>
-          </div>
-        </div>
-      );
+      return null;
     }
   }
 };

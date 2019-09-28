@@ -75,10 +75,10 @@ header {
 }
 
 .login {
-  display: inline-block;
-  margin-left: 39%;
-  position: relative;
-  bottom: 8px;
+    display: inline-block;
+    margin-left: 35%;
+    position: relative;
+    bottom: 8px;
 }
 
 .login-password {
@@ -364,15 +364,16 @@ header {
 }
 
 .profile-dropdown-content {
-  background-color: #ffffff;
-  position: absolute;
-  right: 50px;
-  top: 50px;
-  width: 250px;
-  padding: 8px 0;
-  float: left;
-  box-sizing: inherit;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    background-color: #FFFFFF;
+    position: absolute;
+    right: 50px;
+    top: 50px;
+    width: 250px;
+    padding: 8px 0;
+    float: left;
+    box-sizing: inherit;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+    z-index: 100;
 }
 
 .profile-dropbtn {
