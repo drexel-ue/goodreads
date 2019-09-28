@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const BookSchema = new Schema({
   title: {
     type: String,
-    required: true
+    required: true,
+    index: true
   },
   authors: [
     {
@@ -53,7 +54,8 @@ const BookSchema = new Schema({
     }
   ],
   series: {
-    type: String
+    type: String,
+    index: true
   },
   questions: [
     {
@@ -77,7 +79,8 @@ const BookSchema = new Schema({
   },
   isbn: {
     type: String,
-    required: true
+    required: true,
+    index: true
   },
   settings: [
     {
@@ -212,14 +215,12 @@ BookSchema.statics.leaveRating = async (bookId, user, stars) => {
   const Rating = mongoose.model("ratings");
 
   const book = await Book.findById(bookId);
-  const rating = new Rating({ book, user, stars });
-
+  const rating = new Rating({ bookId, user, stars });
   book.ratings.push(rating);
   book.rating = (book.rating + stars) / book.ratings.length;
-
   await rating.save();
-
-  return await book.save();
+  const bookDoc = await book.save();
+  return bookDoc;
 };
 
 BookSchema.statics.removeRating = (bookId, ratingId) => {

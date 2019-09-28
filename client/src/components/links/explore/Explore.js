@@ -32,13 +32,13 @@ class Explore extends React.Component {
                                 <div className='search-fields'>
                                     <label>Fields to search</label>
                                     <input type='radio' value='all' id='search-field-all' name='explore-radio' ref={explore => this.allNode = explore} onClick={this.toggleRadio("allNode")}/>
-                                    <label for='search-field-all'>All</label>
+                                    <label htmlFor='search-field-all'>All</label>
                                     <input type='radio' value='title' id='search-field-title' name='explore-radio' ref={explore => this.titleNode = explore} onClick={this.toggleRadio("titleNode")}/>
-                                    <label for='search-field-title'>Title</label>
+                                    <label htmlFor='search-field-title'>Title</label>
                                     <input type='radio' value='author' id='search-field-author' name='explore-radio' ref={explore => this.authorNode = explore} onClick={this.toggleRadio("authorNode")}/>
-                                    <label for='search-field-author'>Author</label>
+                                    <label htmlFor='search-field-author'>Author</label>
                                     <input type='radio' value='genre' id='search-field-genre' name='explore-radio' ref={explore => this.genreNode = explore} onClick={this.toggleRadio("genreNode")}/>
-                                    <label for='search-field-genre'>Genre</label>
+                                    <label htmlFor='search-field-genre'>Genre</label>
                                 </div>
                                 <div className='clear'></div>
                             </form>
@@ -142,20 +142,20 @@ class Explore extends React.Component {
                                                         const month = today.getMonth();
                                                         let count = 0;
 
-                                                        return data.books.map((book, idx) => {
+                                                        return data.books.map((book, index) => {
                                                             const bookYear = book.publishDate.slice(0, 4);
                                                             const bookMonth = book.publishDate.slice(6, 7);
 
-                                                            if (count < 5 && year >= bookYear && (month + 1) == bookMonth) {
+                                                            if (count < 5 && year >= bookYear && (month + 1) === bookMonth) {
                                                                 count += 1;
                                                                 return (
-                                                                    <div className='new-book'>
+                                                                    <div key={index} className='new-book'>
                                                                         <div className='new-book-cover'>
-                                                                            <Link to={`/book/${book._id}`}><img src={book.coverPhoto} /></Link>
+                                                                            <Link to={`/book/${book._id}`}><img src={book.coverPhoto} alt='book cover' /></Link>
                                                                         </div>
                                                                     </div>
                                                                 );
-                                                            }
+                                                            } return <div></div>
                                                         });
                                                     }
                                                 }}
@@ -185,20 +185,20 @@ class Explore extends React.Component {
                                                         const year = today.getFullYear();
                                                         let count = 0;
 
-                                                        return data.books.map((book, idx) => {
+                                                        return data.books.map((book, index) => {
                                                             const bookYear = book.publishDate.slice(0, 4);
 
                                                             if (count < 5 && year >= bookYear) {
                                                                 count += 1;
                                                                 return (
-                                                                    <div className='new-book'>
+                                                                    <div key={index} className='new-book'>
                                                                         <div className='new-book-cover'>
-                                                                            <Link to={`/book/${book._id}`}><img src={book.coverPhoto} /></Link>
+                                                                            <Link to={`/book/${book._id}`}><img src={book.coverPhoto} alt='book cover'/></Link>
                                                                         </div>
                                                                         <div className='clear'></div>
                                                                     </div>
                                                                 );
-                                                            }
+                                                            } return <div></div>
                                                         });
                                                     }
                                                 }}
@@ -224,17 +224,17 @@ class Explore extends React.Component {
                                                     if (error) return <p>Error</p>;
 
                                                     if (data) {
-                                                        return data.books.map((book, idx) => {
-                                                            if (idx < 5) {
+                                                        return data.books.map((book, index) => {
+                                                            if (index < 5) {
                                                                 return (
-                                                                    <div className='new-book'>
+                                                                    <div key={index} className='new-book'>
                                                                         <div className='new-book-cover'>
-                                                                            <Link to={`/book/${book._id}`}><img src={book.coverPhoto} /></Link>
+                                                                            <Link to={`/book/${book._id}`}><img src={book.coverPhoto} alt='book cover'/></Link>
                                                                         </div>
                                                                         <div className='clear'></div>
                                                                     </div>
                                                                 );
-                                                            }
+                                                            } return <div></div>
                                                         });
                                                     }
                                                 }}

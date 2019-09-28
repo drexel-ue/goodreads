@@ -1,17 +1,26 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
-import { Query, Mutation, ApolloConsumer } from "react-apollo";
+import {
+  // Link,
+  withRouter
+} from "react-router-dom";
+import {
+  // Query,
+  Mutation,
+  ApolloConsumer
+} from "react-apollo";
 import Queries from "../../graphql/queries";
-import Mutations from "../../graphql/mutations"
+import Mutations from "../../graphql/mutations";
 import gql from "graphql-tag";
 import "./CreateReview.css"
+
 
 const { CREATE_REVIEW } = Mutations
 const { FETCH_REVIEWS_BY_BOOK, BOOK_BY_ID } = Queries
 
+
 class CreateReview extends React.Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props);
 
         this.state = {
             content: "",
@@ -36,9 +45,9 @@ class CreateReview extends React.Component {
         clearTimeout(this.timeout)
     }
 
-    update(field) {
-        return e => this.setState({ [field]: e.target.value });
-    }
+  update(field) {
+    return e => this.setState({ [field]: e.target.value });
+  }
 
     updateBoxes(field) {
         return e => {
@@ -90,6 +99,7 @@ class CreateReview extends React.Component {
 
         // , 2000)
     }
+  }
 
     render() {
         return(
@@ -235,4 +245,4 @@ class CreateReview extends React.Component {
 
 }
 
-export default withRouter(CreateReview)
+export default withRouter(CreateReview);

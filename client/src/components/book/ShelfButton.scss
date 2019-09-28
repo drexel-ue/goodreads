@@ -1,0 +1,53 @@
+.shelf_button {
+  cursor: pointer;
+  background-color: #409d69;
+  border-radius: 3px;
+  color: white;
+  display: flex;
+  margin-bottom: 5px;
+  width: 100px;
+  .want_to_read {
+    height: 28px;
+    width: 100px;
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .shelved {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .fa-check {
+        margin-right: 8px;
+        color: darkorange;
+        font-size: 14px;
+      }
+    }
+  }
+  .dropdown_button {
+    position: relative;
+    height: 28px;
+    width: 28px;
+    border-left: 1px solid #38883d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .shelves {
+      z-index: 2;
+      border: 1px solid #d8d8d8;
+      padding: 5px;
+      background: #f4f1ea;
+      position: absolute;
+      top: 21px;
+      right: 4px;
+      height: 80px;
+      overflow: auto;
+      transition: height;
+      transition-timing-function: ease-in-out;
+      .shelf {
+        color: black;
+      }
+    }
+  }
+}

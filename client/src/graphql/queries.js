@@ -200,5 +200,20 @@ export default {
         bookIds
       }
     }
+  `,
+  BOOK_SEARCH: gql`
+    query BookSearch($queryString: String!, $offset: Int!, $limit: Int!) {
+      bookSearch(queryString: $queryString, offset: $offset, limit: $limit) {
+        _id
+        title
+        coverPhoto
+        publishDate
+        rating
+        ratingIds
+        authors {
+          name
+        }
+      }
+    }
   `
 };

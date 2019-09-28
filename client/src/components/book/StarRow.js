@@ -11,7 +11,8 @@ export default class StarRow extends Component {
     super(props);
 
     this.state = {
-      index: 0
+      index: 0,
+      rated: false
     };
 
     this.highlight = this.highlight.bind(this);
@@ -32,106 +33,98 @@ export default class StarRow extends Component {
     this.setState({ index: -1 });
   }
 
-  updateCache(client, { data }) {
-    const book = data.leaveRating;
-    // client.writeQuery({
-    //   data: {
-    //     [book._id]: book
-    //   }
-    // });
-    this.setState()
-  }
-
   render() {
     const highlit = index =>
       this.state.index >= index ? { color: "darkorange" } : {};
 
     return (
-      <ApolloConsumer>
-        {client => {
-          const { _id } = client.readQuery({
-            query: gql`
-              query CachedUser {
-                _id
-              }
-            `
-          });
-
-          return (
-            <Mutation
-              mutation={LEAVE_RATING}
-              variables={{
-                bookId: this.props.bookId,
-                userId: _id,
-                stars: this.state.index
-              }}
-              update={(client, data) => {
-                this.updateCache(client, data);
-              }}
-            >
-              {(leaveRating, { data }) => (
-                <div className="stars">
-                  <i
-                    className="fas fa-star"
-                    style={highlit(1)}
-                    onClick={event => {
-                      event.preventDefault();
-                      event.stopPropagation();
-                      leaveRating();
-                    }}
-                    onMouseEnter={this.highlight(1)}
-                    onMouseLeave={this.unhighlight}
-                  ></i>
-                  <i
-                    className="fas fa-star"
-                    style={highlit(2)}
-                    onClick={event => {
-                      event.preventDefault();
-                      event.stopPropagation();
-                      leaveRating();
-                    }}
-                    onMouseEnter={this.highlight(2)}
-                    onMouseLeave={this.unhighlight}
-                  ></i>
-                  <i
-                    className="fas fa-star"
-                    style={highlit(3)}
-                    onClick={event => {
-                      event.preventDefault();
-                      event.stopPropagation();
-                      leaveRating();
-                    }}
-                    onMouseEnter={this.highlight(3)}
-                    onMouseLeave={this.unhighlight}
-                  ></i>
-                  <i
-                    className="fas fa-star"
-                    style={highlit(4)}
-                    onClick={event => {
-                      event.preventDefault();
-                      event.stopPropagation();
-                      leaveRating();
-                    }}
-                    onMouseEnter={this.highlight(4)}
-                    onMouseLeave={this.unhighlight}
-                  ></i>
-                  <i
-                    className="fas fa-star"
-                    style={highlit(5)}
-                    onClick={event => {
-                      event.preventDefault();
-                      event.stopPropagation();
-                      leaveRating();
-                    }}
-                    onMouseEnter={this.highlight(5)}
-                    onMouseLeave={this.unhighlight}
-                  ></i>
-                </div>
-              )}
-            </Mutation>
-          );
-        }}
-      </ApolloConsumer>
+      <div>
+        <ApolloConsumer>
+          {client => {
+            const { _id } = client.readQuery({
+              query: gql`
+                query CachedUser {
+                  _id
+                }
+              `
+            });
+            this._id = _id;
+          }}
+        </ApolloConsumer>
+        {!this.state.rated ? (
+          <Mutation
+            mutation={LEAVE_RATING}
+            variables={{
+              bookId: this.props.bookId,
+              userId: this._id,
+              stars: this.state.index
+            }}
+            onCompleted={_ => this.setState({ rated: true })}
+          >
+            {(leaveRating, { data }) => (
+              <div className="stars">
+                <i
+                  className="fas fa-star"
+                  style={highlit(1)}
+                  onClick={event => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    leaveRating();
+                  }}
+                  onMouseEnter={this.highlight(1)}
+                  onMouseLeave={this.unhighlight}
+                ></i>
+                <i
+                  className="fas fa-star"
+                  style={highlit(2)}
+                  onClick={event => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    leaveRating();
+                  }}
+                  onMouseEnter={this.highlight(2)}
+                  onMouseLeave={this.unhighlight}
+                ></i>
+                <i
+                  className="fas fa-star"
+                  style={highlit(3)}
+                  onClick={event => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    leaveRating();
+                  }}
+                  onMouseEnter={this.highlight(3)}
+                  onMouseLeave={this.unhighlight}
+                ></i>
+                <i
+                  className="fas fa-star"
+                  style={highlit(4)}
+                  onClick={event => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    leaveRating();
+                  }}
+                  onMouseEnter={this.highlight(4)}
+                  onMouseLeave={this.unhighlight}
+                ></i>
+                <i
+                  className="fas fa-star"
+                  style={highlit(5)}
+                  onClick={event => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    leaveRating();
+                  }}
+                  onMouseEnter={this.highlight(5)}
+                  onMouseLeave={this.unhighlight}
+                ></i>
+              </div>
+            )}
+          </Mutation>
+        ) : (
+          <div />
+        )}
+      </div>
     );
   }
 }

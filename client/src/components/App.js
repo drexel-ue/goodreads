@@ -5,6 +5,7 @@ import AuthHome from './links/home/AuthHome';
 import Bookshelf from './links/bookshelf/Bookshelf';
 import NewReleases from './links/new_releases/NewReleases';
 import Explore from './links/explore/Explore';
+
 import {
   // Route,
   Switch
@@ -14,9 +15,9 @@ import Friends from "./friend/friends";
 
 import IndexGenre from "./genres/IndexGenre";
 import BookShow from "./book/BookShow";
-import ShowGenre from "./genres/ShowGenre"
-import CreateReview from "./reviews/CreateReview"
-
+import ShowGenre from "./genres/ShowGenre";
+import CreateReview from "./reviews/CreateReview";
+import Search from "./search/Search";
 
 const App = () => {
   return (
@@ -83,6 +84,12 @@ const App = () => {
           exact
           path="/reviews/:bookId"
           component={CreateReview}
+          routeType="protected"
+        />
+        <AuthRoute
+          exact={false}
+          path="/search"
+          component={Search}
           routeType="protected"
         />
       </Switch>

@@ -5,14 +5,14 @@ const {
   GraphQLList,
   GraphQLID,
   GraphQLNonNull,
-  GraphQLString
+  GraphQLString,
+  GraphQLInt
 } = graphql;
 
 const UserType = require("./user_type");
 const BookType = require("./book_type");
 const ShelfType = require("./shelf_type");
 const ReviewType = require("./review_type");
-
 
 const User = mongoose.model("users");
 const Book = mongoose.model("books");
@@ -99,8 +99,35 @@ const RootQueryType = new GraphQLObjectType({
     },
     reviews: {
       type: new GraphQLList(ReviewType),
-      resolve(parentValue) {
-        return Review.find({})
+      resolve(_) {
+        return Review.find({});
+      }
+    },
+    bookSearch: {
+      type: new GraphQLList(BookType),
+      args: {
+        queryString: { type: GraphQLString },
+        offset: { type: GraphQLInt },
+        limit: { type: GraphQLInt }
+      },
+      async resolve(_, { queryString, offset, limit }) {
+        const pattern = new RegExp("^" + queryString, "i");
+        let books = [];
+        if (queryString.length > 0)
+          books = await Book.find({
+            $or: [{ title: pattern }, { series: pattern }, { isbn: pattern }]
+          })
+            .populate("authors")
+            .skip(offset)
+            .limit(limit);
+        // let authors = await Author.find({ name: pattern })
+        //   .populate("books")
+        //   .limit(5);
+        // authors.forEach(author => {
+        //   books.push(...author.books);
+        // });
+
+        return books;
       }
     },
     reviewByBookId: {
