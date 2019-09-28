@@ -72,9 +72,7 @@ const RootQueryType = new GraphQLObjectType({
       type: BookType,
       args: { _id: { type: GraphQLID } },
       async resolve(_, { _id }) {
-        return await Book.findById(_id)
-          .populate("authors")
-          .populate("characters");
+        return await Book.findById(_id).populate(["authors", "characters"]);
       }
     },
     books: {
@@ -89,8 +87,7 @@ const RootQueryType = new GraphQLObjectType({
       async resolve(_, { genreString }) {
         const pattern = new RegExp(genreString, "i");
         return await Book.find({ genres: pattern })
-          .populate("authors")
-          .populate("ratings")
+          .populate(["authors", "ratings"])
           .limit(6);
       }
     },
@@ -114,7 +111,10 @@ const RootQueryType = new GraphQLObjectType({
       type: new GraphQLList(BookType),
       args: { genreString: { type: GraphQLString } },
       resolve(_, { genreString }) {
-        return Book.find({ genres: genreString }).limit(24);
+        const pattern = new RegExp(genreString, "i");
+        return Book.find({ genres: pattern })
+          .populate(["authors", "ratings"])
+          .limit(24);
       }
     },
     shelvesByUser: {
