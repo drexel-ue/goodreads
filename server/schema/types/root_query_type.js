@@ -26,8 +26,8 @@ const RootQueryType = new GraphQLObjectType({
     user: {
       type: UserType,
       args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
-      async resolve(_, args) {
-        return await User.findById(args._id).populate({
+      async resolve(_, { _id }) {
+        return await User.findById(_id).populate({
           path: "shelves",
           populate: {
             path: "books",
@@ -43,15 +43,27 @@ const RootQueryType = new GraphQLObjectType({
       args: { queryString: { type: GraphQLString } },
       async resolve(_, { queryString }) {
         if (queryString) {
-          const regexp = new RegExp(queryString, "i");
+          const regexp = new RegExp("^" + queryString, "i");
           return await User.find({
             $or: [{ name: regexp }, { email: regexp }]
           })
+            .populate({
+              path: "currentlyReading",
+              populate: {
+                path: "authors"
+              }
+            })
             .populate("shelves")
             .limit(30);
         }
 
         return await User.find({})
+          .populate({
+            path: "currentlyReading",
+            populate: {
+              path: "authors"
+            }
+          })
           .populate("shelves")
           .limit(30);
       }

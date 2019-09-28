@@ -18,11 +18,16 @@ const UserType = new GraphQLObjectType({
     email: { type: GraphQLString },
     token: { type: GraphQLString },
     isLoggedIn: { type: GraphQLBoolean },
-    currentlyReading: { type: require("./book_type") },
+    currentlyReading: {
+      type: require("./book_type"),
+      resolve(parentValue) {
+        return parentValue.currentlyReading;
+      }
+    },
     currentPage: { type: GraphQLInt },
     profilePhoto: { type: GraphQLString },
     friendIds: {
-      type: new GraphQLList(GraphQLString),
+      type: new GraphQLList(GraphQLID),
       resolve(parentValue) {
         return parentValue.friends;
       }
