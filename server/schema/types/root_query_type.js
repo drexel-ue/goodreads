@@ -86,9 +86,9 @@ const RootQueryType = new GraphQLObjectType({
     booksByGenre: {
       type: new GraphQLList(BookType),
       args: { genreString: { type: GraphQLString } },
-      resolve(_, { genreString }) {
+      async resolve(_, { genreString }) {
         const pattern = new RegExp(genreString, "i");
-        return Book.find({ genres: pattern })
+        return await Book.find({ genres: pattern })
           .populate("authors")
           .populate("ratings")
           .limit(6);
