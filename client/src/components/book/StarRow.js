@@ -62,62 +62,66 @@ export default class StarRow extends Component {
             onCompleted={_ => this.setState({ rated: true })}
           >
             {(leaveRating, { data }) => (
-              <div className="stars">
-                <i
-                  className="fas fa-star"
-                  style={highlit(1)}
-                  onClick={event => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    leaveRating();
-                  }}
-                  onMouseEnter={this.highlight(1)}
-                  onMouseLeave={this.unhighlight}
-                ></i>
-                <i
-                  className="fas fa-star"
-                  style={highlit(2)}
-                  onClick={event => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    leaveRating();
-                  }}
-                  onMouseEnter={this.highlight(2)}
-                  onMouseLeave={this.unhighlight}
-                ></i>
-                <i
-                  className="fas fa-star"
-                  style={highlit(3)}
-                  onClick={event => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    leaveRating();
-                  }}
-                  onMouseEnter={this.highlight(3)}
-                  onMouseLeave={this.unhighlight}
-                ></i>
-                <i
-                  className="fas fa-star"
-                  style={highlit(4)}
-                  onClick={event => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    leaveRating();
-                  }}
-                  onMouseEnter={this.highlight(4)}
-                  onMouseLeave={this.unhighlight}
-                ></i>
-                <i
-                  className="fas fa-star"
-                  style={highlit(5)}
-                  onClick={event => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    leaveRating();
-                  }}
-                  onMouseEnter={this.highlight(5)}
-                  onMouseLeave={this.unhighlight}
-                ></i>
+              <div>
+                <div className="rate_text">Rate this book</div>
+
+                <div className="stars">
+                  <i
+                    className="fas fa-star"
+                    style={highlit(1)}
+                    onClick={event => {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      leaveRating();
+                    }}
+                    onMouseEnter={this.highlight(1)}
+                    onMouseLeave={this.unhighlight}
+                  ></i>
+                  <i
+                    className="fas fa-star"
+                    style={highlit(2)}
+                    onClick={event => {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      leaveRating();
+                    }}
+                    onMouseEnter={this.highlight(2)}
+                    onMouseLeave={this.unhighlight}
+                  ></i>
+                  <i
+                    className="fas fa-star"
+                    style={highlit(3)}
+                    onClick={event => {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      leaveRating();
+                    }}
+                    onMouseEnter={this.highlight(3)}
+                    onMouseLeave={this.unhighlight}
+                  ></i>
+                  <i
+                    className="fas fa-star"
+                    style={highlit(4)}
+                    onClick={event => {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      leaveRating();
+                    }}
+                    onMouseEnter={this.highlight(4)}
+                    onMouseLeave={this.unhighlight}
+                  ></i>
+                  <i
+                    className="fas fa-star"
+                    style={highlit(5)}
+                    onClick={event => {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      leaveRating();
+                    }}
+                    onMouseEnter={this.highlight(5)}
+                    onMouseLeave={this.unhighlight}
+                  ></i>
+                </div>
               </div>
             )}
           </Mutation>

@@ -83,7 +83,6 @@ export default class InfiniteScroll extends Component {
                     <div className="button_row">
                       <ShelfButton _id={book._id} />
                     </div>
-                    <div className="rate_text">Rate this book</div>
                     <StarRow bookId={book._id} />
                   </div>
                 </div>
