@@ -6,7 +6,8 @@ const {
   GraphQLID,
   GraphQLNonNull,
   GraphQLString,
-  GraphQLInt
+  GraphQLInt,
+  GraphQLBoolean
 } = graphql;
 
 const UserType = require("./user_type");
@@ -158,6 +159,14 @@ const RootQueryType = new GraphQLObjectType({
         }
         if (books.length > limit) books = books.slice(0, limit);
         return books;
+      }
+    },
+    ratedByUser: {
+      type: GraphQLBoolean,
+      args: { bookId: { type: GraphQLID }, userId: { type: GraphQLID } },
+      async resolve(_, { bookId, userId }) {
+        const book = await Book.findById(bookId).populate("ratings");
+        return book.ratings.some(rating => rating.user.toString() === userId);
       }
     },
     reviewByBookId: {
