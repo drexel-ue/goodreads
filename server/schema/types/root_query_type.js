@@ -26,8 +26,16 @@ const RootQueryType = new GraphQLObjectType({
     user: {
       type: UserType,
       args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
-      async resolve(_, args) {
-        return await User.findById(args._id);
+      async resolve(_, { _id }) {
+        return await User.findById(_id).populate({
+          path: "shelves",
+          populate: {
+            path: "books",
+            populate: {
+              path: "authors"
+            }
+          }
+        });
       }
     },
     users: {
@@ -35,15 +43,27 @@ const RootQueryType = new GraphQLObjectType({
       args: { queryString: { type: GraphQLString } },
       async resolve(_, { queryString }) {
         if (queryString) {
-          const regexp = new RegExp(queryString, "i");
+          const regexp = new RegExp("^" + queryString, "i");
           return await User.find({
             $or: [{ name: regexp }, { email: regexp }]
           })
+            .populate({
+              path: "currentlyReading",
+              populate: {
+                path: "authors"
+              }
+            })
             .populate("shelves")
             .limit(30);
         }
 
         return await User.find({})
+          .populate({
+            path: "currentlyReading",
+            populate: {
+              path: "authors"
+            }
+          })
           .populate("shelves")
           .limit(30);
       }
@@ -52,7 +72,7 @@ const RootQueryType = new GraphQLObjectType({
       type: BookType,
       args: { _id: { type: GraphQLID } },
       async resolve(_, { _id }) {
-        return await Book.findById(_id).populate("authors");
+        return await Book.findById(_id).populate(["authors", "characters"]);
       }
     },
     books: {
@@ -64,15 +84,19 @@ const RootQueryType = new GraphQLObjectType({
     booksByGenre: {
       type: new GraphQLList(BookType),
       args: { genreString: { type: GraphQLString } },
-      resolve(_, { genreString }) {
-        return Book.find({ genres: genreString }).limit(6);
+      async resolve(_, { genreString }) {
+        const pattern = new RegExp(genreString, "i");
+        return await Book.find({ genres: pattern })
+          .populate(["authors", "ratings"])
+          .limit(6);
       }
     },
     booksBySeries: {
       type: new GraphQLList(BookType),
       args: { series: { type: GraphQLString } },
       async resolve(_, { series }) {
-        return await Book.find({ series }).populate("authors");
+        const pattern = new RegExp(series, "i");
+        return await Book.find({ series: pattern }).populate("authors");
       }
     },
     booksByAuthor: {
@@ -87,7 +111,10 @@ const RootQueryType = new GraphQLObjectType({
       type: new GraphQLList(BookType),
       args: { genreString: { type: GraphQLString } },
       resolve(_, { genreString }) {
-        return Book.find({ genres: genreString }).limit(24);
+        const pattern = new RegExp(genreString, "i");
+        return Book.find({ genres: pattern })
+          .populate(["authors", "ratings"])
+          .limit(24);
       }
     },
     shelvesByUser: {
@@ -99,8 +126,8 @@ const RootQueryType = new GraphQLObjectType({
     },
     reviews: {
       type: new GraphQLList(ReviewType),
-      resolve(_) {
-        return Review.find({});
+      async resolve(_) {
+        return await Review.find({}).populate(["user", "book"]);
       }
     },
     bookSearch: {
@@ -111,31 +138,36 @@ const RootQueryType = new GraphQLObjectType({
         limit: { type: GraphQLInt }
       },
       async resolve(_, { queryString, offset, limit }) {
-        const pattern = new RegExp("^" + queryString, "i");
         let books = [];
-        if (queryString.length > 0)
-          books = await Book.find({
-            $or: [{ title: pattern }, { series: pattern }, { isbn: pattern }]
-          })
-            .populate("authors")
-            .skip(offset)
+        if (queryString.length > 0) {
+          const pattern = new RegExp("^" + queryString, "i");
+          if (queryString.length > 0)
+            books = await Book.find({
+              $or: [{ title: pattern }, { series: pattern }, { isbn: pattern }]
+            })
+              .populate("authors")
+              .skip(offset)
+              .limit(limit);
+          const authors = await Author.find({ name: pattern })
+            .populate({ path: "books", populate: "authors" })
             .limit(limit);
-        // let authors = await Author.find({ name: pattern })
-        //   .populate("books")
-        //   .limit(5);
-        // authors.forEach(author => {
-        //   books.push(...author.books);
-        // });
 
+          authors.forEach(author => {
+            books.push(...author.books);
+          });
+        }
+        if (books.length > limit) books = books.slice(0, limit);
         return books;
       }
     },
     reviewByBookId: {
       type: new GraphQLList(ReviewType),
       args: { bookId: { type: GraphQLID } },
-      async resolve(parentValue, { bookId }) {
-         const reviews = await Review.find({ book: bookId }).populate("book").populate("user")
-         return reviews
+      async resolve(_, { bookId }) {
+        const reviews = await Review.find({ book: bookId })
+          .populate("book")
+          .populate("user");
+        return reviews;
       }
     }
   })
