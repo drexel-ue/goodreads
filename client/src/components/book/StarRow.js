@@ -64,8 +64,7 @@ export default withRouter(
                   query={RATED_BY_USER}
                   variables={{ bookId: this.props.bookId, userId: _id }}
                 >
-                  {({ data }) => {
-                    if (data) console.log(data.ratedByUser);
+                  {({ data, refetch }) => {
                     if (data && !data.ratedByUser[0]) {
                       return (
                         <Mutation
@@ -75,7 +74,7 @@ export default withRouter(
                             userId: _id,
                             stars: this.state.index
                           }}
-                          onCompleted={_ => this.setState()}
+                          onCompleted={_ => refetch()}
                         >
                           {leaveRating => (
                             <div>
