@@ -77,7 +77,7 @@ export default withRouter(
                           onCompleted={_ => refetch()}
                         >
                           {leaveRating => (
-                            <div>
+                            <div className="star_row_wrapper">
                               <div className="rate_text">Rate this book</div>
 
                               <div className="stars">
