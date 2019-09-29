@@ -35,7 +35,6 @@ export default withRouter(
           {({ loading, error, data }) => {
             if (loading) return <div>loading...</div>;
             if (error) {
-              console.log(error);
               return <div>error...</div>;
             }
             const { book } = data;
