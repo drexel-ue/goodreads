@@ -149,7 +149,7 @@ const RootQueryType = new GraphQLObjectType({
               .skip(offset)
               .limit(limit);
           const authors = await Author.find({ name: pattern })
-            .populate("books")
+            .populate({ path: "books", populate: "authors" })
             .limit(limit);
 
           authors.forEach(author => {
@@ -163,7 +163,7 @@ const RootQueryType = new GraphQLObjectType({
     reviewByBookId: {
       type: new GraphQLList(ReviewType),
       args: { bookId: { type: GraphQLID } },
-      async resolve(parentValue, { bookId }) {
+      async resolve(_, { bookId }) {
         const reviews = await Review.find({ book: bookId })
           .populate("book")
           .populate("user");
