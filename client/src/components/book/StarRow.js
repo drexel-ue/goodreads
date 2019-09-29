@@ -4,6 +4,7 @@ import { Mutation, ApolloConsumer, Query } from "react-apollo";
 import Mutations from "../../graphql/mutations";
 import Queries from "../../graphql/queries";
 import "./BookShow.scss";
+import "./StarRow.scss";
 import { withRouter } from "react-router-dom";
 
 const { RATED_BY_USER } = Queries;
@@ -142,7 +143,11 @@ export default withRouter(
                         </Mutation>
                       );
                     } else if (data && !data.ratedByUser[1]) {
-                      return <div onClick={this.toReview}>Leave a review</div>;
+                      return (
+                        <div className="leave_a_review" onClick={this.toReview}>
+                          Leave a review
+                        </div>
+                      );
                     } else {
                       return <div></div>;
                     }
