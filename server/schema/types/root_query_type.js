@@ -162,11 +162,17 @@ const RootQueryType = new GraphQLObjectType({
       }
     },
     ratedByUser: {
-      type: GraphQLBoolean,
+      type: new GraphQLList(GraphQLBoolean),
       args: { bookId: { type: GraphQLID }, userId: { type: GraphQLID } },
       async resolve(_, { bookId, userId }) {
-        const book = await Book.findById(bookId).populate("ratings");
-        return book.ratings.some(rating => rating.user.toString() === userId);
+        const book = await Book.findById(bookId).populate([
+          "ratings",
+          "reviews"
+        ]);
+        return [
+          book.ratings.some(rating => rating.user.toString() === userId),
+          book.reviews.some(review => review.user.toString() === userId)
+        ];
       }
     },
     reviewByBookId: {
