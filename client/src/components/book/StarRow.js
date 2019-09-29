@@ -13,8 +13,7 @@ export default class StarRow extends Component {
     super(props);
 
     this.state = {
-      index: 0,
-      rated: false
+      index: 0
     };
 
     this.highlight = this.highlight.bind(this);
@@ -57,7 +56,7 @@ export default class StarRow extends Component {
                 variables={{ bookId: this.props.bookId, userId: _id }}
               >
                 {({ data }) => {
-                  if (data != null && !data.ratedByUser && !this.state.rated) {
+                  if (data && !data.ratedByUser) {
                     return (
                       <Mutation
                         mutation={LEAVE_RATING}
@@ -66,7 +65,7 @@ export default class StarRow extends Component {
                           userId: _id,
                           stars: this.state.index
                         }}
-                        onCompleted={_ => this.setState({ rated: true })}
+                        onCompleted={_ => this.setState()}
                       >
                         {(leaveRating, { data }) => (
                           <div>
