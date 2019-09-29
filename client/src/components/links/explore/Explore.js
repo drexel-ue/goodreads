@@ -4,12 +4,22 @@ import { Query } from "react-apollo";
 import Queries from "../../../graphql/queries";
 import BookItem from "../new_releases/BookItem";
 import './Explore.css';
-const { BOOKS_BY_GENRE, FETCH_BOOKS } = Queries;
+const { BOOKS_BY_GENRE, FETCH_BOOKS,BOOK_SEARCH } = Queries;
 
 class Explore extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            queryString: ""
+        };
+
+        this.dropdownTimer = undefined;
+        this.searchTimer = undefined;
+
+        this.handleInput = this.handleInput.bind(this);
+        this.clearSearch = this.clearSearch.bind(this);
+        this.cancelClear = this.cancelClear.bind(this);
         this.toggleRadio = this.toggleRadio.bind(this);
     }
 
@@ -19,6 +29,24 @@ class Explore extends React.Component {
         }
     }
 
+    handleInput(event) {
+        event.preventDefault();
+        this.setState({ queryString: event.currentTarget.value });
+      }
+    
+      clearSearch(event) {
+        event.preventDefault();
+        this.searchTimer = setTimeout(
+          () => this.setState({ queryString: "" }),
+          250
+        );
+      }
+    
+      cancelClear(event) {
+        event.preventDefault();
+        clearTimeout(this.searchTimer);
+      }
+
     render () {
         return (
             <div className='explore-container'>
@@ -27,8 +55,85 @@ class Explore extends React.Component {
                         <h1>Explore Books</h1>
                         <div className='left-explore-container'>
                             <form className='explore-search'>
-                                <input type='text' placeholder='Search by title, author, or ISBN' className='explore-search-input' />
-                                <button>Search</button>
+                            <Query
+                        query={BOOK_SEARCH}
+                        variables={{
+                          queryString: this.state.queryString,
+                          offset: 0,
+                          limit: 10
+                        }}
+                      >
+                        {({ loading, data }) => {
+                          let results = [];
+                          if (data) results = data.bookSearch;
+                          return (
+                            <form className="search">
+                              <input
+                                onChange={this.handleInput}
+                                onClick={this.handleInput}
+                                type="text"
+                                placeholder="Search books"
+                                  />
+                                  <Link  to={{
+                                    pathname: "/search",
+                                    state: {
+                                      queryString: this.state.queryString
+                                    }
+                                  }}>
+                              <button 
+                                onMouseEnter={this.cancelClear}                              
+                                className="needless_button"
+                                type="none">
+                                {loading ? (
+                                  <i className="fas fa-spinner fa-pulse"></i>
+                                ) : (
+                                    <div>Search</div>
+                                )}
+                                      </button>
+                                      </Link>
+                              <div
+                                onMouseEnter={this.cancelClear}
+                                onMouseLeave={this.clearSearch}
+                                className={`search_bar_results ${
+                                  results.length > 0 ? "" : "hide"
+                                }`}
+                              >
+                                {results.map((book, index) => (
+                                  <Link key={index} to={`/book/${book._id}`}>
+                                    <div className="search_bar_result">
+                                      <img
+                                        className="cover"
+                                        alt="cover"
+                                        src={book.coverPhoto}
+                                      />
+                                      <div className="info">
+                                        <div className="title">
+                                          {book.title}
+                                        </div>
+                                        <div className="author">
+                                          {`by ${book.authors[0].name}`}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </Link>
+                                ))}
+                                <Link
+                                  to={{
+                                    pathname: "/search",
+                                    state: {
+                                      queryString: this.state.queryString
+                                    }
+                                  }}
+                                >
+                                  <div className="see_all_results">
+                                    {`See all results for "${this.state.queryString}"`}
+                                  </div>
+                                </Link>
+                              </div>
+                            </form>
+                          );
+                        }}
+                      </Query>
                                 <div className='search-fields'>
                                     <label>Fields to search</label>
                                     <input type='radio' value='all' id='search-field-all' name='explore-radio' ref={explore => this.allNode = explore} onClick={this.toggleRadio("allNode")}/>
