@@ -39,7 +39,7 @@ const RootQueryType = new GraphQLObjectType({
         });
       }
     },
-    users: {
+    friends: {
       type: new GraphQLList(UserType),
       args: { queryString: { type: GraphQLString } },
       async resolve(_, { queryString }) {

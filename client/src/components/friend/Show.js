@@ -9,7 +9,7 @@ export default class Show extends Component {
       queryString: ""
     };
 
-    this.handleInput=this.handleInput.bind(this)
+    this.handleInput = this.handleInput.bind(this);
   }
 
   handleInput(event) {
@@ -31,6 +31,7 @@ export default class Show extends Component {
             />
             <div className="submit">Search</div>
           </div>
+          <div className="show_friends_results"></div>
         </div>
         <div className="side">sjlsjlks</div>
       </div>

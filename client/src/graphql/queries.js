@@ -18,9 +18,9 @@ export default {
       }
     }
   `,
-  QUERY_USERS: gql`
+  FRIENDS: gql`
     query QueryUsers($queryString: String) {
-      users(queryString: $queryString) {
+      friends(queryString: $queryString) {
         _id
         name
         profilePhoto
