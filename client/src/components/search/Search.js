@@ -56,7 +56,11 @@ export default withRouter(
       };
       if (this.state.showFAB) {
         return (
-          <div className="to_top" style={style}>
+          <div
+            className="to_top"
+            style={style}
+            onClick={() => window.scrollTo(0, 0)}
+          >
             <i className="fas fa-sort-up"></i>
           </div>
         );
