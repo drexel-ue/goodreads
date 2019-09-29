@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
-import { Mutation, ApolloConsumer } from "react-apollo";
+import { Mutation, ApolloConsumer, Query } from "react-apollo";
 import Mutations from "../../graphql/mutations";
+import Queries from "../../graphql/queries";
 import "./BookShow.scss";
 
+const { RATED_BY_USER } = Queries;
 const { LEAVE_RATING } = Mutations;
 
 export default class StarRow extends Component {
@@ -48,86 +50,97 @@ export default class StarRow extends Component {
                 }
               `
             });
-            this._id = _id;
+
+            return (
+              <Query
+                query={RATED_BY_USER}
+                variables={{ bookId: this.props.bookId, userId: _id }}
+              >
+                {({ data }) => {
+                  if (data != null && !data.ratedByUser && !this.state.rated) {
+                    return (
+                      <Mutation
+                        mutation={LEAVE_RATING}
+                        variables={{
+                          bookId: this.props.bookId,
+                          userId: _id,
+                          stars: this.state.index
+                        }}
+                        onCompleted={_ => this.setState({ rated: true })}
+                      >
+                        {(leaveRating, { data }) => (
+                          <div>
+                            <div className="rate_text">Rate this book</div>
+
+                            <div className="stars">
+                              <i
+                                className="fas fa-star"
+                                style={highlit(1)}
+                                onClick={event => {
+                                  event.preventDefault();
+                                  event.stopPropagation();
+                                  leaveRating();
+                                }}
+                                onMouseEnter={this.highlight(1)}
+                                onMouseLeave={this.unhighlight}
+                              ></i>
+                              <i
+                                className="fas fa-star"
+                                style={highlit(2)}
+                                onClick={event => {
+                                  event.preventDefault();
+                                  event.stopPropagation();
+                                  leaveRating();
+                                }}
+                                onMouseEnter={this.highlight(2)}
+                                onMouseLeave={this.unhighlight}
+                              ></i>
+                              <i
+                                className="fas fa-star"
+                                style={highlit(3)}
+                                onClick={event => {
+                                  event.preventDefault();
+                                  event.stopPropagation();
+                                  leaveRating();
+                                }}
+                                onMouseEnter={this.highlight(3)}
+                                onMouseLeave={this.unhighlight}
+                              ></i>
+                              <i
+                                className="fas fa-star"
+                                style={highlit(4)}
+                                onClick={event => {
+                                  event.preventDefault();
+                                  event.stopPropagation();
+                                  leaveRating();
+                                }}
+                                onMouseEnter={this.highlight(4)}
+                                onMouseLeave={this.unhighlight}
+                              ></i>
+                              <i
+                                className="fas fa-star"
+                                style={highlit(5)}
+                                onClick={event => {
+                                  event.preventDefault();
+                                  event.stopPropagation();
+                                  leaveRating();
+                                }}
+                                onMouseEnter={this.highlight(5)}
+                                onMouseLeave={this.unhighlight}
+                              ></i>
+                            </div>
+                          </div>
+                        )}
+                      </Mutation>
+                    );
+                  } else {
+                    return <div></div>;
+                  }
+                }}
+              </Query>
+            );
           }}
         </ApolloConsumer>
-        {!this.state.rated ? (
-          <Mutation
-            mutation={LEAVE_RATING}
-            variables={{
-              bookId: this.props.bookId,
-              userId: this._id,
-              stars: this.state.index
-            }}
-            onCompleted={_ => this.setState({ rated: true })}
-          >
-            {(leaveRating, { data }) => (
-              <div>
-                <div className="rate_text">Rate this book</div>
-
-                <div className="stars">
-                  <i
-                    className="fas fa-star"
-                    style={highlit(1)}
-                    onClick={event => {
-                      event.preventDefault();
-                      event.stopPropagation();
-                      leaveRating();
-                    }}
-                    onMouseEnter={this.highlight(1)}
-                    onMouseLeave={this.unhighlight}
-                  ></i>
-                  <i
-                    className="fas fa-star"
-                    style={highlit(2)}
-                    onClick={event => {
-                      event.preventDefault();
-                      event.stopPropagation();
-                      leaveRating();
-                    }}
-                    onMouseEnter={this.highlight(2)}
-                    onMouseLeave={this.unhighlight}
-                  ></i>
-                  <i
-                    className="fas fa-star"
-                    style={highlit(3)}
-                    onClick={event => {
-                      event.preventDefault();
-                      event.stopPropagation();
-                      leaveRating();
-                    }}
-                    onMouseEnter={this.highlight(3)}
-                    onMouseLeave={this.unhighlight}
-                  ></i>
-                  <i
-                    className="fas fa-star"
-                    style={highlit(4)}
-                    onClick={event => {
-                      event.preventDefault();
-                      event.stopPropagation();
-                      leaveRating();
-                    }}
-                    onMouseEnter={this.highlight(4)}
-                    onMouseLeave={this.unhighlight}
-                  ></i>
-                  <i
-                    className="fas fa-star"
-                    style={highlit(5)}
-                    onClick={event => {
-                      event.preventDefault();
-                      event.stopPropagation();
-                      leaveRating();
-                    }}
-                    onMouseEnter={this.highlight(5)}
-                    onMouseLeave={this.unhighlight}
-                  ></i>
-                </div>
-              </div>
-            )}
-          </Mutation>
-        ) : (
-          <div />
-        )}
       </div>
     );
   }

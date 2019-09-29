@@ -216,7 +216,7 @@ BookSchema.statics.leaveRating = async (bookId, user, stars) => {
 
   const book = await Book.findById(bookId);
   const rating = new Rating({ bookId, user, stars });
-  book.ratings.push(rating);
+  book.ratings.push(rating._id);
   book.rating = (book.rating + stars) / book.ratings.length;
   await rating.save();
   const bookDoc = await book.save();
