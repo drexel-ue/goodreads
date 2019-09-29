@@ -215,5 +215,10 @@ export default {
         }
       }
     }
+  `,
+  RATED_BY_USER: gql`
+    query RatedByUser($bookId: ID!, $userId: ID!) {
+      ratedByUser(bookId: $bookId, userId: $userId)
+    }
   `
 };
