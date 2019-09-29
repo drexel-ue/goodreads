@@ -138,22 +138,25 @@ const RootQueryType = new GraphQLObjectType({
         limit: { type: GraphQLInt }
       },
       async resolve(_, { queryString, offset, limit }) {
-        const pattern = new RegExp("^" + queryString, "i");
         let books = [];
-        if (queryString.length > 0)
-          books = await Book.find({
-            $or: [{ title: pattern }, { series: pattern }, { isbn: pattern }]
-          })
-            .populate("authors")
-            .skip(offset)
+        if (queryString.length > 0) {
+          const pattern = new RegExp("^" + queryString, "i");
+          if (queryString.length > 0)
+            books = await Book.find({
+              $or: [{ title: pattern }, { series: pattern }, { isbn: pattern }]
+            })
+              .populate("authors")
+              .skip(offset)
+              .limit(limit);
+          const authors = await Author.find({ name: pattern })
+            .populate("books")
             .limit(limit);
-        // let authors = await Author.find({ name: pattern })
-        //   .populate("books")
-        //   .limit(5);
-        // authors.forEach(author => {
-        //   books.push(...author.books);
-        // });
 
+          authors.forEach(author => {
+            books.push(...author.books);
+          });
+        }
+        if (books.length > limit) books = books.slice(0, limit);
         return books;
       }
     },
