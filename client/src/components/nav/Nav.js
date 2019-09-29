@@ -45,7 +45,6 @@ class Nav extends React.Component {
     };
   }
 
-
   handleInput(event) {
     event.preventDefault();
     this.setState({ queryString: event.currentTarget.value });
@@ -68,7 +67,6 @@ class Nav extends React.Component {
     e.preventDefault();
 
     this.props.history.push("/book");
-
   }
 
   render() {
@@ -103,10 +101,7 @@ class Nav extends React.Component {
                           </li>
                           <li className="nav-list-item">
                             <div className="dropdown">
-                              <button
-                                className="dropbtn"
-                                onClick={this.browse}
-                              >
+                              <button className="dropbtn" onClick={this.browse}>
                                 Browse
                               </button>
                               <div
@@ -129,7 +124,6 @@ class Nav extends React.Component {
                                   <Link to="/book">Explore</Link>
                                 </div>
                               </div>
-
                             </div>
                           </li>
                         </ul>
@@ -143,7 +137,7 @@ class Nav extends React.Component {
                           limit: 10
                         }}
                       >
-                        {({ loading, error, data }) => {
+                        {({ loading, data }) => {
                           let results = [];
                           if (data) results = data.bookSearch;
                           return (
