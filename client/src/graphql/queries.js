@@ -18,6 +18,22 @@ export default {
       }
     }
   `,
+  FETCH_USER_ID: gql`
+    query FetchUser($_id: ID!) {
+      user(_id: $_id) {
+        _id
+      }
+    }
+  `,
+  FETCH_USER_PROFILE: gql`
+    query FetchUser($_id: ID!) {
+      user(_id: $_id) {
+        _id
+        name
+        profilePhoto
+      }
+    }
+  `,
   QUERY_USERS: gql`
     query QueryUsers($queryString: String) {
       users(queryString: $queryString) {

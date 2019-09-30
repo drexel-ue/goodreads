@@ -5,7 +5,7 @@ import AuthHome from './links/home/AuthHome';
 import Bookshelf from './links/bookshelf/Bookshelf';
 import NewReleases from './links/new_releases/NewReleases';
 import Explore from './links/explore/Explore';
-
+import UserProfile from './user/UserProfile';
 import {
   // Route,
   Switch
@@ -85,6 +85,11 @@ const App = () => {
           path="/reviews/:bookId"
           component={CreateReview}
           routeType="protected"
+        />
+        <AuthRoute 
+          exact
+          path="/users/:userId"
+          component={UserProfile}
         />
         <AuthRoute
           exact={false}
