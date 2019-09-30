@@ -28,6 +28,19 @@
       .cover {
         height: 75px;
         width: 45px;
+        margin-right: 5px;
+      }
+      .info {
+        .currently_reading {
+        }
+        .title {
+          width: 300px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .page {
+        }
       }
     }
   }

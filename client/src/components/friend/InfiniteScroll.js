@@ -63,6 +63,13 @@ export default class InfiniteScroll extends Component {
                 {friend.currentlyReading ? (
                   <div className="section_2">
                     <img className="cover" alt="cover" src={book.coverPhoto} />
+                    <div className="info">
+                      <div className="currently_reading">
+                        Currently Reading:
+                      </div>
+                      <div className="title">{book.title}</div>
+                      <div className="page">{`"On page ${friend.currentPage}"`}</div>
+                    </div>
                   </div>
                 ) : (
                   <div />
