@@ -96,146 +96,130 @@ class Nav extends React.Component {
                       }
 
                       return (
-                  <div className="navbar">
-                    <div className="navbar-contents">
-                      <div className="logo">
-                        <Link to="/" className="in-logo">
-                          bad
-                        </Link>
-                        <Link to="/" className="in-logo2">
-                          reads
-                        </Link>
-                      </div>
-                      <nav className="main-nav">
-                        <ul className="nav-list">
-                          <li className="nav-list-item">
-                            <Link to="/" className="nav-link">
-                              Home
-                            </Link>
-                          </li>
-                          <li className="nav-list-item">
-                            <Link to="/bookshelf/read" className="nav-link">
-                              My Books
-                            </Link>
-                          </li>
-                          <li className="nav-list-item">
-                            <div className="dropdown">
-                              <button className="dropbtn" onClick={this.browse}>
-                                Browse
-                              </button>
-                              <div
-                                onMouseEnter={this.showDropdown(
-                                  "showBrowseDropdown"
-                                )}
-                                onMouseLeave={this.hideDropdown(
-                                  "showBrowseDropdown"
-                                )}
-                                className={`dropdown-content ${
-                                  this.state.showBrowseDropdown
-                                    ? "reveal"
-                                    : "hide"
-                                }`}
-                              >
-                                <div className="dropdown-item">
-                                  <Link to="/new_releases">New Releases</Link>
-                                </div>
-                                <div className="dropdown-item">
-                                  <Link to="/book">Explore</Link>
-                                </div>
-                              </div>
+                        <div className="navbar">
+                          <div className="navbar-contents">
+                            <div className="logo">
+                              <Link to="/" className="in-logo">
+                                bad
+                              </Link>
+                              <Link to="/" className="in-logo2">
+                                reads
+                              </Link>
                             </div>
-                          </li>
-                        </ul>
-                      </nav>
 
-                      <Query
-                        query={BOOK_SEARCH}
-                        variables={{
-                          queryString: this.state.queryString,
-                          offset: 0,
-                          limit: 10
-                        }}
-                      >
-                        {({ loading, data }) => {
-                          let results = [];
-                          if (data) results = data.bookSearch;
-                          return (
-                            <form className="search">
-                              <input
-                                onChange={this.handleInput}
-                                onClick={this.handleInput}
-                                type="text"
-                                placeholder="Search books"
-                              />
-                              <button className="needless_button" type="none">
-                                {loading ? (
-                                  <i className="fas fa-spinner fa-pulse"></i>
-                                ) : (
-                                  <i className="fa fa-search"></i>
-                                )}
-                              </button>
-                              <div
-                                onMouseEnter={this.cancelClear}
-                                onMouseLeave={this.clearSearch}
-                                className={`search_bar_results ${
-                                  results.length > 0 ? "" : "hide"
-                                }`}
-                              >
-                                {results.map((book, index) => (
-                                  <Link key={index} to={`/book/${book._id}`}>
-                                    <div className="search_bar_result">
-                                      <img
-                                        className="cover"
-                                        alt="cover"
-                                        src={book.coverPhoto}
-                                      />
-                                      <div className="info">
-                                        <div className="title">
-                                          {book.title}
-                                        </div>
-                                        <div className="author">
-                                          {`by ${book.authors[0].name}`}
-                                        </div>
+                            <nav className="main-nav">
+                              <ul className="nav-list">
+                                <li className="nav-list-item">
+                                  <Link to="/" className="nav-link">
+                                    Home
+                                  </Link>
+                                </li>
+                                <li className="nav-list-item">
+                                  <Link to="/bookshelf/read" className="nav-link">
+                                    My Books
+                                  </Link>
+                                </li>
+                                <li className="nav-list-item">
+                                  <div className="dropdown">
+                                    <button className="dropbtn" onClick={this.browse}>
+                                      Browse
+                                    </button>
+                                    <div
+                                      onMouseEnter={this.showDropdown(
+                                        "showBrowseDropdown"
+                                      )}
+                                      onMouseLeave={this.hideDropdown(
+                                        "showBrowseDropdown"
+                                      )}
+                                      className={`dropdown-content ${
+                                        this.state.showBrowseDropdown
+                                          ? "reveal"
+                                          : "hide"
+                                      }`}
+                                    >
+                                      <div className="dropdown-item">
+                                        <Link to="/new_releases">New Releases</Link>
+                                      </div>
+                                      <div className="dropdown-item">
+                                        <Link to="/book">Explore</Link>
                                       </div>
                                     </div>
-                                  </Link>
-                                ))}
-                                <Link
-                                  to={{
-                                    pathname: "/search",
-                                    state: {
-                                      queryString: this.state.queryString
-                                    }
-                                  }}
-                                >
-                                  <div className="see_all_results">
-                                    {`See all results for "${this.state.queryString}"`}
                                   </div>
-                                </Link>
-                              </div>
-                            </form>
-                          );
-                        }}
-                      </Query>
+                                </li>
+                              </ul>
+                            </nav>
+                                    
+                            <Query
+                              query={BOOK_SEARCH}
+                              variables={{
+                                queryString: this.state.queryString,
+                                offset: 0,
+                                limit: 10
+                              }}
+                            >
+                              {({ loading, data }) => {
+                                let results = [];
+                                if (data) results = data.bookSearch;
 
-                      <div className="personal-nav">
-                        <ul className="personal-nav-list">
-                          <li className="personal-nav-list-item">
-                            <Link to="/friend" className="personal-link">
-                              <i className="fas fa-user-friends"></i>
-                            </Link>
-                          </li>
-                          <li className="personal-nav-list-item">
-                            <div className="profile-dropdown">
-                              <button
-                                className="profile-dropbtn"
-                                onMouseEnter={this.showDropdown("userClicked")}
-                                onMouseLeave={this.hideDropdown("userClicked")}
-                              >
-                                <i className="fa fa-user-circle-o"></i>
-                              </button>
-                            </form>
-
+                                return (
+                                  <form className="search">
+                                    <input
+                                      onChange={this.handleInput}
+                                      onClick={this.handleInput}
+                                      type="text"
+                                      placeholder="Search books"
+                                    />
+                                    <button className="needless_button" type="none">
+                                      {loading ? (
+                                        <i className="fas fa-spinner fa-pulse"></i>
+                                      ) : (
+                                        <i className="fa fa-search"></i>
+                                      )}
+                                    </button>
+                                    <div
+                                      onMouseEnter={this.cancelClear}
+                                      onMouseLeave={this.clearSearch}
+                                      className={`search_bar_results ${
+                                        results.length > 0 ? "" : "hide"
+                                      }`}
+                                    >
+                                      {results.map((book, index) => (
+                                        <Link key={index} to={`/book/${book._id}`}>
+                                          <div className="search_bar_result">
+                                            <img
+                                              className="cover"
+                                              alt="cover"
+                                              src={book.coverPhoto}
+                                            />
+                                            <div className="info">
+                                              <div className="title">
+                                                {book.title}
+                                              </div>
+                                              <div className="author">
+                                                {`by ${book.authors[0].name}`}
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </Link>
+                                      ))}
+                                      <Link
+                                        to={{
+                                          pathname: "/search",
+                                          state: {
+                                            queryString: this.state.queryString
+                                          }
+                                        }}
+                                      >
+                                        <div className="see_all_results">
+                                          {`See all results for "${this.state.queryString}"`}
+                                        </div>
+                                      </Link>
+                                    </div>
+                                  </form>
+                                );
+                              }}
+                            </Query>
+                            
                             <div className='personal-nav'>
                               <ul className='personal-nav-list'>
                                 <li className='personal-nav-list-item'>
@@ -280,7 +264,7 @@ class Nav extends React.Component {
                                         }}
                                       >
                                         Sign out
-                                </button>
+                                      </button>
                                     </div>
                                   </div>
                                 </li>
