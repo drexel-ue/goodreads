@@ -19,7 +19,7 @@ export default class ReviewContent extends Component {
     }
 
     render() {
-        const expanderStyle = this.state.expanded ? {} : { height: "207px" };
+        const expanderStyle = this.state.expanded ? {maxHeight: "fit-content"} : { height: "fit-content", maxHeight: "207px"};
 
         return (
             <div>

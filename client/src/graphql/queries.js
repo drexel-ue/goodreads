@@ -217,6 +217,12 @@ export default {
       }
     }
   `,
+  FETCH_RATING_BY_USER_AND_BOOK_ID: gql`
+    query FetchRatingByUserAndBookId($bookId: ID!, $userId: ID!) {
+      ratingByUserAndBookId( bookId: $bookId, userId: $userId ) {
+        stars
+      }
+    }`,
   BOOK_SEARCH: gql`
     query BookSearch($queryString: String!, $offset: Int!, $limit: Int!) {
       bookSearch(queryString: $queryString, offset: $offset, limit: $limit) {

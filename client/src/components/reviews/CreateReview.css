@@ -44,8 +44,8 @@
 
 .review-book-container {
     display: flex;
-    /* justify-content: center; */
-    margin-left: 20%
+    margin-left: 20%;
+    border-bottom: 1px solid #eee;
 }
 
 .review-container {
@@ -117,4 +117,9 @@
 
 textarea:focus, input:focus{
     outline: 0;
+}
+
+.review-rating-container {
+    padding: 10px 0px;
+    display: flex;
 }
