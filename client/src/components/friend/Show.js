@@ -92,7 +92,6 @@ export default class Show extends Component {
             </ApolloConsumer>
           </div>
         </div>
-        <div className="side">sjlsjlks</div>
       </div>
     );
   }
