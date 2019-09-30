@@ -38,6 +38,7 @@ export default class InfiniteScroll extends Component {
         {this.props.items.map((friend, index) => {
           let bookCount = 0;
           friend.shelves.forEach(shelf => (bookCount += shelf.bookIds.length));
+          const friendCount = friend.friendIds.length;
 
           return (
             <div key={index}>
@@ -52,7 +53,10 @@ export default class InfiniteScroll extends Component {
                     <Link className="name" to="#">
                       {friend.name}
                     </Link>
-                    <div className="stats_row"></div>
+                    <div className="stats_row">
+                      <div className="book_count">{`${bookCount} books | `}</div>
+                      <div className="friend_count">{`${friendCount} friends`}</div>
+                    </div>
                   </div>
                 </div>
                 <div className="section_2"></div>
