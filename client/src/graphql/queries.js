@@ -18,6 +18,25 @@ export default {
       }
     }
   `,
+  NON_FRIENDS: gql`
+    query NonFriends($queryString: String, $offset: Int!, $userId: ID!) {
+      nonFriends(queryString: $queryString, offset: $offset, userId: $userId) {
+        _id
+        name
+        profilePhoto
+        currentPage
+        currentlyReading {
+          _id
+          title
+          coverPhoto
+        }
+        friendIds
+        shelves {
+          bookIds
+        }
+      }
+    }
+  `,
   FRIENDS: gql`
     query Friends($queryString: String, $offset: Int!, $userId: ID!) {
       friends(queryString: $queryString, offset: $offset, userId: $userId) {
