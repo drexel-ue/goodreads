@@ -67,7 +67,9 @@ export default class InfiniteScroll extends Component {
                       <div className="currently_reading">
                         Currently Reading:
                       </div>
-                      <div className="title">{book.title}</div>
+                      <Link to={`/book/${book._id}`} className="title">
+                        {book.title}
+                      </Link>
                       <div className="page">{`"On page ${friend.currentPage}"`}</div>
                     </div>
                   </div>

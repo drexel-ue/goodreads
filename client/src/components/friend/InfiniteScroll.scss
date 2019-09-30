@@ -3,6 +3,7 @@
   margin: 20px 0;
   width: 100%;
   .friend_search_result {
+    font-size: 12px;
     display: flex;
     border-bottom: 1px solid rgb(214, 214, 214);
     padding: 5px 0;
@@ -15,6 +16,13 @@
         margin: 5px;
       }
       .info {
+        .name {
+          cursor: pointer;
+          font-weight: bold;
+        }
+        .name:hover {
+          text-decoration: underline;
+        }
         .stats_row {
           display: flex;
           .book_count {
@@ -31,15 +39,15 @@
         margin-right: 5px;
       }
       .info {
-        .currently_reading {
-        }
         .title {
-          width: 300px;
+          cursor: pointer;
+          width: 200px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
         }
-        .page {
+        .title:hover {
+          text-decoration: underline;
         }
       }
     }
