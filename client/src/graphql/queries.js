@@ -19,8 +19,8 @@ export default {
     }
   `,
   FRIENDS: gql`
-    query QueryUsers($queryString: String) {
-      friends(queryString: $queryString) {
+    query Friends($queryString: String, $offset: Int!, $userId: ID!) {
+      friends(queryString: $queryString, offset: $offset, userId: $userId ) {
         _id
         name
         profilePhoto

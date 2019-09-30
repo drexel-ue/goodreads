@@ -35,7 +35,7 @@ export default withRouter(
     displayFAB() {
       if (window.innerHeight + window.pageYOffset >= window.innerHeight * 2)
         this.setState({ showFAB: true });
-      if (window.innerHeight + window.pageYOffset <= window.innerHeight * 2)
+      if (window.innerHeight + window.pageYOffset < window.innerHeight * 2)
         this.setState({ showFAB: false });
     }
 
@@ -144,7 +144,7 @@ export default withRouter(
                         }
                       })
                     }
-                  ></InfiniteScroll>
+                  />
                 );
               }}
             </Query>
