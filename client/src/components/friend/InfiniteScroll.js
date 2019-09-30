@@ -39,28 +39,24 @@ export default class InfiniteScroll extends Component {
           let bookCount = 0;
           friend.shelves.forEach(shelf => (bookCount += shelf.bookIds.length));
 
-          console.log(bookCount);
-
           return (
             <div key={index}>
-              <Link key={index} to="#">
-                <div className="friend_search_result">
-                  <div className="section_1">
-                    <img
-                      className="profile"
-                      alt="profile"
-                      src={friend.profilePhoto}
-                    />
-                    <div className="info">
-                      <Link className="name" to="#">
-                        {friend.name}
-                      </Link>
-                      <div className="stats_row"></div>
-                    </div>
+              <div className="friend_search_result">
+                <div className="section_1">
+                  <img
+                    className="profile"
+                    alt="profile"
+                    src={friend.profilePhoto}
+                  />
+                  <div className="info">
+                    <Link className="name" to="#">
+                      {friend.name}
+                    </Link>
+                    <div className="stats_row"></div>
                   </div>
-                  <div className="section_2"></div>
                 </div>
-              </Link>
+                <div className="section_2"></div>
+              </div>
             </div>
           );
         })}
