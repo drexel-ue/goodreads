@@ -31,7 +31,7 @@ if (!db) {
 }
 
 mongoose
-  .connect(db, { useNewUrlParser: true })
+  .connect(db, { useCreateIndex: true, useNewUrlParser: true })
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch(err => console.log(err));
 

@@ -6,14 +6,11 @@ import Mutations from "../../graphql/mutations"
 import gql from "graphql-tag";
 import "./CreateReview.css"
 import StarRow from "../book/StarRow"
-
 const { CREATE_REVIEW } = Mutations
 const { FETCH_REVIEWS_BY_BOOK, BOOK_BY_ID } = Queries
-
 class CreateReview extends React.Component {
     constructor(props) {
         super(props)
-
         this.state = {
             content: "",
             hidden: false,
@@ -32,22 +29,18 @@ class CreateReview extends React.Component {
         this.updateCache.bind(this)
         this.updateBoxes.bind(this) 
     }
-
     componentWillUnmount(){
         clearTimeout(this.timeout)
     }
-
     update(field) {
         return e => this.setState({ [field]: e.target.value });
     }
-
     updateBoxes(field) {
         return e => {
             console.log(`before : `, this.state)
             console.log(`before : `, this.state[field])
             this.setState({ [field]: !this.state[field] }, () => console.log("after : ", this.state))}
     }
-
     updateCache(cache, { data }) {
         let reviews;
         try {
@@ -69,7 +62,6 @@ class CreateReview extends React.Component {
             });
         }
     }
-
     handleSubmit(e, newReview) {
         e.preventDefault();
         // let redirectURL = `#/book/${this.state.book}`;
@@ -88,10 +80,8 @@ class CreateReview extends React.Component {
                 }
             })
             // window.location.href = redirectURL
-
         // , 2000)
     }
-
     render() {
         return(
         <ApolloConsumer>{client => {
@@ -237,7 +227,5 @@ class CreateReview extends React.Component {
             )}}</ApolloConsumer>
         )
     }
-
 }
-
 export default withRouter(CreateReview)

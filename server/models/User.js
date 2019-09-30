@@ -30,7 +30,7 @@ const UserSchema = new Schema({
   },
   currentlyReading: {
     type: Schema.Types.ObjectId,
-    ref: "book"
+    ref: "books"
   },
   questions: [
     {
@@ -87,7 +87,7 @@ UserSchema.statics.removeQuestion = (userId, questionId) => {
   return User.findById(userId).then(user => {
     return Question.findById(questionId).then(question => {
       user.questions.pull(question);
-      Question.findByIdAndRemove(questionId)
+      Question.findByIdAndRemove(questionId);
 
       return Promise.all([user.save(), question.save()]).then(
         ([user, question]) => user
@@ -119,7 +119,7 @@ UserSchema.statics.removeReview = (userId, reviewId) => {
   return User.findById(userId).then(user => {
     return Review.findById(reviewId).then(review => {
       user.reviews.pull(review);
-      Review.findByIdAndRemove(reviewId)
+      Review.findByIdAndRemove(reviewId);
 
       return Promise.all([user.save(), review.save()]).then(
         ([user, review]) => user
@@ -135,7 +135,7 @@ UserSchema.statics.addFollowedAuthor = (userId, authorId) => {
   return User.findById(userId).then(user => {
     return Author.findById(authorId).then(author => {
       user.followedAuthors.push(author);
-      author.followers.push(user)
+      author.followers.push(user);
 
       return Promise.all([user.save(), author.save()]).then(
         ([user, author]) => user
@@ -151,7 +151,7 @@ UserSchema.statics.removeFollowedAuthor = (userId, authorId) => {
   return User.findById(userId).then(user => {
     return Author.findById(authorId).then(author => {
       user.followedAuthors.pull(author);
-      author.followers.pull(user)
+      author.followers.pull(user);
 
       return Promise.all([user.save(), author.save()]).then(
         ([user, author]) => user
@@ -167,7 +167,7 @@ UserSchema.statics.addShelf = (userId, shelfId) => {
   return User.findById(userId).then(user => {
     return Shelf.findById(shelfId).then(shelf => {
       user.shelves.push(shelf);
-      shelf.user = userId
+      shelf.user = userId;
 
       return Promise.all([user.save(), shelf.save()]).then(
         ([user, shelf]) => user
@@ -183,7 +183,7 @@ UserSchema.statics.removeShelf = (userId, shelfId) => {
   return User.findById(userId).then(user => {
     return Shelf.findById(shelfId).then(shelf => {
       user.shelves.pull(shelf);
-      Shelf.findByIdAndRemove(shelfId)
+      Shelf.findByIdAndRemove(shelfId);
 
       return Promise.all([user.save(), shelf.save()]).then(
         ([user, shelf]) => user
@@ -192,7 +192,4 @@ UserSchema.statics.removeShelf = (userId, shelfId) => {
   });
 };
 
-
-
 module.exports = mongoose.model("users", UserSchema);
-

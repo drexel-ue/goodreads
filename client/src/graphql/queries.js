@@ -18,6 +18,22 @@ export default {
       }
     }
   `,
+  FETCH_USER_ID: gql`
+    query FetchUser($_id: ID!) {
+      user(_id: $_id) {
+        _id
+      }
+    }
+  `,
+  FETCH_USER_PROFILE: gql`
+    query FetchUser($_id: ID!) {
+      user(_id: $_id) {
+        _id
+        name
+        profilePhoto
+      }
+    }
+  `,
   QUERY_USERS: gql`
     query QueryUsers($queryString: String) {
       users(queryString: $queryString) {
@@ -206,6 +222,25 @@ export default {
       ratingByUserAndBookId( bookId: $bookId, userId: $userId ) {
         stars
       }
+    }`,
+  BOOK_SEARCH: gql`
+    query BookSearch($queryString: String!, $offset: Int!, $limit: Int!) {
+      bookSearch(queryString: $queryString, offset: $offset, limit: $limit) {
+        _id
+        title
+        coverPhoto
+        publishDate
+        rating
+        ratingIds
+        authors {
+          name
+        }
+      }
+    }
+  `,
+  RATED_BY_USER: gql`
+    query RatedByUser($bookId: ID!, $userId: ID!) {
+      ratedByUser(bookId: $bookId, userId: $userId)
     }
   `
 };

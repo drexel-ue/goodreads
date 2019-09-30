@@ -3,8 +3,12 @@ import { Query, ApolloConsumer } from "react-apollo";
 import { Link } from "react-router-dom";
 import gql from "graphql-tag";
 import Queries from "../../../graphql/queries";
-import './Bookshelf.css';
-const { FETCH_USER, CACHED_USER, IS_LOGGED_IN } = Queries;
+import "./Bookshelf.css";
+const {
+  FETCH_USER,
+  // CACHED_USER,
+  IS_LOGGED_IN
+} = Queries;
 
 const BooksList = props => {
     return (
@@ -30,32 +34,33 @@ const BooksList = props => {
                 <Link to='/bookshelf/want' className='shelf'>Want to Read</Link>
             </div>
 
-            <ApolloConsumer>{client => (
-                    <Query query={IS_LOGGED_IN}>
-                        {({ loading, error, data }) => {
-                            if (loading) return <p>Loading...</p>;
-                            if (error) {
-                                return <p>Error</p>;
-                            }
-                            
 
-                            if (data.isLoggedIn) {
-                                client.readQuery({
-                                    query: gql`
-                                      query CachedUser {
-                                        _id
-                                        name
-                                      }
-                                    `
-                                });
+      <ApolloConsumer>
+        {client => (
+          <Query query={IS_LOGGED_IN}>
+            {({ loading, error, data }) => {
+              if (loading) return <p>Loading...</p>;
+              if (error) {
+                return <p>Error</p>;
+              }
 
-                                return (
-                                    <Query query={FETCH_USER} variables={{ _id: data._id }}>
-                                        {({ loading, error, data }) => {
-                                            if (loading) return <p>Loading...</p>;
-                                            if (error) {
-                                                return <p>Error</p>;
-                                            }
+              if (data.isLoggedIn) {
+                client.readQuery({
+                  query: gql`
+                    query CachedUser {
+                      _id
+                      name
+                    }
+                  `
+                });
+
+                return (
+                  <Query query={FETCH_USER} variables={{ _id: data._id }}>
+                    {({ loading, error, data }) => {
+                      if (loading) return <p>Loading...</p>;
+                      if (error) {
+                        return <p>Error</p>;
+                      }
 
                                             return (
                                                 <table className='bookshelf-content'>
