@@ -37,7 +37,7 @@ export default class Make extends Component {
             <div className="submit">Search</div>
           </div>
           <div className="results">
-            <Query
+            {/* <Query
               query={QUERY_USERS}
               variables={{ queryString: this.state.queryString }}
             >
@@ -55,7 +55,7 @@ export default class Make extends Component {
                   </div>
                 );
               }}
-            </Query>
+            </Query> */}
           </div>
         </div>
         <div className="side">sjlsjlks</div>

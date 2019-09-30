@@ -23,14 +23,14 @@ export default class Friends extends Component {
           <Switch>
             <AuthRoute
               exact={true}
-              path="/friend"
-              component={Show}
+              path="/friend/invite"
+              component={Make}
               routeType="protected"
             />
             <AuthRoute
               exact={true}
-              path="/friend/invite"
-              component={Make}
+              path="/friend"
+              component={Show}
               routeType="protected"
             />
           </Switch>
