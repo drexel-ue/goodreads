@@ -4,9 +4,10 @@ import { Query, ApolloConsumer } from "react-apollo";
 import Queries from "../../graphql/queries";
 import gql from "graphql-tag";
 import BookReviewContent from "./BookReviewContent"
+import RatedRow from "../book/RatedRow"
 import "./BookReview.css"
 
-const { FETCH_REVIEWS_BY_BOOK } = Queries
+const { FETCH_REVIEWS_BY_BOOK, FETCH_RATING_BY_USER_AND_BOOK_ID } = Queries
 
 class BookReview extends React.Component{
     constructor(props){
@@ -36,7 +37,6 @@ class BookReview extends React.Component{
                             content: review.content,
                             date: new Date(review.date)
                         })
-
                     )
                     console.log(allReviews)
                     return (
@@ -49,6 +49,21 @@ class BookReview extends React.Component{
                                             <div className="review-list-item-name">{review.username}</div>
                                             <div className="review-list-item-date">{review.date.toDateString()}</div>
                                         </div>
+                                        <Query 
+                                            query={FETCH_RATING_BY_USER_AND_BOOK_ID}
+                                            variables={{ bookId: this.props.bookId, userId: review.userId }}
+                                            >
+                                                {({ loading, error, data }) => {
+                                                if (loading) return <p>Loading...</p>;
+                                                // debugger
+                                                if (error) {
+                                                    return <p>Error</p>;
+                                                }
+                                            return (
+                                                <RatedRow rating={data.ratingByUserAndBookId.stars}></RatedRow>
+                                            )
+                                            }}
+                                        </Query>
                                         <BookReviewContent 
                                             className="review-list-item-content"
                                             content={review.content}>

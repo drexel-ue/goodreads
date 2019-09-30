@@ -5,6 +5,7 @@ import Queries from "../../graphql/queries";
 import Mutations from "../../graphql/mutations"
 import gql from "graphql-tag";
 import "./CreateReview.css"
+import StarRow from "../book/StarRow"
 
 const { CREATE_REVIEW } = Mutations
 const { FETCH_REVIEWS_BY_BOOK, BOOK_BY_ID } = Queries
@@ -146,13 +147,17 @@ class CreateReview extends React.Component {
                         {(newReview, { data } ) =>
                             (<div className="review-form-container">
                                 <form onSubmit={e => this.handleSubmit(e, newReview)}>
+                                    <div className="review-rating-container"> 
+                                        <div>My rating: </div>
+                                        <StarRow bookId={this.state.book} />
+                                    </div>
                                     <div className="review-form-content-container">What did you think?
-                                    <textarea
-                                        className="review-form-content"
-                                        onChange={this.update("content")}
-                                        value={this.state.content}
-                                        placeholder="Enter your review(optional)"
-                                        />
+                                        <textarea
+                                            className="review-form-content"
+                                            onChange={this.update("content")}
+                                            value={this.state.content}
+                                            placeholder="Enter your review(optional)"
+                                            />
                                     </div>
                                     <div className="review-form-hidden-container">
                                         <input value={this.state.hidden} 
