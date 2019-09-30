@@ -1,10 +1,12 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Query, ApolloConsumer } from "react-apollo";
+import gql from "graphql-tag";
 import Queries from "../../graphql/queries";
 import Login from "../session/Login";
 import "./Nav.css";
-const { IS_LOGGED_IN } = Queries;
+
+const { FETCH_USER_ID, IS_LOGGED_IN } = Queries;
 
 class Nav extends React.Component {
   constructor(props) {
@@ -52,94 +54,114 @@ class Nav extends React.Component {
           <Query query={IS_LOGGED_IN}>
             {({ data }) => {
               if (data.isLoggedIn) {
+                client.readQuery({
+                  query: gql`
+                    query CachedUser {
+                      _id
+                      name
+                    }
+                  `
+                });
+
                 return (
-                  <div className='navbar'>
-                    <div className='navbar-contents'>
-                      <div className='logo'>
-                        <Link to='/' className='in-logo'>bad</Link><Link to='/' className='in-logo2'>reads</Link>
-                      </div>
-                      <nav className='main-nav'>
-                        <ul className='nav-list'>
-                          <li className='nav-list-item'>
-                            <Link to='/' className='nav-link'>Home</Link>
-                          </li>
-                          <li className="nav-list-item">
-                            <Link to="/bookshelf/read" className="nav-link">
-                              My Books
+                  <Query query={FETCH_USER_ID} variables={{ _id: data._id }}>
+                    {({ loading, error, data }) => {
+                      if (loading) return <p>Loading...</p>;
+                      if (error) {
+                        return <p>Error</p>;
+                      }
+
+                      return (
+                        <div className='navbar'>
+                          <div className='navbar-contents'>
+                            <div className='logo'>
+                              <Link to='/' className='in-logo'>bad</Link><Link to='/' className='in-logo2'>reads</Link>
+                            </div>
+                            <nav className='main-nav'>
+                              <ul className='nav-list'>
+                                <li className='nav-list-item'>
+                                  <Link to='/' className='nav-link'>Home</Link>
+                                </li>
+                                <li className="nav-list-item">
+                                  <Link to="/bookshelf/read" className="nav-link">
+                                    My Books
                             </Link>
-                          </li>
-                          <li className="nav-list-item">
-                            <div className="dropdown">
-                              <button
-                                className="dropbtn"
-                                onClick={this.browse}
-                              >
-                                Browse
+                                </li>
+                                <li className="nav-list-item">
+                                  <div className="dropdown">
+                                    <button
+                                      className="dropbtn"
+                                      onClick={this.browse}
+                                    >
+                                      Browse
                               </button>
-                            </div>
-                          </li>
-                        </ul>
-                      </nav>
+                                  </div>
+                                </li>
+                              </ul>
+                            </nav>
 
-                      <form className="search">
-                        <input type="text" placeholder="Search books" />
-                        <button type="submit">
-                          <i className="fa fa-search"></i>
-                        </button>
-                      </form>
-
-                      <div className='personal-nav'>
-                        <ul className='personal-nav-list'>
-                          <li className='personal-nav-list-item'>
-                            <Link to='/friend' className='personal-link'><i className='fas fa-user-friends'></i></Link>
-                          </li>
-                          <li className="personal-nav-list-item">
-                            <div className="profile-dropdown">
-                              <button
-                                className="profile-dropbtn"
-                                onMouseEnter={this.showDropdown("userClicked")}
-                                onMouseLeave={this.hideDropdown("userClicked")}
-                              >
-                                <i className="fa fa-user-circle-o"></i>
+                            <form className="search">
+                              <input type="text" placeholder="Search books" />
+                              <button type="submit">
+                                <i className="fa fa-search"></i>
                               </button>
-                              <div
-                                onMouseEnter={this.showDropdown("userClicked")}
-                                onMouseLeave={this.hideDropdown("userClicked")}
-                                className={`profile-dropdown-content ${
-                                  this.state.userClicked ? "reveal" : "hide"
-                                }`}
-                              >
-                                <div className="profile-dropdown-item">
-                                  <Link to="/">Profile</Link>
-                                </div>
-                                <div className="profile-dropdown-item">
-                                  <Link to="/friend">Friends</Link>
-                                </div>
-                                <button
-                                  className="profile-dropdown-button"
-                                  onClick={e => {
-                                    e.preventDefault();
-                                    localStorage.removeItem("auth-token");
-                                    client.writeData({
-                                      data: { isLoggedIn: false }
-                                    });
-                                    this.setState({
-                                      browseClicked: false,
-                                      commClicked: false,
-                                      userClicked: false
-                                    });
-                                    this.props.history.push("/register");
-                                  }}
-                                >
-                                  Sign out
+                            </form>
+
+                            <div className='personal-nav'>
+                              <ul className='personal-nav-list'>
+                                <li className='personal-nav-list-item'>
+                                  <Link to='/friend' className='personal-link'><i className='fas fa-user-friends'></i></Link>
+                                </li>
+                                <li className="personal-nav-list-item">
+                                  <div className="profile-dropdown">
+                                    <button
+                                      className="profile-dropbtn"
+                                      onMouseEnter={this.showDropdown("userClicked")}
+                                      onMouseLeave={this.hideDropdown("userClicked")}
+                                    >
+                                      <i className="fa fa-user-circle-o"></i>
+                                    </button>
+                                    <div
+                                      onMouseEnter={this.showDropdown("userClicked")}
+                                      onMouseLeave={this.hideDropdown("userClicked")}
+                                      className={`profile-dropdown-content ${
+                                        this.state.userClicked ? "reveal" : "hide"
+                                        }`}
+                                    >
+                                      <div className="profile-dropdown-item">
+                                        <Link to={`/users/${data.user._id}`}>Profile</Link>
+                                      </div>
+                                      <div className="profile-dropdown-item">
+                                        <Link to="/friend">Friends</Link>
+                                      </div>
+                                      <button
+                                        className="profile-dropdown-button"
+                                        onClick={e => {
+                                          e.preventDefault();
+                                          localStorage.removeItem("auth-token");
+                                          client.writeData({
+                                            data: { isLoggedIn: false }
+                                          });
+                                          this.setState({
+                                            browseClicked: false,
+                                            commClicked: false,
+                                            userClicked: false
+                                          });
+                                          this.props.history.push("/register");
+                                        }}
+                                      >
+                                        Sign out
                                 </button>
-                              </div>
+                                    </div>
+                                  </div>
+                                </li>
+                              </ul>
                             </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
+                          </div>
+                        </div>
+                      )
+                    }}
+                  </Query>
                 );
               } else {
                 return (
