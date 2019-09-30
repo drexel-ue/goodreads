@@ -39,6 +39,7 @@ export default class InfiniteScroll extends Component {
           let bookCount = 0;
           friend.shelves.forEach(shelf => (bookCount += shelf.bookIds.length));
           const friendCount = friend.friendIds.length;
+          const book = friend.currentlyReading;
 
           return (
             <div key={index}>
@@ -59,7 +60,13 @@ export default class InfiniteScroll extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="section_2"></div>
+                {friend.currentlyReading ? (
+                  <div className="section_2">
+                    <img className="cover" alt="cover" src={book.coverPhoto} />
+                  </div>
+                ) : (
+                  <div />
+                )}
               </div>
             </div>
           );

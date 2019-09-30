@@ -4,8 +4,11 @@
   width: 100%;
   .friend_search_result {
     display: flex;
+    border-bottom: 1px solid rgb(214, 214, 214);
+    padding: 5px 0;
     .section_1 {
       display: flex;
+      width: 40%;
       .profile {
         height: 66px;
         width: 50px;
@@ -18,6 +21,13 @@
             margin-right: 3px;
           }
         }
+      }
+    }
+    .section_2 {
+      display: flex;
+      .cover {
+        height: 75px;
+        width: 45px;
       }
     }
   }
