@@ -39,6 +39,32 @@ const RootQueryType = new GraphQLObjectType({
         });
       }
     },
+    nonFriends: {
+      type: new GraphQLList(UserType),
+      args: {
+        offset: { type: GraphQLInt },
+        queryString: { type: GraphQLString },
+        userId: { type: GraphQLID }
+      },
+      async resolve(_, { offset, queryString, userId }) {
+        const regexp = new RegExp("^" + queryString, "i");
+        return await User.find({
+          $and: [
+            { $or: [{ name: regexp }, { email: regexp }] },
+            { friends: { $not: { $regex: mongoose.Types.ObjectId(userId).toString() } } }
+          ]
+        })
+          .populate({
+            path: "currentlyReading",
+            populate: {
+              path: "authors"
+            }
+          })
+          .populate("shelves")
+          .skip(offset)
+          .limit(30);
+      }
+    },
     friends: {
       type: new GraphQLList(UserType),
       args: {
