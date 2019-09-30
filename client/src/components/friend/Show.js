@@ -62,7 +62,6 @@ export default class Show extends Component {
                         return <i className="fas fa-spinner fa-pulse"></i>;
 
                       const { friends } = data;
-                      console.log(data);
                       return (
                         <InfiniteScroll
                           items={friends}
