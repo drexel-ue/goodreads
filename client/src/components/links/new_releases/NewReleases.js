@@ -313,7 +313,7 @@ const NewReleases = (props) => (
                                                         return (
                                                             <Link to={`/book/${book._id}`}><img src={book.coverPhoto}/></Link>
                                                         );
-                                                    }
+                                                    } return <div></div>
                                                 });
                                             }
                                         }}

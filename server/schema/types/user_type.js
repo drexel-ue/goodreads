@@ -1,7 +1,14 @@
 const mongoose = require("mongoose");
 const graphql = require("graphql");
-const { GraphQLList, GraphQLObjectType, GraphQLString, GraphQLID, GraphQLBoolean, GraphQLInt } = graphql;
-const User = mongoose.model("users")
+const {
+  GraphQLList,
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLID,
+  GraphQLBoolean,
+  GraphQLInt
+} = graphql;
+const User = mongoose.model("users");
 
 const UserType = new GraphQLObjectType({
   name: "UserType",
@@ -11,11 +18,16 @@ const UserType = new GraphQLObjectType({
     email: { type: GraphQLString },
     token: { type: GraphQLString },
     isLoggedIn: { type: GraphQLBoolean },
-    currentlyReading: { type: require("./book_type") },
+    currentlyReading: {
+      type: require("./book_type"),
+      resolve(parentValue) {
+        return parentValue.currentlyReading;
+      }
+    },
     currentPage: { type: GraphQLInt },
     profilePhoto: { type: GraphQLString },
     friendIds: {
-      type: new GraphQLList(GraphQLString),
+      type: new GraphQLList(GraphQLID),
       resolve(parentValue) {
         return parentValue.friends;
       }
@@ -30,21 +42,19 @@ const UserType = new GraphQLObjectType({
     questions: {
       type: new GraphQLList(require("./question_type")),
       resolve(parentValue) {
-        return User.findById(parentValue.id).populate("questions")
+        return User.findById(parentValue.id).populate("questions");
       }
     },
     reviews: {
       type: new GraphQLList(require("./review_type")),
       resolve(parentValue) {
-        return User.findById(parentValue.id).populate("reviews")
+        return User.findById(parentValue.id).populate("reviews");
       }
     },
     shelves: {
       type: new GraphQLList(require("./shelf_type")),
       resolve(parentValue) {
-        return User.findById(parentValue.id)
-          .populate("shelves")
-          .then(user => user.shelves)
+        return parentValue.shelves;
       }
     }
   })

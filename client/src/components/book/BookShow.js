@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
 import SeriesBlock from "./SeriesBlock";
@@ -11,7 +11,9 @@ import RatedRow from "./RatedRow";
 import MainDescription from "./MainDescription";
 import StoresDropdown from "./StoresDropdown";
 import FullBookDetail from "./FullBookDetail";
+import BookReviews from "../reviews/BookReview";
 import "./BookShow.scss";
+import BookReview from "../reviews/BookReview";
 
 const { BOOK_BY_ID } = Queries;
 
@@ -33,7 +35,6 @@ export default withRouter(
           {({ loading, error, data }) => {
             if (loading) return <div>loading...</div>;
             if (error) {
-              console.log(error);
               return <div>error...</div>;
             }
             const { book } = data;
@@ -42,7 +43,6 @@ export default withRouter(
               <div className="section_1">
                 <MainCover src={book.coverPhoto} />
                 <ShelfButton _id={book._id} />
-                <div className="rate_text">Rate this book</div>
                 <StarRow bookId={book._id} />
                 <div className="preview">
                   <i className="fas fa-book-open"></i>
@@ -118,6 +118,13 @@ export default withRouter(
                     }`}
                   </div>
                   <FullBookDetail book={book} />
+                  <Link
+                    className="write-review-link"
+                    to={`/reviews/${book._id}`}
+                  >
+                    Write a review
+                  </Link>
+                  <BookReview bookId={book._id} />
                 </div>
               );
             };

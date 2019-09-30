@@ -15,9 +15,9 @@ import Friends from "./friend/friends";
 
 import IndexGenre from "./genres/IndexGenre";
 import BookShow from "./book/BookShow";
-import ShowGenre from "./genres/ShowGenre"
-import CreateReview from "./reviews/CreateReview"
-
+import ShowGenre from "./genres/ShowGenre";
+import CreateReview from "./reviews/CreateReview";
+import Search from "./search/Search";
 
 const App = () => {
   return (
@@ -90,6 +90,11 @@ const App = () => {
           exact
           path="/users/:userId"
           component={UserProfile}
+        />
+        <AuthRoute
+          exact={false}
+          path="/search"
+          component={Search}
           routeType="protected"
         />
       </Switch>

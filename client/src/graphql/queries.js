@@ -143,14 +143,36 @@ export default {
   FETCH_REVIEWS: gql`
     query FetchReviews {
       reviews {
-        user
-        book
+        user {
+          name
+        }
+        book {
+          title
+        }
         content
         hidden
-        dateStarted
-        dateFinished
         recommendTo
-        # recommendBy
+        privateNotes
+        owned
+        postToBlog
+        addToFeed
+      }
+    }
+  `,
+  FETCH_REVIEWS_BY_BOOK: gql`
+    query FetchReviewsByBookId($bookId: ID!) {
+      reviewByBookId(bookId: $bookId) {
+        user {
+          _id
+          name
+          profilePhoto
+        }
+        book {
+          title
+        }
+        content
+        hidden
+        recommendTo
         privateNotes
         owned
         postToBlog
@@ -193,6 +215,26 @@ export default {
         name
         bookIds
       }
+    }
+  `,
+  BOOK_SEARCH: gql`
+    query BookSearch($queryString: String!, $offset: Int!, $limit: Int!) {
+      bookSearch(queryString: $queryString, offset: $offset, limit: $limit) {
+        _id
+        title
+        coverPhoto
+        publishDate
+        rating
+        ratingIds
+        authors {
+          name
+        }
+      }
+    }
+  `,
+  RATED_BY_USER: gql`
+    query RatedByUser($bookId: ID!, $userId: ID!) {
+      ratedByUser(bookId: $bookId, userId: $userId)
     }
   `
 };

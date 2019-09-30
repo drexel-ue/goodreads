@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const BookSchema = new Schema({
   title: {
     type: String,
-    required: true
+    required: true,
+    index: true
   },
   authors: [
     {
@@ -53,7 +54,8 @@ const BookSchema = new Schema({
     }
   ],
   series: {
-    type: String
+    type: String,
+    index: true
   },
   questions: [
     {
@@ -77,7 +79,8 @@ const BookSchema = new Schema({
   },
   isbn: {
     type: String,
-    required: true
+    required: true,
+    index: true
   },
   settings: [
     {
@@ -212,14 +215,12 @@ BookSchema.statics.leaveRating = async (bookId, user, stars) => {
   const Rating = mongoose.model("ratings");
 
   const book = await Book.findById(bookId);
-  const rating = new Rating({ book, user, stars });
-
-  book.ratings.push(rating);
+  const rating = new Rating({ bookId, user, stars });
+  book.ratings.push(rating._id);
   book.rating = (book.rating + stars) / book.ratings.length;
-
   await rating.save();
-
-  return await book.save();
+  const bookDoc = await book.save();
+  return bookDoc;
 };
 
 BookSchema.statics.removeRating = (bookId, ratingId) => {
@@ -238,7 +239,7 @@ BookSchema.statics.removeRating = (bookId, ratingId) => {
   });
 };
 
-BookSchema.statics.addQuestion = (bookId, ratingId) => {
+BookSchema.statics.addQuestion = (bookId, questionId) => {
   const Book = mongoose.model("books");
   const Question = mongoose.model("questions");
 
@@ -254,7 +255,7 @@ BookSchema.statics.addQuestion = (bookId, ratingId) => {
   });
 };
 
-BookSchema.statics.removeQuestion = (bookId, questionId) => {
+BookSchema.statics.removeReview = (bookId, reviewId) => {
   const Book = mongoose.model("books");
   const Question = mongoose.model("questions");
 
@@ -265,6 +266,36 @@ BookSchema.statics.removeQuestion = (bookId, questionId) => {
 
       return Promise.all([book.save(), question.save()]).then(
         ([book, question]) => book
+      );
+    });
+  });
+};
+BookSchema.statics.addQuestion = (bookId, questionId) => {
+  const Book = mongoose.model("books");
+  const Question = mongoose.model("questions");
+
+  return Book.findById(bookId).then(book => {
+    return Question.findById(questionId).then(question => {
+      book.questions.push(question);
+      question.books.push(book);
+
+      return Promise.all([book.save(), question.save()]).then(
+        ([book, question]) => book
+      );
+    });
+  });
+};
+
+BookSchema.statics.removeQuestion = (bookId, reviewId) => {
+  const Book = mongoose.model("books");
+  const Review = mongoose.model("reviews");
+
+  return Book.findById(bookId).then(book => {
+    return Review.findById(reviewId).then(review => {
+      book.reviews.pull(review);
+
+      return Promise.all([book.save(), review.save()]).then(
+        ([book, review]) => book
       );
     });
   });
