@@ -215,7 +215,7 @@ BookSchema.statics.leaveRating = async (bookId, user, stars) => {
   const Rating = mongoose.model("ratings");
 
   const book = await Book.findById(bookId);
-  const rating = new Rating({ bookId, user, stars });
+  const rating = new Rating({ book: bookId, user: user, stars: stars });
   book.ratings.push(rating._id);
   book.rating = (book.rating + stars) / book.ratings.length;
   await rating.save();
