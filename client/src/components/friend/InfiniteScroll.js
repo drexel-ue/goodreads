@@ -60,7 +60,7 @@ export default class InfiniteScroll extends Component {
                       <div className="book_count">{`${bookCount} books | `}</div>
                       <div className="friend_count">{`${friendCount} friends`}</div>
                     </div>
-                    <FriendButton />
+                    <FriendButton theirId={friend._id} />
                   </div>
                 </div>
                 {friend.currentlyReading ? (
