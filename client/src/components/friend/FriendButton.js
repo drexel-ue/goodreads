@@ -49,8 +49,28 @@ export default class FriendButton extends Component {
                 if (myFriends.loading || theirFriends.loading)
                   return <VanishingSpinner />;
 
-                console.log(myFriends.data, theirFriends.data);
-                return <div className="friend_button">ADD</div>;
+                const myFriendIds = myFriends.data.friendIds;
+                const theirFriendIds = theirFriends.data.friendIds;
+                const mutualFriends =
+                  myFriendIds.includes(this.props.theirId) &&
+                  theirFriendIds.includes(_id);
+                const waitingOnThem =
+                  myFriendIds.includes(this.props.theirId) &&
+                  !theirFriendIds.includes(_id);
+                const waitingOnMe =
+                  !myFriendIds.includes(this.props.theirId) &&
+                  theirFriendIds.includes(_id);
+                const notFriendsAtAll =
+                  !myFriendIds.includes(this.props.theirId) &&
+                  !theirFriendIds.includes(_id);
+
+                let text;
+                if (mutualFriends) text = "REMOVE";
+                if (waitingOnMe) text = "ACCEPT";
+                if (waitingOnThem) text = "CANCEL";
+                if (notFriendsAtAll) text = "ADD";
+
+                return <div className="friend_button">{text}</div>;
               }}
             </Composed>
           );
