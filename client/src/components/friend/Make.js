@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import gql from "graphql-tag";
 import Queries from "../../graphql/queries";
 import { Query, ApolloConsumer } from "react-apollo";
-import FriendTile from "./FriendTile";
-import "./Make.scss";
 import InfiniteScroll from "./InfiniteScroll";
 import VanishingSpinner from "../VanishingSpinner";
+import "./Make.scss";
 
 const { NON_FRIENDS } = Queries;
 
