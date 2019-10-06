@@ -3,8 +3,8 @@ import gql from "graphql-tag";
 import { ApolloConsumer, Query, Mutation } from "react-apollo";
 import { adopt } from "react-adopt";
 import Queries from "../../graphql/queries";
-import "./FriendButton.scss";
 import VanishingSpinner from "../VanishingSpinner";
+import "./FriendButton.scss";
 
 const { FRIEND_IDS } = Queries;
 

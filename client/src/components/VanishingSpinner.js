@@ -5,8 +5,6 @@ export default class VanishingSpinner extends Component {
     super(props);
 
     this.state = { vanish: false };
-
-    this.vanish();
   }
 
   componentWillReceiveProps() {
@@ -14,8 +12,18 @@ export default class VanishingSpinner extends Component {
     this.vanish();
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.timeout);
+  }
+
+  componentDidMount() {
+    this.vanish();
+  }
+
   vanish() {
-    setTimeout(() => this.setState({ vanish: true }), 1000);
+    this.timeout = setTimeout(() => {
+      this.setState({ vanish: true });
+    }, 1000);
   }
 
   render() {
