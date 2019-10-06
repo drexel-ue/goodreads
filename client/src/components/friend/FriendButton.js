@@ -12,21 +12,26 @@ export default class FriendButton extends Component {
   }
 
   render() {
-    const textMap = {};
-    return (
-      <ApolloConsumer>
-        {client => {
-          const { _id } = client.readQuery({
-            query: gql`
-              query CachedUser {
-                _id
-              }
-            `
-          });
-        }}
-      </ApolloConsumer>
-    );
+    //   const Composed = adopt({
+    //     myFriends:({render})=><query
+    // });
+    // return (
+    //   <ApolloConsumer>
+    //     {client => {
+    //       const { _id } = client.readQuery({
+    //         query: gql`
+    //           query CachedUser {
+    //             _id
+    //           }
+    //         `
+    //       });
+    //     }}
+    //   </ApolloConsumer>
+    // );
+    return <div></div>;
   }
 }
 
-<div className="friend_button">ADD</div>;
+{
+  /* <div className="friend_button">ADD</div>; */
+}

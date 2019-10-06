@@ -56,6 +56,11 @@ export default {
       }
     }
   `,
+  FRIEND_IDS: gql`
+    query FriendIds($userId: ID!) {
+      friendIds(userId: $userId)
+    }
+  `,
   FETCH_BOOKS: gql`
     query FetchBooks {
       books {
