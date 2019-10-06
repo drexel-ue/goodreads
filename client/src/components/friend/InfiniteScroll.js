@@ -81,7 +81,7 @@ export default class InfiniteScroll extends Component {
             </div>
           );
         })}
-        <VanishingSpinner />
+        <VanishingSpinner count={this.props.items.length} />
       </div>
     );
   }

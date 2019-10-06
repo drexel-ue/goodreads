@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+import gql from "graphql-tag";
 import Queries from "../../graphql/queries";
-import { Query } from "react-apollo";
-import "./Make.scss";
+import { Query, ApolloConsumer } from "react-apollo";
 import FriendTile from "./FriendTile";
+import "./Make.scss";
+import InfiniteScroll from "./InfiniteScroll";
+import VanishingSpinner from "../VanishingSpinner";
 
-const { QUERY_USERS } = Queries;
+const { NON_FRIENDS } = Queries;
 
 export default class Make extends Component {
   constructor(props) {
@@ -37,25 +40,56 @@ export default class Make extends Component {
             <div className="submit">Search</div>
           </div>
           <div className="results">
-            {/* <Query
-              query={QUERY_USERS}
-              variables={{ queryString: this.state.queryString }}
-            >
-              {({ loading, error, data }) => {
-                if (loading) return <p>Loading...</p>;
-                if (error) return <p>Error</p>;
-                const users = data.users;
+            <ApolloConsumer>
+              {client => {
+                const { _id } = client.readQuery({
+                  query: gql`
+                    query CachedUser {
+                      _id
+                    }
+                  `
+                });
+
                 return (
-                  <div>
-                    {users.map(user => (
-                      <div key={user._id}>
-                        <FriendTile user={user} />
-                      </div>
-                    ))}
-                  </div>
+                  <Query
+                    query={NON_FRIENDS}
+                    variables={{
+                      userId: _id,
+                      queryString: this.state.queryString,
+                      offset: 0
+                    }}
+                  >
+                    {({ loading, error, data, fetchMore }) => {
+                      if (loading || error) return <VanishingSpinner />;
+                      const { nonFriends } = data;
+                      return (
+                        <InfiniteScroll
+                          items={nonFriends}
+                          onLoadMore={() =>
+                            fetchMore({
+                              variables: {
+                                queryString: this.state.queryString,
+                                offset: nonFriends.length,
+                                limit: 30
+                              },
+                              updateQuery: (prev, { fetchMoreResult }) => {
+                                if (!fetchMoreResult) return prev;
+                                return Object.assign({}, prev, {
+                                  nonFriends: [
+                                    ...prev.nonFriends,
+                                    ...fetchMoreResult.nonFriends
+                                  ]
+                                });
+                              }
+                            })
+                          }
+                        />
+                      );
+                    }}
+                  </Query>
                 );
               }}
-            </Query> */}
+            </ApolloConsumer>
           </div>
         </div>
         <div className="side">sjlsjlks</div>

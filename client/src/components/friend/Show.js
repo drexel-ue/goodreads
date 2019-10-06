@@ -1,9 +1,10 @@
-import gql from "graphql-tag";
 import React, { Component } from "react";
+import gql from "graphql-tag";
 import { Query, ApolloConsumer } from "react-apollo";
 import Queries from "../../graphql/queries";
 import "./Show.scss";
 import InfiniteScroll from "./InfiniteScroll";
+import VanishingSpinner from "../VanishingSpinner";
 
 const { FRIENDS } = Queries;
 
@@ -58,8 +59,7 @@ export default class Show extends Component {
                     }}
                   >
                     {({ loading, error, data, fetchMore }) => {
-                      if (loading || error)
-                        return <i className="fas fa-spinner fa-pulse"></i>;
+                      if (loading || error) return <VanishingSpinner />;
 
                       const { friends } = data;
                       return (

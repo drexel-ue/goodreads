@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 
 export default class VanishingSpinner extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = { vanish: false };
 
+    this.vanish();
+  }
+
+  componentWillReceiveProps() {
+    this.setState({ vanish: false });
     this.vanish();
   }
 
