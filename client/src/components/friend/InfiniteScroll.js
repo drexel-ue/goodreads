@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import "./InfiniteScroll.scss";
 import VanishingSpinner from "../VanishingSpinner";
+import FriendButton from "./FriendButton";
+import "./InfiniteScroll.scss";
 
 export default class InfiniteScroll extends Component {
   constructor(props) {
@@ -59,6 +60,7 @@ export default class InfiniteScroll extends Component {
                       <div className="book_count">{`${bookCount} books | `}</div>
                       <div className="friend_count">{`${friendCount} friends`}</div>
                     </div>
+                    <FriendButton />
                   </div>
                 </div>
                 {friend.currentlyReading ? (
