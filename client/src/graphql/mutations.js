@@ -71,9 +71,8 @@ export default {
       $privateNotes: String
       $owned: Boolean
       $postToBlog: Boolean
-      $addToFeed: Boolean
-    ) # $date: DateTime!
-    {
+      $addToFeed: Boolean # $date: DateTime!
+    ) {
       createReview(
         user: $user
         book: $book
@@ -86,9 +85,8 @@ export default {
         privateNotes: $privateNotes
         owned: $owned
         postToBlog: $postToBlog
-        addToFeed: $addToFeed
-      ) # date: $date
-      {
+        addToFeed: $addToFeed # date: $date
+      ) {
         user {
           name
         }
@@ -109,9 +107,9 @@ export default {
       }
     }
   `,
-  MUTATE_FRIENDSHIP: gql`
-    mutation MutateFriendship($myId: ID!, $theirId: ID!) {
-      mutateFriendship(myId: $myId, theirId: $theirId) {
+  BE_UN_FRIEND: gql`
+    mutation BeUnFriend($myId: ID!, $theirId: ID!, $requestType: String!) {
+      beUnFriend(myId: $myId, theirId: $theirId, requestType: $requestType) {
         _id
         friendIds
       }

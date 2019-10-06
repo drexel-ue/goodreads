@@ -3,10 +3,12 @@ import gql from "graphql-tag";
 import { ApolloConsumer, Query, Mutation } from "react-apollo";
 import { adopt } from "react-adopt";
 import Queries from "../../graphql/queries";
+import Mutations from "../../graphql/mutations";
 import VanishingSpinner from "../VanishingSpinner";
 import "./FriendButton.scss";
 
 const { FRIEND_IDS } = Queries;
+const { BE_UN_FRIEND } = Mutations;
 
 export default class FriendButton extends Component {
   constructor(props) {
@@ -45,7 +47,7 @@ export default class FriendButton extends Component {
 
           return (
             <Composed>
-              {({ myFriends, theirFriends }) => {
+              {({ myFriends, theirFriends, refetch }) => {
                 if (myFriends.loading || theirFriends.loading)
                   return <VanishingSpinner />;
 
@@ -65,12 +67,44 @@ export default class FriendButton extends Component {
                   !theirFriendIds.includes(_id);
 
                 let text;
-                if (mutualFriends) text = "REMOVE";
-                if (waitingOnMe) text = "ACCEPT";
-                if (waitingOnThem) text = "CANCEL";
-                if (notFriendsAtAll) text = "ADD";
+                let requestType;
+                if (mutualFriends) {
+                  text = "REMOVE";
+                  requestType = "remove friend";
+                }
+                if (waitingOnMe) {
+                  text = "ACCEPT";
+                  requestType = "accept request";
+                }
+                if (waitingOnThem) {
+                  text = "CANCEL";
+                  requestType = "cancel request";
+                }
+                if (notFriendsAtAll) {
+                  text = "ADD";
+                  requestType = "send request";
+                }
 
-                return <div className="friend_button">{text}</div>;
+                return (
+                  <Mutation
+                    mutation={BE_UN_FRIEND}
+                    variables={{
+                      myId: _id,
+                      theirId: this.props.theirId,
+                      requestType
+                    }}
+                    onCompleted={() => refetch()}
+                  >
+                    {mutateFriendship => (
+                      <div
+                        className="friend_button"
+                        onClick={() => mutateFriendship()}
+                      >
+                        {text}
+                      </div>
+                    )}
+                  </Mutation>
+                );
               }}
             </Composed>
           );
