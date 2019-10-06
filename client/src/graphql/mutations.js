@@ -72,8 +72,8 @@ export default {
       $owned: Boolean
       $postToBlog: Boolean
       $addToFeed: Boolean
-      # $date: DateTime!
-    ) {
+    ) # $date: DateTime!
+    {
       createReview(
         user: $user
         book: $book
@@ -87,12 +87,12 @@ export default {
         owned: $owned
         postToBlog: $postToBlog
         addToFeed: $addToFeed
-        # date: $date
-      ) {
-        user{
+      ) # date: $date
+      {
+        user {
           name
         }
-        book{
+        book {
           title
         }
         content
@@ -106,6 +106,14 @@ export default {
         postToBlog
         addToFeed
         date
+      }
+    }
+  `,
+  MUTATE_FRIENDSHIP: gql`
+    mutation MutateFriendship($myId: ID!, $theirId: ID!) {
+      mutateFriendship(myId: $myId, theirId: $theirId) {
+        _id
+        friendIds
       }
     }
   `
