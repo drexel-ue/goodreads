@@ -31,7 +31,11 @@ export default class FriendButton extends Component {
 
           const Composed = adopt({
             myFriends: ({ render }) => (
-              <Query query={FRIEND_IDS} variables={{ userId: _id }}>
+              <Query
+                query={FRIEND_IDS}
+                variables={{ userId: _id }}
+                fetchPolicy={"cache-and-network"}
+              >
                 {render}
               </Query>
             ),
@@ -39,6 +43,7 @@ export default class FriendButton extends Component {
               <Query
                 query={FRIEND_IDS}
                 variables={{ userId: this.props.theirId }}
+                fetchPolicy={"cache-and-network"}
               >
                 {render}
               </Query>
@@ -47,7 +52,7 @@ export default class FriendButton extends Component {
 
           return (
             <Composed>
-              {({ myFriends, theirFriends, refetch }) => {
+              {({ myFriends, theirFriends }) => {
                 if (myFriends.loading || theirFriends.loading)
                   return <VanishingSpinner />;
 
@@ -93,7 +98,7 @@ export default class FriendButton extends Component {
                       theirId: this.props.theirId,
                       requestType
                     }}
-                    onCompleted={() => refetch()}
+                    onCompleted={() => this.setState()}
                   >
                     {mutateFriendship => (
                       <div
