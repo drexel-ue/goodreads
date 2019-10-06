@@ -4,6 +4,7 @@ import "./InfiniteScroll.scss";
 import RatedRow from "../book/RatedRow";
 import ShelfButton from "../book/ShelfButton";
 import StarRow from "../book/StarRow";
+import VanishingSpinner from "../VanishingSpinner";
 
 export default class InfiniteScroll extends Component {
   constructor(props) {
@@ -90,11 +91,7 @@ export default class InfiniteScroll extends Component {
             </div>
           );
         })}
-        {this.props.items.length > 0 ? (
-          <i className="fas fa-spinner fa-pulse"></i>
-        ) : (
-          <div />
-        )}
+        <VanishingSpinner />
       </div>
     );
   }

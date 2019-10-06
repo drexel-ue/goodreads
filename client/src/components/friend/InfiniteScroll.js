@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./InfiniteScroll.scss";
+import VanishingSpinner from "../VanishingSpinner";
 
 export default class InfiniteScroll extends Component {
   constructor(props) {
@@ -80,11 +81,7 @@ export default class InfiniteScroll extends Component {
             </div>
           );
         })}
-        {this.props.items.length > 0 ? (
-          <i className="fas fa-spinner fa-pulse"></i>
-        ) : (
-          <div />
-        )}
+        <VanishingSpinner />
       </div>
     );
   }
