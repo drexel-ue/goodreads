@@ -7,7 +7,8 @@ const {
   GraphQLInt,
   GraphQLID,
   GraphQLNonNull,
-  GraphQLBoolean
+  GraphQLBoolean,
+  GraphQLList
 } = graphql;
 const mongoose = require("mongoose");
 
@@ -873,13 +874,13 @@ const mutation = new GraphQLObjectType({
       args: {
         user: { type: new GraphQLNonNull(GraphQLID) },
         book: { type: new GraphQLNonNull(GraphQLID) },
-        content: { type: (GraphQLString) },
-        hidden: { type: (GraphQLBoolean) },
-        recommendTo: { type: (GraphQLString) },
-        privateNotes: { type: (GraphQLString) },
-        owned: { type: (GraphQLBoolean) },
-        postToBlog: { type: (GraphQLBoolean) },
-        addToFeed: { type: (GraphQLBoolean) },
+        content: { type: GraphQLString },
+        hidden: { type: GraphQLBoolean },
+        recommendTo: { type: GraphQLString },
+        privateNotes: { type: GraphQLString },
+        owned: { type: GraphQLBoolean },
+        postToBlog: { type: GraphQLBoolean },
+        addToFeed: { type: GraphQLBoolean }
       },
       async resolve(
         _,
@@ -892,10 +893,9 @@ const mutation = new GraphQLObjectType({
           privateNotes,
           owned,
           postToBlog,
-          addToFeed,
+          addToFeed
         }
       ) {
-
         let review = new Review({
           user,
           book,
@@ -905,20 +905,20 @@ const mutation = new GraphQLObjectType({
           privateNotes,
           owned,
           postToBlog,
-          addToFeed,
+          addToFeed
         });
 
-        const bookObj = await Book.findById(book)
-        const userObj = await User.findById(user)
+        const bookObj = await Book.findById(book);
+        const userObj = await User.findById(user);
 
-        bookObj.reviews.push(review)
-        userObj.reviews.push(review)
-        await Promise.all([bookObj.save(), userObj.save(), review.save()])
+        bookObj.reviews.push(review);
+        userObj.reviews.push(review);
+        await Promise.all([bookObj.save(), userObj.save(), review.save()]);
 
-        review.book = bookObj
-        review.user = userObj
+        review.book = bookObj;
+        review.user = userObj;
 
-        return review
+        return review;
       }
     },
 
@@ -1043,6 +1043,45 @@ const mutation = new GraphQLObjectType({
       },
       resolve(_, { shelfId, bookId }) {
         return Shelf.removeBook(shelfId, bookId);
+      }
+    },
+
+    beUnFriend: {
+      type: new GraphQLList(UserType),
+      args: {
+        myId: { type: GraphQLID },
+        theirId: { type: GraphQLID },
+        requestType: { type: GraphQLString }
+      },
+      async resolve(_, { myId, theirId, requestType }) {
+        const me = await User.findById(myId);
+        const them = await User.findById(theirId);
+
+        if (
+          requestType === "send request" ||
+          requestType === "accept request"
+        ) {
+          me.friends.push(them._id);
+        } else if (requestType === "reject request") {
+          them.friends = them.friends.filter(
+            friendId => friendId.toString() !== me._id.toString()
+          );
+        } else if (requestType === "cancel request") {
+          me.friends = me.friends.filter(
+            friendId => friendId.toString() !== them._id.toString()
+          );
+        } else if (requestType === "remove friend") {
+          me.friends = me.friends.filter(
+            friendId => friendId.toString() !== them._id.toString()
+          );
+          them.friends = them.friends.filter(
+            friendId => friendId.toString() !== me._id.toString()
+          );
+        }
+
+        await Promise.all([me.save(), them.save()]);
+
+        return [me, them];
       }
     }
   }

@@ -91,6 +91,14 @@ const RootQueryType = new GraphQLObjectType({
           .limit(30);
       }
     },
+    friendIds: {
+      type: new GraphQLList(GraphQLID),
+      args: { userId: { type: GraphQLID } },
+      async resolve(_, { userId }) { 
+        const user = await User.findById(userId);
+        return user.friends
+      }
+    },
     book: {
       type: BookType,
       args: { _id: { type: GraphQLID } },
