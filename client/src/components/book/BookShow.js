@@ -148,7 +148,7 @@ export default withRouter(
                           className="genre"
                           style={placeBorder(index, book.genres.length)}
                         >
-                          {genre}
+                          <Link to={`/genres/${genre}`}>{genre}</Link>
                         </div>
                       ))}
                     </div>
