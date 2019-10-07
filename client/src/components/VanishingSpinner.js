@@ -7,11 +7,6 @@ export default class VanishingSpinner extends Component {
     this.state = { vanish: false };
   }
 
-  // componentWillReceiveProps() {
-  //   this.setState({ vanish: false });
-  //   this.vanish();
-  // }
-
   componentWillUnmount() {
     clearTimeout(this.timeout);
   }
@@ -35,6 +30,7 @@ export default class VanishingSpinner extends Component {
   }
 
   vanish() {
+    if (this.icon && this.icon.offsetTop < window.innerHeight) 
     this.timeout = setTimeout(() => {
       clearTimeout(this.timeout);
       this.setState({ vanish: true });
