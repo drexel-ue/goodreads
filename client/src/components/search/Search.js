@@ -86,24 +86,6 @@ export default withRouter(
                   Search
                 </div>
               </form>
-              <div className="radio_row">
-                <div className="duo">
-                  <input type="radio" />
-                  <div className="label">all</div>
-                </div>
-                <div className="duo">
-                  <input type="radio" />
-                  <div className="label">title</div>
-                </div>
-                <div className="duo">
-                  <input type="radio" />
-                  <div className="label">author</div>
-                </div>
-                <div className="duo">
-                  <input type="radio" />
-                  <div className="label">genre</div>
-                </div>
-              </div>
             </div>
             {this.state.queryString ? (
               <div className="page">{`Results for "${this.state.queryString}"`}</div>

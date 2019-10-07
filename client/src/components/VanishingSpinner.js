@@ -7,10 +7,10 @@ export default class VanishingSpinner extends Component {
     this.state = { vanish: false };
   }
 
-  componentWillReceiveProps() {
-    this.setState({ vanish: false });
-    this.vanish();
-  }
+  // componentWillReceiveProps() {
+  //   this.setState({ vanish: false });
+  //   this.vanish();
+  // }
 
   componentWillUnmount() {
     clearTimeout(this.timeout);
@@ -18,10 +18,25 @@ export default class VanishingSpinner extends Component {
 
   componentDidMount() {
     this.vanish();
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (this.icon && this.icon.offsetTop < window.innerHeight) {
+          console.log("onscreen");
+          console.log(this.state.vanish, !this.timeout);
+          if (this.state.vanish || !this.timeout) {
+            console.log("resetting");
+            this.setState({ vanish: false });
+          }
+        }
+      },
+      false
+    );
   }
 
   vanish() {
     this.timeout = setTimeout(() => {
+      clearTimeout(this.timeout);
       this.setState({ vanish: true });
     }, 1000);
   }
@@ -30,7 +45,12 @@ export default class VanishingSpinner extends Component {
     return this.state.vanish ? (
       <div />
     ) : (
-      <i className="fas fa-spinner fa-pulse"></i>
+      <i
+        ref={icon => {
+          this.icon = icon;
+        }}
+        className="fas fa-spinner fa-pulse"
+      ></i>
     );
   }
 }

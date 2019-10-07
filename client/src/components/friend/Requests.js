@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Query, ApolloConsumer } from "react-apollo";
 import Queries from "../../graphql/queries";
 import gql from "graphql-tag";
-import VanishingSpinner from "../VanishingSpinner";
 import { Link } from "react-router-dom";
 import FriendButton from "./FriendButton";
 import "./Requests.scss";
@@ -27,14 +26,16 @@ export default class Requests extends Component {
             return (
               <Query query={FRIEND_IDS} variables={{ userId: _id }}>
                 {({ data, loading, error }) => {
-                  if (loading || error) return <VanishingSpinner />;
+                  if (loading || error)
+                    return <i className="fas fa-spinner fa-pulse"></i>;
 
                   const { friendIds } = data;
 
                   return (
                     <Query query={MAYBE_FRIENDS} variables={{ userId: _id }}>
                       {({ loading, error, data, refetch }) => {
-                        if (loading || error) return <VanishingSpinner />;
+                        if (loading || error)
+                          return <i className="fas fa-spinner fa-pulse"></i>;
 
                         const { maybeFriends } = data;
                         const requests = maybeFriends.filter(
@@ -105,7 +106,6 @@ export default class Requests extends Component {
                                 </div>
                               );
                             })}
-                            <VanishingSpinner />
                           </div>
                         );
                       }}
