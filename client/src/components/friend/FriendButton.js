@@ -98,7 +98,10 @@ export default class FriendButton extends Component {
                       theirId: this.props.theirId,
                       requestType
                     }}
-                    onCompleted={() => this.setState()}
+                    onCompleted={() => {
+                      if (this.props.onClick) this.props.onClick();
+                      this.setState();
+                    }}
                   >
                     {mutateFriendship => (
                       <div

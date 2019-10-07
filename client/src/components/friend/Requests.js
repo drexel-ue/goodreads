@@ -31,7 +31,7 @@ export default class Requests extends Component {
 
                 return (
                   <Query query={MAYBE_FRIENDS} variables={{ userId: _id }}>
-                    {({ loading, error, data }) => {
+                    {({ loading, error, data, refetch }) => {
                       if (loading || error) return <VanishingSpinner />;
 
                       const { maybeFriends } = data;
@@ -70,7 +70,10 @@ export default class Requests extends Component {
                                         <div className="book_count">{`${bookCount} books | `}</div>
                                         <div className="friend_count">{`${friendCount} friends`}</div>
                                       </div>
-                                      <FriendButton theirId={friend._id} />
+                                      <FriendButton
+                                        onClick={refetch}
+                                        theirId={friend._id}
+                                      />
                                     </div>
                                   </div>
                                   {friend.currentlyReading &&
