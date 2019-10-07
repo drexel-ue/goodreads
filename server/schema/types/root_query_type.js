@@ -51,7 +51,11 @@ const RootQueryType = new GraphQLObjectType({
         return await User.find({
           $and: [
             { $or: [{ name: regexp }, { email: regexp }] },
-            { friends: { $not: { $regex: mongoose.Types.ObjectId(userId).toString() } } }
+            {
+              friends: {
+                $not: { $regex: mongoose.Types.ObjectId(userId).toString() }
+              }
+            }
           ]
         })
           .populate({
@@ -91,12 +95,29 @@ const RootQueryType = new GraphQLObjectType({
           .limit(30);
       }
     },
+    maybeFriends: {
+      type: new GraphQLList(UserType),
+      args: {
+        offset: { type: GraphQLInt },
+        userId: { type: GraphQLID }
+      },
+      async resolve(_, { offset, userId }) {
+        const user = await User.findById(userId)
+          .populate({
+            path: "friends",
+            populate: { path: "shelves" }
+          })
+          .skip(offset)
+          .limit(30);
+        return user.friends;
+      }
+    },
     friendIds: {
       type: new GraphQLList(GraphQLID),
       args: { userId: { type: GraphQLID } },
-      async resolve(_, { userId }) { 
+      async resolve(_, { userId }) {
         const user = await User.findById(userId);
-        return user.friends
+        return user.friends;
       }
     },
     book: {
