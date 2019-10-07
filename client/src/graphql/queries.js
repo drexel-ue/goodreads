@@ -56,6 +56,19 @@ export default {
       }
     }
   `,
+  MAYBE_FRIENDS: gql`
+    query MaybeFriends($offset: Int!, $userId: ID!) {
+      maybeFriends(offset: $offset, userId: $userId) {
+        _id
+        name
+        profilePhoto
+        friendIds
+        shelves {
+          bookIds
+        }
+      }
+    }
+  `,
   FRIEND_IDS: gql`
     query FriendIds($userId: ID!) {
       friendIds(userId: $userId)
