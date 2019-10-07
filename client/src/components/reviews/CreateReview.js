@@ -37,9 +37,8 @@ class CreateReview extends React.Component {
     }
     updateBoxes(field) {
         return e => {
-            console.log(`before : `, this.state)
-            console.log(`before : `, this.state[field])
-            this.setState({ [field]: !this.state[field] }, () => console.log("after : ", this.state))}
+            this.setState({ [field]: !this.state[field] })
+        }
     }
     updateCache(cache, { data }) {
         let reviews;
@@ -109,7 +108,7 @@ class CreateReview extends React.Component {
                                 )
                                 return (
                                     <div className="review-book-container">
-                                        <img className="review-book-img" src={book.coverPhoto}></img> 
+                                        <img className="review-book-img" src={book.coverPhoto}alt=""/> 
                                         <div className="review-book-details-container">
                                             <Link to={`/book/${this.state.book}`} className="review-book-title">{book.title}</Link>
                                             <div>by {authors.join(", ")}</div>
@@ -118,6 +117,7 @@ class CreateReview extends React.Component {
                                 )
                                 }}
                         </Query>
+
                         <Mutation
                             mutation={CREATE_REVIEW}
                             onError={err => this.setState({ message: err.message })}

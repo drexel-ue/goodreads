@@ -1,8 +1,7 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Query, ApolloConsumer } from "react-apollo";
 import Queries from "../../graphql/queries";
-import gql from "graphql-tag";
 import BookReviewContent from "./BookReviewContent"
 import RatedRow from "../book/RatedRow"
 import "./BookReview.css"
@@ -10,11 +9,6 @@ import "./BookReview.css"
 const { FETCH_REVIEWS_BY_BOOK, FETCH_RATING_BY_USER_AND_BOOK_ID } = Queries
 
 class BookReview extends React.Component{
-    constructor(props){
-        super(props)
-        // debugger
-    }
-
     render() {
         return (
             <ApolloConsumer>{client => (
@@ -43,7 +37,7 @@ class BookReview extends React.Component{
                         <ul className="review-list-container">
                             {allReviews.map((review, index) => 
                                 <li className="review-list-item-container"key={index}>
-                                    <img className="review-list-item-photo" src={review.profilePhoto}/> 
+                                    <img className="review-list-item-photo" src={review.profilePhoto} alt=""/> 
                                     <div className="review-list-item-subcontainer">   
                                         <div className="review-list-item-name-date-container">
                                             <div className="review-list-item-name">{review.username}</div>
