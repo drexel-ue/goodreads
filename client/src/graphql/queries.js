@@ -57,8 +57,8 @@ export default {
     }
   `,
   MAYBE_FRIENDS: gql`
-    query MaybeFriends($offset: Int!, $userId: ID!) {
-      maybeFriends(offset: $offset, userId: $userId) {
+    query MaybeFriends($userId: ID!) {
+      maybeFriends(userId: $userId) {
         _id
         name
         profilePhoto

@@ -98,17 +98,13 @@ const RootQueryType = new GraphQLObjectType({
     maybeFriends: {
       type: new GraphQLList(UserType),
       args: {
-        offset: { type: GraphQLInt },
         userId: { type: GraphQLID }
       },
-      async resolve(_, { offset, userId }) {
-        const user = await User.findById(userId)
-          .populate({
-            path: "friends",
-            populate: { path: "shelves" }
-          })
-          .skip(offset)
-          .limit(30);
+      async resolve(_, { userId }) {
+        const user = await User.findById(userId).populate({
+          path: "friends",
+          populate: { path: "shelves" }
+        });
         return user.friends;
       }
     },

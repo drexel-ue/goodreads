@@ -5,6 +5,7 @@ import { Query, ApolloConsumer } from "react-apollo";
 import InfiniteScroll from "./InfiniteScroll";
 import VanishingSpinner from "../VanishingSpinner";
 import "./Make.scss";
+import Requests from "./Requests";
 
 const { NON_FRIENDS } = Queries;
 
@@ -91,7 +92,9 @@ export default class Make extends Component {
             </ApolloConsumer>
           </div>
         </div>
-        <div className="side">sjlsjlks</div>
+        <div className="side">
+          <Requests />
+        </div>
       </div>
     );
   }

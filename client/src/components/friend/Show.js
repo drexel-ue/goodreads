@@ -5,6 +5,7 @@ import Queries from "../../graphql/queries";
 import "./Show.scss";
 import InfiniteScroll from "./InfiniteScroll";
 import VanishingSpinner from "../VanishingSpinner";
+import Requests from "./Requests";
 
 const { FRIENDS } = Queries;
 
@@ -91,6 +92,9 @@ export default class Show extends Component {
               }}
             </ApolloConsumer>
           </div>
+        </div>
+        <div className="side">
+          <Requests />
         </div>
       </div>
     );

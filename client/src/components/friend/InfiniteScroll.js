@@ -63,7 +63,8 @@ export default class InfiniteScroll extends Component {
                     <FriendButton theirId={friend._id} />
                   </div>
                 </div>
-                {friend.currentlyReading ? (
+                {friend.currentlyReading &&
+                this.props.location !== "requests" ? (
                   <div className="section_2">
                     <img className="cover" alt="cover" src={book.coverPhoto} />
                     <div className="info">

@@ -25,6 +25,7 @@
         }
         .stats_row {
           display: flex;
+          width: max-content;
           .book_count {
             margin-right: 3px;
           }
