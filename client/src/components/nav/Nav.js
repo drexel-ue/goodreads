@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { Query, ApolloConsumer } from "react-apollo";
 import Queries from "../../graphql/queries";
 import Login from "../session/Login";
+import ScrollToTop from "./scroll_to_top";
 import "./Nav.css";
 import "./search_bar.scss";
 const { IS_LOGGED_IN, BOOK_SEARCH } = Queries;
@@ -78,6 +79,7 @@ class Nav extends React.Component {
               if (data.isLoggedIn) {
                 return (
                   <div className="navbar">
+                    <ScrollToTop />
                     <div className="navbar-contents">
                       <div className="logo">
                         <Link to="/" className="in-logo">
