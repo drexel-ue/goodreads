@@ -6,6 +6,7 @@ import Bookshelf from './links/bookshelf/Bookshelf';
 import NewReleases from './links/new_releases/NewReleases';
 import Explore from './links/explore/Explore';
 import UserProfile from './user/UserProfile';
+import About from './links/about/About';
 import {
   // Route,
   Switch
@@ -95,6 +96,12 @@ const App = () => {
           exact={false}
           path="/search"
           component={Search}
+          routeType="protected"
+        />
+        <AuthRoute
+          exact={false}
+          path="/about"
+          component={About}
           routeType="protected"
         />
       </Switch>

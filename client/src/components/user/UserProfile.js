@@ -19,7 +19,7 @@ const UserProfile = props => {
                                 <div className='profile-float'>
                                     <div className='left-profile-container'>
                                         <div className='profile-picture'>
-                                            <img src={data.user.profilePhoto}></img>
+                                            <img src={data.user.profilePhoto} alt='user'></img>
                                             <br></br>
                                         </div>
                                         <div className='user-info'>

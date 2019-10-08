@@ -120,31 +120,14 @@ class Nav extends React.Component {
                                   </Link>
                                 </li>
                                 <li className="nav-list-item">
-                                  <div className="dropdown">
-                                    <button className="dropbtn" onClick={this.browse}>
-                                      Browse
-                                    </button>
-                                    <div
-                                      onMouseEnter={this.showDropdown(
-                                        "showBrowseDropdown"
-                                      )}
-                                      onMouseLeave={this.hideDropdown(
-                                        "showBrowseDropdown"
-                                      )}
-                                      className={`dropdown-content ${
-                                        this.state.showBrowseDropdown
-                                          ? "reveal"
-                                          : "hide"
-                                      }`}
-                                    >
-                                      <div className="dropdown-item">
-                                        <Link to="/new_releases">New Releases</Link>
-                                      </div>
-                                      <div className="dropdown-item">
-                                        <Link to="/book">Explore</Link>
-                                      </div>
-                                    </div>
-                                  </div>
+                                  <Link to="/book" className="nav-link">
+                                    Browse
+                                  </Link>
+                                </li>
+                                <li className="nav-list-item">
+                                  <Link to="/about" className="nav-link">
+                                    About
+                                  </Link>
                                 </li>
                               </ul>
                             </nav>

@@ -14,8 +14,6 @@ class CreateReview extends React.Component {
         this.state = {
             content: "",
             hidden: false,
-            // dateStarted: "",
-            // dateFinished: "",
             recommendTo: "",
             privateNotes: "",
             owned: false,
@@ -108,7 +106,7 @@ class CreateReview extends React.Component {
                                 )
                                 return (
                                     <div className="review-book-container">
-                                        <img className="review-book-img" src={book.coverPhoto}alt=""/> 
+                                        <img className="review-book-img" src={book.coverPhoto} alt='book-review'></img> 
                                         <div className="review-book-details-container">
                                             <Link to={`/book/${this.state.book}`} className="review-book-title">{book.title}</Link>
                                             <div>by {authors.join(", ")}</div>

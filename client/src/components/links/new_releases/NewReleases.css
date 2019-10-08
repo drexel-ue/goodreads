@@ -204,6 +204,8 @@ img {
 
 .popular {
     text-align: center;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .popular img {
