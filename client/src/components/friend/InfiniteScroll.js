@@ -15,6 +15,16 @@ export default class InfiniteScroll extends Component {
     this.listen();
   }
 
+  componentDidMount() {
+    const targets = document.querySelectorAll("img[data_lazy]");
+    targets.forEach(target => this.lazyLoad(target));
+  }
+
+  componentDidUpdate() {
+    const targets = document.querySelectorAll("img[data_lazy]");
+    targets.forEach(target => this.lazyLoad(target));
+  }
+
   componentWillUnmount() {
     window.removeEventListener("scroll", this.debounce, false);
   }
@@ -38,6 +48,23 @@ export default class InfiniteScroll extends Component {
     }
   }
 
+  lazyLoad(target) {
+    const io = new IntersectionObserver((enteries, observer) => {
+      enteries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          const src = img.getAttribute("data_lazy");
+
+          if (src) img.setAttribute("src", src);
+
+          observer.disconnect();
+        }
+      });
+    });
+
+    io.observe(target);
+  }
+
   render() {
     return (
       <div className="infinite_scroll">
@@ -54,7 +81,7 @@ export default class InfiniteScroll extends Component {
                   <img
                     className="profile"
                     alt="profile"
-                    src={friend.profilePhoto}
+                    data_lazy={friend.profilePhoto}
                   />
                   <div className="info">
                     <Link className="name" to="#">
@@ -73,7 +100,11 @@ export default class InfiniteScroll extends Component {
                 {friend.currentlyReading &&
                 this.props.location !== "requests" ? (
                   <div className="section_2">
-                    <img className="cover" alt="cover" src={book.coverPhoto} />
+                    <img
+                      className="cover"
+                      alt="cover"
+                      data_lazy={book.coverPhoto}
+                    />
                     <div className="info">
                       <div className="currently_reading">
                         Currently Reading:
