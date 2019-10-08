@@ -936,14 +936,14 @@ const mutation = new GraphQLObjectType({
         id: { type: GraphQLID },
         content: { type: GraphQLString },
         hidden: { type: GraphQLBoolean },
-        dateStarted: { type: GraphQLDateTime },
-        dateFinished: { type: GraphQLDateTime },
+        // dateStarted: { type: GraphQLDateTime },
+        // dateFinished: { type: GraphQLDateTime },
         recommendTo: { type: GraphQLString },
         privateNotes: { type: GraphQLString },
         owned: { type: GraphQLBoolean },
         postToBlog: { type: GraphQLBoolean },
         addToFeed: { type: GraphQLBoolean },
-        date: { type: GraphQLDateTime }
+        // date: { type: GraphQLDateTime }
       },
       resolve(
         _,
@@ -965,15 +965,15 @@ const mutation = new GraphQLObjectType({
 
         if (content) updateReviewField.content = content;
         if (hidden) updateReviewField.hidden = hidden;
-        if (dateStarted) updateReviewField.dateStarted = dateStarted;
-        if (dateFinished) updateReviewField.dateFinished = dateFinished;
+        // if (dateStarted) updateReviewField.dateStarted = dateStarted;
+        // if (dateFinished) updateReviewField.dateFinished = dateFinished;
         if (recommendTo) updateReviewField.recommendTo = recommendTo;
         // if (recommendBy) updateReviewField.recommendBy = recommendBy;
         if (privateNotes) updateReviewField.privateNotes = privateNotes;
         if (owned) updateReviewField.owned = owned;
         if (postToBlog) updateReviewField.postToBlog = postToBlog;
         if (addToFeed) updateReviewField.addToFeed = addToFeed;
-        if (date) updateReviewField.date = date;
+        // if (date) updateReviewField.date = date;
 
         return Review.findOneAndUpdate(
           { _id: id },

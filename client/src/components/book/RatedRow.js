@@ -4,7 +4,7 @@ import "./BookShow.scss";
 export default class RatedRow extends Component {
   render() {
     const lit = index => ({
-      color: index <= this.props.rating ? "darkorgange" : "#aaa"
+      color: index <= this.props.rating ? "darkorange" : "#aaa"
     });
 
     return (

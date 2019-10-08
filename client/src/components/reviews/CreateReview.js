@@ -5,7 +5,7 @@ import Queries from "../../graphql/queries";
 import Mutations from "../../graphql/mutations"
 import gql from "graphql-tag";
 import "./CreateReview.css"
-import StarRow from "../book/StarRow"
+import ReviewRating from "./ReviewRating"
 const { CREATE_REVIEW } = Mutations
 const { FETCH_REVIEWS_BY_BOOK, BOOK_BY_ID } = Queries
 class CreateReview extends React.Component {
@@ -35,7 +35,8 @@ class CreateReview extends React.Component {
     }
     updateBoxes(field) {
         return e => {
-            this.setState({ [field]: !this.state[field] }, () => console.log("after : ", this.state))}
+            this.setState({ [field]: !this.state[field] })
+        }
     }
     updateCache(cache, { data }) {
         let reviews;
@@ -114,6 +115,7 @@ class CreateReview extends React.Component {
                                 )
                                 }}
                         </Query>
+
                         <Mutation
                             mutation={CREATE_REVIEW}
                             onError={err => this.setState({ message: err.message })}
@@ -134,8 +136,7 @@ class CreateReview extends React.Component {
                             (<div className="review-form-container">
                                 <form onSubmit={e => this.handleSubmit(e, newReview)}>
                                     <div className="review-rating-container"> 
-                                        <div>My rating: </div>
-                                        <StarRow bookId={this.state.book} />
+                                        <ReviewRating bookId={this.state.book} />
                                     </div>
                                     <div className="review-form-content-container">What did you think?
                                         <textarea
