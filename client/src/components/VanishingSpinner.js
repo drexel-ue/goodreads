@@ -17,10 +17,7 @@ export default class VanishingSpinner extends Component {
       "scroll",
       () => {
         if (this.icon && this.icon.offsetTop < window.innerHeight) {
-          console.log("onscreen");
-          console.log(this.state.vanish, !this.timeout);
           if (this.state.vanish || !this.timeout) {
-            console.log("resetting");
             this.setState({ vanish: false });
           }
         }
@@ -30,11 +27,11 @@ export default class VanishingSpinner extends Component {
   }
 
   vanish() {
-    if (this.icon && this.icon.offsetTop < window.innerHeight) 
-    this.timeout = setTimeout(() => {
-      clearTimeout(this.timeout);
-      this.setState({ vanish: true });
-    }, 1000);
+    if (this.icon && this.icon.offsetTop < window.innerHeight)
+      this.timeout = setTimeout(() => {
+        clearTimeout(this.timeout);
+        this.setState({ vanish: true });
+      }, 1000);
   }
 
   render() {

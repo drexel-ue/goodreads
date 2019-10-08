@@ -60,6 +60,7 @@ export default class Make extends Component {
                     }}
                   >
                     {({ loading, error, data, fetchMore }) => {
+                      // debugger;
                       if (loading || error) return <VanishingSpinner />;
                       const { nonFriends } = data;
                       return (

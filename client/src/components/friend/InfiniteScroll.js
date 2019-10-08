@@ -8,8 +8,11 @@ export default class InfiniteScroll extends Component {
   constructor(props) {
     super(props);
 
+    this.state = { spin: false };
+
     this.timeout = undefined;
     this.debounce = this.debounce.bind(this);
+
     this.listen();
   }
 
@@ -29,8 +32,10 @@ export default class InfiniteScroll extends Component {
     ) {
       this.timeout = setTimeout(() => {
         this.timeout = undefined;
-        this.props.onLoadMore();
-      }, 2000);
+        this.setState({ spin: true }, () => {
+          this.props.onLoadMore().then(() => this.setState({ spin: false }));
+        });
+      }, 1000);
     }
   }
 
@@ -87,7 +92,11 @@ export default class InfiniteScroll extends Component {
             </div>
           );
         })}
-        <VanishingSpinner count={this.props.items.length} />
+        {this.state.spin ? (
+          <i className="fas fa-spinner fa-pulse"></i>
+        ) : (
+          <div />
+        )}
       </div>
     );
   }

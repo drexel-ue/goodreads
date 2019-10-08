@@ -58,6 +58,7 @@ export default class FriendButton extends Component {
 
                 const myFriendIds = myFriends.data.friendIds;
                 const theirFriendIds = theirFriends.data.friendIds;
+
                 const mutualFriends =
                   myFriendIds.includes(this.props.theirId) &&
                   theirFriendIds.includes(_id);
