@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import FriendButton from "./FriendButton";
+
 import "./InfiniteScroll.scss";
+import lazyLoad from "../../util/lazy_loader";
 
 export default class InfiniteScroll extends Component {
   constructor(props) {
@@ -17,12 +19,12 @@ export default class InfiniteScroll extends Component {
 
   componentDidMount() {
     const targets = document.querySelectorAll("img[data_lazy]");
-    targets.forEach(target => this.lazyLoad(target));
+    targets.forEach(target => lazyLoad(target));
   }
 
   componentDidUpdate() {
     const targets = document.querySelectorAll("img[data_lazy]");
-    targets.forEach(target => this.lazyLoad(target));
+    targets.forEach(target => lazyLoad(target));
   }
 
   componentWillUnmount() {
@@ -46,23 +48,6 @@ export default class InfiniteScroll extends Component {
         });
       }, 500);
     }
-  }
-
-  lazyLoad(target) {
-    const io = new IntersectionObserver((enteries, observer) => {
-      enteries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          const src = img.getAttribute("data_lazy");
-
-          if (src) img.setAttribute("src", src);
-
-          observer.disconnect();
-        }
-      });
-    });
-
-    io.observe(target);
   }
 
   render() {
