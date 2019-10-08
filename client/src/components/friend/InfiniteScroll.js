@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import VanishingSpinner from "../VanishingSpinner";
 import FriendButton from "./FriendButton";
 import "./InfiniteScroll.scss";
 
@@ -35,7 +34,7 @@ export default class InfiniteScroll extends Component {
         this.setState({ spin: true }, () => {
           this.props.onLoadMore().then(() => this.setState({ spin: false }));
         });
-      }, 1000);
+      }, 500);
     }
   }
 
