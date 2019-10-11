@@ -67,7 +67,7 @@ class Explore extends React.Component {
                           let results = [];
                           if (data) results = data.bookSearch;
                           return (
-                            <form className="search">
+                            <div className="search">
                               <input
                                 onChange={this.handleInput}
                                 onClick={this.handleInput}
@@ -130,7 +130,7 @@ class Explore extends React.Component {
                                   </div>
                                 </Link>
                               </div>
-                            </form>
+                            </div>
                           );
                         }}
                       </Query>
@@ -260,7 +260,7 @@ class Explore extends React.Component {
                                                                         </div>
                                                                     </div>
                                                                 );
-                                                            } return <div></div>
+                                                            } return <div key={index}></div>
                                                         });
                                                     }
                                                 }}
@@ -303,7 +303,7 @@ class Explore extends React.Component {
                                                                         <div className='clear'></div>
                                                                     </div>
                                                                 );
-                                                            } return <div></div>
+                                                            } return <div key={index}></div>
                                                         });
                                                     }
                                                 }}
@@ -339,7 +339,7 @@ class Explore extends React.Component {
                                                                         <div className='clear'></div>
                                                                     </div>
                                                                 );
-                                                            } return <div></div>
+                                                            } return <div key={index}></div>
                                                         });
                                                     }
                                                 }}
