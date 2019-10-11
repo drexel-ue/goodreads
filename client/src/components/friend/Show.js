@@ -1,5 +1,13 @@
 import React, { Component } from "react";
+import gql from "graphql-tag";
+import { Query, ApolloConsumer } from "react-apollo";
+import Queries from "../../graphql/queries";
 import "./Show.scss";
+import InfiniteScroll from "./InfiniteScroll";
+import VanishingSpinner from "../VanishingSpinner";
+import Requests from "./Requests";
+
+const { FRIENDS } = Queries;
 
 export default class Show extends Component {
   constructor(props) {
@@ -9,7 +17,7 @@ export default class Show extends Component {
       queryString: ""
     };
 
-    this.handleInput=this.handleInput.bind(this)
+    this.handleInput = this.handleInput.bind(this);
   }
 
   handleInput(event) {
@@ -31,8 +39,63 @@ export default class Show extends Component {
             />
             <div className="submit">Search</div>
           </div>
+          <div className="show_friends_results">
+            <ApolloConsumer>
+              {client => {
+                const { _id } = client.readQuery({
+                  query: gql`
+                    query CachedUser {
+                      _id
+                    }
+                  `
+                });
+
+                return (
+                  <Query
+                    query={FRIENDS}
+                    variables={{
+                      userId: _id,
+                      queryString: this.state.queryString,
+                      offset: 0
+                    }}
+                  >
+                    {({ loading, error, data, fetchMore }) => {
+                      if (loading || error) return <VanishingSpinner />;
+
+                      const { friends } = data;
+                      return (
+                        <InfiniteScroll
+                          items={friends}
+                          onLoadMore={() =>
+                            fetchMore({
+                              variables: {
+                                queryString: this.state.queryString,
+                                offset: friends.length,
+                                limit: 30
+                              },
+                              updateQuery: (prev, { fetchMoreResult }) => {
+                                if (!fetchMoreResult) return prev;
+                                return Object.assign({}, prev, {
+                                  friends: [
+                                    ...prev.friends,
+                                    ...fetchMoreResult.friends
+                                  ]
+                                });
+                              }
+                            })
+                          }
+                        />
+                      );
+                    }}
+                  </Query>
+                );
+              }}
+            </ApolloConsumer>
+          </div>
         </div>
-        <div className="side">sjlsjlks</div>
+        <div className="side">
+          <Requests />
+        </div>
       </div>
     );
   }

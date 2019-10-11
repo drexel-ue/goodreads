@@ -4,6 +4,8 @@ import "./InfiniteScroll.scss";
 import RatedRow from "../book/RatedRow";
 import ShelfButton from "../book/ShelfButton";
 import StarRow from "../book/StarRow";
+import VanishingSpinner from "../VanishingSpinner";
+import lazyLoad from "../../util/lazy_loader";
 
 export default class InfiniteScroll extends Component {
   constructor(props) {
@@ -12,6 +14,16 @@ export default class InfiniteScroll extends Component {
     this.timeout = undefined;
     this.debounce = this.debounce.bind(this);
     this.listen();
+  }
+
+  componentDidMount() {
+    const targets = document.querySelectorAll("img[data_lazy]");
+    targets.forEach(target => lazyLoad(target));
+  }
+
+  componentDidUpdate() {
+    const targets = document.querySelectorAll("img[data_lazy]");
+    targets.forEach(target => lazyLoad(target));
   }
 
   componentWillUnmount() {
@@ -43,7 +55,11 @@ export default class InfiniteScroll extends Component {
             <div key={index}>
               <Link key={index} to={`/book/${book._id}`}>
                 <div className="search_bar_result">
-                  <img className="cover" alt="cover" src={book.coverPhoto} />
+                  <img
+                    className="cover"
+                    alt="cover"
+                    data_lazy={book.coverPhoto}
+                  />
                   <div className="info">
                     <div className="title">{book.title}</div>
                     <div className="author_row">
@@ -90,11 +106,7 @@ export default class InfiniteScroll extends Component {
             </div>
           );
         })}
-        {this.props.items.length > 0 ? (
-          <i className="fas fa-spinner fa-pulse"></i>
-        ) : (
-          <div />
-        )}
+        <VanishingSpinner />
       </div>
     );
   }

@@ -1,16 +1,14 @@
 import React from "react";
 import AuthRoute from "./session/AuthRoute";
 import Nav from "./nav/Nav";
-import AuthHome from './links/home/AuthHome';
-import Bookshelf from './links/bookshelf/Bookshelf';
-import NewReleases from './links/new_releases/NewReleases';
-import Explore from './links/explore/Explore';
-import UserProfile from './user/UserProfile';
-import About from './links/about/About';
-import {
-  // Route,
-  Switch
-} from "react-router-dom";
+import AuthHome from "./links/home/AuthHome";
+import Bookshelf from "./links/bookshelf/Bookshelf";
+import NewReleases from "./links/new_releases/NewReleases";
+import Explore from "./links/explore/Explore";
+import UserProfile from "./user/UserProfile";
+import About from "./links/about/About";
+
+import { Switch } from "react-router-dom";
 import Login from "./session/Login";
 import Friends from "./friend/friends";
 
@@ -64,7 +62,7 @@ const App = () => {
           routeType="protected"
         />
         <AuthRoute
-          exact
+          exact={false}
           path="/friend"
           component={Friends}
           routeType="protected"
@@ -87,11 +85,7 @@ const App = () => {
           component={CreateReview}
           routeType="protected"
         />
-        <AuthRoute 
-          exact
-          path="/users/:userId"
-          component={UserProfile}
-        />
+        <AuthRoute exact path="/users/:userId" component={UserProfile} />
         <AuthRoute
           exact={false}
           path="/search"

@@ -42,26 +42,25 @@ const RootQueryType = new GraphQLObjectType({
         });
       }
     },
-    users: {
+    nonFriends: {
       type: new GraphQLList(UserType),
-      args: { queryString: { type: GraphQLString } },
-      async resolve(_, { queryString }) {
-        if (queryString) {
-          const regexp = new RegExp("^" + queryString, "i");
-          return await User.find({
-            $or: [{ name: regexp }, { email: regexp }]
-          })
-            .populate({
-              path: "currentlyReading",
-              populate: {
-                path: "authors"
+      args: {
+        offset: { type: GraphQLInt },
+        queryString: { type: GraphQLString },
+        userId: { type: GraphQLID }
+      },
+      async resolve(_, { offset, queryString, userId }) {
+        const regexp = new RegExp("^" + queryString, "i");
+        return await User.find({
+          $and: [
+            { $or: [{ name: regexp }, { email: regexp }] },
+            {
+              friends: {
+                $not: { $regex: mongoose.Types.ObjectId(userId).toString() }
               }
-            })
-            .populate("shelves")
-            .limit(30);
-        }
-
-        return await User.find({})
+            }
+          ]
+        })
           .populate({
             path: "currentlyReading",
             populate: {
@@ -69,7 +68,55 @@ const RootQueryType = new GraphQLObjectType({
             }
           })
           .populate("shelves")
+          .skip(offset)
           .limit(30);
+      }
+    },
+    friends: {
+      type: new GraphQLList(UserType),
+      args: {
+        offset: { type: GraphQLInt },
+        queryString: { type: GraphQLString },
+        userId: { type: GraphQLID }
+      },
+      async resolve(_, { offset, queryString, userId }) {
+        const regexp = new RegExp("^" + queryString, "i");
+        return await User.find({
+          $and: [
+            { $or: [{ name: regexp }, { email: regexp }] },
+            { friends: mongoose.Types.ObjectId(userId) }
+          ]
+        })
+          .populate({
+            path: "currentlyReading",
+            populate: {
+              path: "authors"
+            }
+          })
+          .populate("shelves")
+          .skip(offset)
+          .limit(30);
+      }
+    },
+    maybeFriends: {
+      type: new GraphQLList(UserType),
+      args: {
+        userId: { type: GraphQLID }
+      },
+      async resolve(_, { userId }) {
+        const user = await User.findById(userId).populate({
+          path: "friends",
+          populate: { path: "shelves" }
+        });
+        return user.friends;
+      }
+    },
+    friendIds: {
+      type: new GraphQLList(GraphQLID),
+      args: { userId: { type: GraphQLID } },
+      async resolve(_, { userId }) {
+        const user = await User.findById(userId);
+        return user.friends;
       }
     },
     book: {

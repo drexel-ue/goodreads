@@ -21,22 +21,6 @@ export default withRouter(
 
       this.holdQueryString = this.holdQueryString.bind(this);
       this.commenceSearch = this.commenceSearch.bind(this);
-      this.displayFAB = this.displayFAB.bind(this);
-    }
-
-    componentDidMount() {
-      window.addEventListener("scroll", this.displayFAB, false);
-    }
-
-    componentWillUnmount() {
-      window.removeEventListener("scroll", this.displayFAB, false);
-    }
-
-    displayFAB() {
-      if (window.innerHeight + window.pageYOffset >= window.innerHeight * 2)
-        this.setState({ showFAB: true });
-      if (window.innerHeight + window.pageYOffset <= window.innerHeight * 2)
-        this.setState({ showFAB: false });
     }
 
     holdQueryString(event) {
@@ -47,26 +31,6 @@ export default withRouter(
     commenceSearch(event) {
       event.preventDefault();
       this.setState({ queryString: this.queryString });
-    }
-
-    toTop() {
-      const style = {
-        top: `${window.innerHeight - 80}px`,
-        right: "100px"
-      };
-      if (this.state.showFAB) {
-        return (
-          <div
-            className="to_top"
-            style={style}
-            onClick={() => window.scrollTo(0, 0)}
-          >
-            <i className="fas fa-sort-up"></i>
-          </div>
-        );
-      } else {
-        return <div></div>;
-      }
     }
 
     render() {
@@ -86,24 +50,6 @@ export default withRouter(
                   Search
                 </div>
               </form>
-              <div className="radio_row">
-                <div className="duo">
-                  <input type="radio" />
-                  <div className="label">all</div>
-                </div>
-                <div className="duo">
-                  <input type="radio" />
-                  <div className="label">title</div>
-                </div>
-                <div className="duo">
-                  <input type="radio" />
-                  <div className="label">author</div>
-                </div>
-                <div className="duo">
-                  <input type="radio" />
-                  <div className="label">genre</div>
-                </div>
-              </div>
             </div>
             {this.state.queryString ? (
               <div className="page">{`Results for "${this.state.queryString}"`}</div>
@@ -144,13 +90,12 @@ export default withRouter(
                         }
                       })
                     }
-                  ></InfiniteScroll>
+                  />
                 );
               }}
             </Query>
           </div>
           <div className="side"></div>
-          {this.toTop()}
         </div>
       );
     }

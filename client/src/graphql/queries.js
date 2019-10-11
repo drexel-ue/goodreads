@@ -18,6 +18,25 @@ export default {
       }
     }
   `,
+  NON_FRIENDS: gql`
+    query NonFriends($queryString: String, $offset: Int!, $userId: ID!) {
+      nonFriends(queryString: $queryString, offset: $offset, userId: $userId) {
+        _id
+        name
+        profilePhoto
+        currentPage
+        currentlyReading {
+          _id
+          title
+          coverPhoto
+        }
+        friendIds
+        shelves {
+          bookIds
+        }
+      }
+    }
+  `,
   FETCH_USER_ID: gql`
     query FetchUser($_id: ID!) {
       user(_id: $_id) {
@@ -42,6 +61,7 @@ export default {
         profilePhoto
         currentPage
         currentlyReading {
+          _id
           title
           coverPhoto
         }
@@ -50,6 +70,43 @@ export default {
           bookIds
         }
       }
+    }
+  `,
+  FRIENDS: gql`
+    query Friends($queryString: String, $offset: Int!, $userId: ID!) {
+      friends(queryString: $queryString, offset: $offset, userId: $userId) {
+        _id
+        name
+        profilePhoto
+        currentPage
+        currentlyReading {
+          _id
+          title
+          coverPhoto
+        }
+        friendIds
+        shelves {
+          bookIds
+        }
+      }
+    }
+  `,
+  MAYBE_FRIENDS: gql`
+    query MaybeFriends($userId: ID!) {
+      maybeFriends(userId: $userId) {
+        _id
+        name
+        profilePhoto
+        friendIds
+        shelves {
+          bookIds
+        }
+      }
+    }
+  `,
+  FRIEND_IDS: gql`
+    query FriendIds($userId: ID!) {
+      friendIds(userId: $userId)
     }
   `,
   FETCH_BOOKS: gql`
@@ -219,10 +276,11 @@ export default {
   `,
   FETCH_RATING_BY_USER_AND_BOOK_ID: gql`
     query FetchRatingByUserAndBookId($bookId: ID!, $userId: ID!) {
-      ratingByUserAndBookId( bookId: $bookId, userId: $userId ) {
+      ratingByUserAndBookId(bookId: $bookId, userId: $userId) {
         stars
       }
-    }`,
+    }
+  `,
   BOOK_SEARCH: gql`
     query BookSearch($queryString: String!, $offset: Int!, $limit: Int!) {
       bookSearch(queryString: $queryString, offset: $offset, limit: $limit) {

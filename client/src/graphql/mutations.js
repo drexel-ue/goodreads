@@ -71,8 +71,7 @@ export default {
       $privateNotes: String
       $owned: Boolean
       $postToBlog: Boolean
-      $addToFeed: Boolean
-      # $date: DateTime!
+      $addToFeed: Boolean # $date: DateTime!
     ) {
       createReview(
         user: $user
@@ -86,14 +85,15 @@ export default {
         privateNotes: $privateNotes
         owned: $owned
         postToBlog: $postToBlog
-        addToFeed: $addToFeed
-        # date: $date
+        addToFeed: $addToFeed # date: $date
       ) {
-        user{
+        user {
           name
+          _id
         }
-        book{
+        book {
           title
+          _id
         }
         content
         hidden
@@ -106,6 +106,14 @@ export default {
         postToBlog
         addToFeed
         date
+      }
+    }
+  `,
+  BE_UN_FRIEND: gql`
+    mutation BeUnFriend($myId: ID!, $theirId: ID!, $requestType: String!) {
+      beUnFriend(myId: $myId, theirId: $theirId, requestType: $requestType) {
+        _id
+        friendIds
       }
     }
   `

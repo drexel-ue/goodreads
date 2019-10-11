@@ -142,7 +142,8 @@ mongoose.connect(db, { useNewUrlParser: true }).then(async () => {
         new User({
           email: faker.internet.email(),
           password: pass,
-          name: faker.name.firstName() + " " + faker.name.lastName()
+          name: faker.name.firstName() + " " + faker.name.lastName(),
+          profilePhoto: faker.internet.avatar()
         })
       );
     }

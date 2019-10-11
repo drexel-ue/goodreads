@@ -1,0 +1,18 @@
+.scroll_to_top {
+  position: fixed;
+  z-index: 1;
+  margin: 0 auto;
+  color: white;
+}
+
+.scroll_to_top .fa-sort-up {
+  background: rgb(51, 24, 3);
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 40px;
+}

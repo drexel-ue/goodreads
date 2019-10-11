@@ -88,7 +88,7 @@ export default withRouter(
                   </div>
                   <div className="rating_row">
                     <RatedRow rating={rating} />
-                    <div className="rating">{rating}</div>
+                    <div className="rating">{Math.round(rating)}</div>
                     <i className="fas fa-circle"></i>
                     <div className="details_button">
                       <i className="far fa-chart-bar"></i>
@@ -147,7 +147,7 @@ export default withRouter(
                           className="genre"
                           style={placeBorder(index, book.genres.length)}
                         >
-                          {genre}
+                          <Link to={`/genres/${genre}`}>{genre}</Link>
                         </div>
                       ))}
                     </div>

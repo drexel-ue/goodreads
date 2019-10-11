@@ -28,7 +28,7 @@ const BookItem = props => {
                 </div>
               );
             }
-            return <div></div>;
+            return <div key={idx}></div>;
           })}
         </div>
       );
