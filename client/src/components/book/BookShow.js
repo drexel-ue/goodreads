@@ -11,7 +11,6 @@ import RatedRow from "./RatedRow";
 import MainDescription from "./MainDescription";
 import StoresDropdown from "./StoresDropdown";
 import FullBookDetail from "./FullBookDetail";
-import BookReviews from "../reviews/BookReview";
 import "./BookShow.scss";
 import BookReview from "../reviews/BookReview";
 

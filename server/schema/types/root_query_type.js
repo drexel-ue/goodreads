@@ -14,12 +14,15 @@ const UserType = require("./user_type");
 const BookType = require("./book_type");
 const ShelfType = require("./shelf_type");
 const ReviewType = require("./review_type");
+const RatingType = require("./rating_type")
 
 const User = mongoose.model("users");
 const Book = mongoose.model("books");
 const Review = mongoose.model("reviews");
 const Author = mongoose.model("authors");
 const Shelf = mongoose.model("shelves");
+const Rating = mongoose.model("ratings")
+
 
 const RootQueryType = new GraphQLObjectType({
   name: "RootQueryType",
@@ -225,11 +228,22 @@ const RootQueryType = new GraphQLObjectType({
     reviewByBookId: {
       type: new GraphQLList(ReviewType),
       args: { bookId: { type: GraphQLID } },
-      async resolve(_, { bookId }) {
-        const reviews = await Review.find({ book: bookId })
-          .populate("book")
-          .populate("user");
-        return reviews;
+      async resolve(parentValue, { bookId }) {
+         const reviews = await Review.find({ book: bookId }).populate(["book", "user"])
+         return reviews
+      }
+    },
+    ratingByUserAndBookId: {
+      type: RatingType,
+      args: { bookId: { type: GraphQLID }, userId: { type: GraphQLID} },
+      async resolve(parentValue, { bookId, userId }) {
+        let rating = await Rating.findOne({
+          $and: [
+            { book: mongoose.Types.ObjectId(bookId) },
+            { user: mongoose.Types.ObjectId(userId) } 
+          ]
+        })
+        return rating
       }
     }
   })

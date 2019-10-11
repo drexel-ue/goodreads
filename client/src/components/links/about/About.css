@@ -1,0 +1,35 @@
+.column {
+    float: left;
+    width: 33.28%;
+    height: 100%;
+}
+
+.about:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.about {
+    text-align: center;
+    color: #382110;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.about h1 {
+    text-decoration: underline;
+}
+
+.about img {
+    width: 50%;
+    height: 50%;
+}
+
+.column p {
+    width: 75%;
+    padding-left: 13%;
+}
+
+.social-links a {
+    padding: 1%;
+}

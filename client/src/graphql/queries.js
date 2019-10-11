@@ -37,6 +37,41 @@ export default {
       }
     }
   `,
+  FETCH_USER_ID: gql`
+    query FetchUser($_id: ID!) {
+      user(_id: $_id) {
+        _id
+      }
+    }
+  `,
+  FETCH_USER_PROFILE: gql`
+    query FetchUser($_id: ID!) {
+      user(_id: $_id) {
+        _id
+        name
+        profilePhoto
+      }
+    }
+  `,
+  QUERY_USERS: gql`
+    query QueryUsers($queryString: String) {
+      users(queryString: $queryString) {
+        _id
+        name
+        profilePhoto
+        currentPage
+        currentlyReading {
+          _id
+          title
+          coverPhoto
+        }
+        friendIds
+        shelves {
+          bookIds
+        }
+      }
+    }
+  `,
   FRIENDS: gql`
     query Friends($queryString: String, $offset: Int!, $userId: ID!) {
       friends(queryString: $queryString, offset: $offset, userId: $userId) {
@@ -236,6 +271,13 @@ export default {
         _id
         name
         bookIds
+      }
+    }
+  `,
+  FETCH_RATING_BY_USER_AND_BOOK_ID: gql`
+    query FetchRatingByUserAndBookId($bookId: ID!, $userId: ID!) {
+      ratingByUserAndBookId(bookId: $bookId, userId: $userId) {
+        stars
       }
     }
   `,

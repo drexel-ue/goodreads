@@ -1,12 +1,13 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Query, ApolloConsumer } from "react-apollo";
+import gql from "graphql-tag";
 import Queries from "../../graphql/queries";
 import Login from "../session/Login";
-import ScrollToTop from "./scroll_to_top";
 import "./Nav.css";
 import "./search_bar.scss";
-const { IS_LOGGED_IN, BOOK_SEARCH } = Queries;
+
+const { FETCH_USER_ID, IS_LOGGED_IN, BOOK_SEARCH } = Queries;
 
 class Nav extends React.Component {
   constructor(props) {
@@ -77,9 +78,16 @@ class Nav extends React.Component {
           <Query query={IS_LOGGED_IN}>
             {({ data }) => {
               if (data.isLoggedIn) {
+                const { _id } = client.readQuery({
+                  query: gql`
+                    query CachedUser {
+                      _id
+                    }
+                  `
+                });
+
                 return (
                   <div className="navbar">
-                    <ScrollToTop />
                     <div className="navbar-contents">
                       <div className="logo">
                         <Link to="/" className="in-logo">
@@ -89,6 +97,7 @@ class Nav extends React.Component {
                           reads
                         </Link>
                       </div>
+
                       <nav className="main-nav">
                         <ul className="nav-list">
                           <li className="nav-list-item">
@@ -102,31 +111,14 @@ class Nav extends React.Component {
                             </Link>
                           </li>
                           <li className="nav-list-item">
-                            <div className="dropdown">
-                              <button className="dropbtn" onClick={this.browse}>
-                                Browse
-                              </button>
-                              <div
-                                onMouseEnter={this.showDropdown(
-                                  "showBrowseDropdown"
-                                )}
-                                onMouseLeave={this.hideDropdown(
-                                  "showBrowseDropdown"
-                                )}
-                                className={`dropdown-content ${
-                                  this.state.showBrowseDropdown
-                                    ? "reveal"
-                                    : "hide"
-                                }`}
-                              >
-                                <div className="dropdown-item">
-                                  <Link to="/new_releases">New Releases</Link>
-                                </div>
-                                <div className="dropdown-item">
-                                  <Link to="/book">Explore</Link>
-                                </div>
-                              </div>
-                            </div>
+                            <Link to="/book" className="nav-link">
+                              Browse
+                            </Link>
+                          </li>
+                          <li className="nav-list-item">
+                            <Link to="/about" className="nav-link">
+                              About
+                            </Link>
                           </li>
                         </ul>
                       </nav>
@@ -142,6 +134,7 @@ class Nav extends React.Component {
                         {({ loading, data }) => {
                           let results = [];
                           if (data) results = data.bookSearch;
+
                           return (
                             <form className="search">
                               <input
@@ -225,7 +218,7 @@ class Nav extends React.Component {
                                 }`}
                               >
                                 <div className="profile-dropdown-item">
-                                  <Link to="/">Profile</Link>
+                                  <Link to={`/users/${_id}`}>Profile</Link>
                                 </div>
                                 <div className="profile-dropdown-item">
                                   <Link to="/friend">Friends</Link>

@@ -4,7 +4,7 @@ import Header from "./header";
 import AuthRoute from "../session/AuthRoute";
 import Show from "./Show";
 import Make from "./Make";
-import "./Friends.scss";
+import "./friends.scss";
 
 export default class Friends extends Component {
   constructor(props) {
