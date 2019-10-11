@@ -89,9 +89,11 @@ export default {
       ) {
         user {
           name
+          _id
         }
         book {
           title
+          _id
         }
         content
         hidden
