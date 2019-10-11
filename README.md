@@ -42,4 +42,33 @@
 
   - Heroku is a cloud platform as a service supporting several programming languages. Badreads will be deployed to Heroku for production in the form of a Docker image.
 
+[book_show](https://github.com/drexel-ue/goodreads/master/home.png)
+[book_show](https://github.com/drexel-ue/goodreads/master/book_show.png)
+[book_show](https://github.com/drexel-ue/goodreads/master/my_books.png)
 
+### A Simple Lazy Loader
+
+```javascript
+// img elements placed onto the page are done so with the source url stored in an attribute called `data_lazy`.
+const lazyLoad = target => {
+  // takes in an HTML DOM element as the target.
+  const io = new IntersectionObserver((enteries, observer) => {
+    // provides a list of observed events (entries) and an observer of those events.
+    enteries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // if the entry occured on screen.
+        const img = entry.target; // grab the img element.
+        const src = img.getAttribute("data_lazy"); // grab the url to be assigned to source.
+
+        if (src) img.setAttribute("src", src); // move the url to src to "activiate/load" the image.
+
+        observer.disconnect(); // stop listening for events and garbage collect the observer.
+      }
+    });
+  });
+
+  io.observe(target);
+};
+
+export default lazyLoad;
+```
