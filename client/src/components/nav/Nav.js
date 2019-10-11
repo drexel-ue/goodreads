@@ -7,7 +7,7 @@ import Login from "../session/Login";
 import "./Nav.css";
 import "./search_bar.scss";
 
-const { FETCH_USER_ID, IS_LOGGED_IN, BOOK_SEARCH } = Queries;
+const { IS_LOGGED_IN, BOOK_SEARCH } = Queries;
 
 class Nav extends React.Component {
   constructor(props) {

@@ -61,11 +61,9 @@ class CreateReview extends React.Component {
     }
     handleSubmit(e, newReview) {
         e.preventDefault();
-        // let redirectURL = `#/book/${this.state.book}`;
-        // setTimeout(
             newReview({
                 variables: {
-                    user: this.state.user,
+                    user: this.user,
                     book: this.state.book,
                     content: this.state.content,
                     hidden: this.state.hidden,
@@ -76,8 +74,6 @@ class CreateReview extends React.Component {
                     addToFeed: this.state.addToFeed
                 }
             })
-            // window.location.href = redirectURL
-        // , 2000)
     }
     render() {
         return(
@@ -89,7 +85,7 @@ class CreateReview extends React.Component {
                         }
                     `
                     })
-                    this.state.user = user._id
+                    this.user = user._id
                     return (
                         <div className="review-container">
                         <Query query={BOOK_BY_ID} 
