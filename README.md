@@ -42,9 +42,11 @@
 
   - Heroku is a cloud platform as a service supporting several programming languages. Badreads will be deployed to Heroku for production in the form of a Docker image.
 
-[book_show](https://github.com/drexel-ue/goodreads/master/home.png)
-[book_show](https://github.com/drexel-ue/goodreads/master/book_show.png)
-[book_show](https://github.com/drexel-ue/goodreads/master/my_books.png)
+[home](https://github.com/drexel-ue/goodreads/blob/master/home.png)
+
+[book_show](https://github.com/drexel-ue/goodreads/blob/master/book_show.png)
+
+[my_books](https://github.com/drexel-ue/goodreads/blob/master/my_books.png)
 
 ### A Simple Lazy Loader
 
