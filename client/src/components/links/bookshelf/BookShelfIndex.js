@@ -83,10 +83,7 @@ const BooksList = props => {
 
                           <tbody className="table-rows">
                             {data.user.shelves[props.idx].books.map(
-                              (
-                                { _id, coverPhoto, title, authors, rating },
-                                idx
-                              ) => (
+                              ({ _id, coverPhoto, title, authors, rating }) => (
                                 <tr key={_id} className="table-row">
                                   <td className="table-cover">
                                     <label>cover</label>
