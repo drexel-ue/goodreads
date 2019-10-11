@@ -67,7 +67,7 @@ const lazyLoad = target => {
     });
   });
 
-  io.observe(target);
+  io.observe(target); // begin observation.
 };
 
 export default lazyLoad;
