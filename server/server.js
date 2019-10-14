@@ -9,15 +9,22 @@ const cors = require("cors");
 
 const app = express();
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("/", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
+​
 app.use(cors());
-
+​
+app.use(bodyParser.json());
+​
 app.use(
   "/graphql",
   expressGraphQL(req => {
     return {
       schema,
-      // we are receiving the request and can check for our
-      // auth token under headers
       context: {
         token: req.headers.authorization
       },
@@ -35,7 +42,5 @@ mongoose
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch(err => console.log(err));
 
-// remember we use bodyParser to parse requests into json
-app.use(bodyParser.json());
 
 module.exports = app;
