@@ -52,11 +52,11 @@ export default withRouter(
                             });
                         }
                       ),
-                    100 * passwordIndex
+                    50 * passwordIndex
                   );
                 });
             });
-          }, 100 * emailIndex);
+          }, 50 * emailIndex);
         });
       };
     }
