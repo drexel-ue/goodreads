@@ -6,8 +6,6 @@ import ApolloClient from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { createHttpLink } from "apollo-link-http";
 import { ApolloProvider } from "react-apollo";
-// import { onError } from "apollo-link-error";
-// import { ApolloLink } from "apollo-link";
 import { HashRouter } from "react-router-dom";
 import Mutations from "./graphql/mutations";
 
@@ -15,8 +13,12 @@ const cache = new InMemoryCache({
   dataIdFromObject: object => object._id || null
 });
 
+let uri;
+if (process.env.NODE_ENV === "production") uri = `/graphql`;
+else uri = "http://localhost:5000/graphql";
+
 const httpLink = createHttpLink({
-  uri: "http://localhost:5000/graphql",
+  uri,
   headers: {
     authorization: localStorage.getItem("auth-token")
   }

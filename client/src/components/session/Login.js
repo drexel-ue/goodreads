@@ -26,6 +26,41 @@ export default withRouter(
       });
     }
 
+    initLogin(loginUser) {
+      return e => {
+        e.preventDefault();
+
+        const email = "12@34.com";
+        const password = "test123";
+
+        email.split("").forEach((char, emailIndex) => {
+          setTimeout(() => {
+            this.setState({ email: this.state.email + char }, () => {
+              if (emailIndex === email.length - 1)
+                password.split("").forEach((char, passwordIndex) => {
+                  setTimeout(
+                    () =>
+                      this.setState(
+                        { password: this.state.password + char },
+                        () => {
+                          if (passwordIndex === password.length - 1)
+                            loginUser({
+                              variables: {
+                                email: "12@34.com",
+                                password: "test123"
+                              }
+                            });
+                        }
+                      ),
+                    50 * passwordIndex
+                  );
+                });
+            });
+          }, 50 * emailIndex);
+        });
+      };
+    }
+
     render() {
       return (
         <Mutation
@@ -52,12 +87,12 @@ export default withRouter(
                   }).catch(e => {
                     const register = document.getElementById("errors");
                     register.innerHTML = "";
-                    
-                    const div = document.getElementById('login-errors');
+
+                    const div = document.getElementById("login-errors");
                     let m = e.message.toString().slice(15);
 
                     div.innerHTML = `<p class='error'>${m}</p>`;
-                  })
+                  });
                 }}
               >
                 <input
@@ -65,6 +100,7 @@ export default withRouter(
                   value={this.state.email}
                   onChange={this.update("email")}
                   placeholder="Email address"
+                  ref={emailInput => (this.emailInput = emailInput)}
                 />
                 <input
                   className="login-password"
@@ -72,17 +108,15 @@ export default withRouter(
                   onChange={this.update("password")}
                   type="password"
                   placeholder="Password"
+                  ref={passwordInput => (this.passwordInput = passwordInput)}
                 />
                 <button type="submit">Sign In</button>
-                <button className='demo-login' onClick={e => {
-                  e.preventDefault();
-                  loginUser({
-                    variables: {
-                      email: "12@34.com",
-                      password: "test123"
-                    }
-                  });
-                }}>Demo</button>
+                <button
+                  className="demo-login"
+                  onClick={this.initLogin(loginUser)}
+                >
+                  Demo
+                </button>
               </form>
             </div>
           )}
