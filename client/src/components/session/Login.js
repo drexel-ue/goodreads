@@ -36,14 +36,14 @@ export default withRouter(
         email.split("").forEach((char, emailIndex) => {
           setTimeout(() => {
             this.setState({ email: this.state.email + char }, () => {
-              if (emailIndex == email.length - 1)
+              if (emailIndex === email.length - 1)
                 password.split("").forEach((char, passwordIndex) => {
                   setTimeout(
                     () =>
                       this.setState(
                         { password: this.state.password + char },
                         () => {
-                          if (passwordIndex == password.length - 1)
+                          if (passwordIndex === password.length - 1)
                             loginUser({
                               variables: {
                                 email: "12@34.com",
